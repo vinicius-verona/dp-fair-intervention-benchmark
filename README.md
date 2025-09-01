@@ -21,14 +21,14 @@ The framework is part of an academic paper and can be cited (see [Citation](#cit
 The framework is available on **PyPI**:
 
 ```bash
-pip install benchmarkxy
+pip install dp-fair-intervention-benchmark
 ````
 
 Alternatively, you can install from source:
 
 ```bash
-git clone https://github.com/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/vinicius-verona/dp-fair-intervention-benchmark.git
+cd dp-fair-intervention-benchmark
 pip install -e .
 ```
 
