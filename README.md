@@ -98,8 +98,7 @@ If you use this framework in your research, please cite:
 
 ## License
 
-License: **To be decided**
-(Open source license such as MIT, Apache 2.0, or GPL can be added later.)
+License: **MIT**
 
 ---
 
