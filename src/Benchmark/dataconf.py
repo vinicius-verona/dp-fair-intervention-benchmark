@@ -12,10 +12,6 @@ class BenchmarkDatasetConfig:
             Name of the dataset, this will be used for outputing logs
         dir : str
             Path to the root directory of the dataset. For example "../../data/" for the Adult dataset already provided.
-        baseline_data_dir : str
-            Directory where we find the original (non-dp) data.
-        dp_data_dir : str
-            Directory where we find the dp synthetic data.
         target : str
             Column to be predicted and/or used as ground truth.
         sensitive_attr : str
@@ -32,8 +28,7 @@ class BenchmarkDatasetConfig:
 
         self.name    = name
         self.dir     = root_dir
-        self.baseline_dir = baseline_data_dir
-        self.dp_dir = dp_data_dir
+
         self.target  = target
         self.sensitive_attr   = sensitive_attr
         self.categorical_cols = categorical_cols
