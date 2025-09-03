@@ -12,4 +12,4 @@ ThreePairs = Tuple[DFPair, DFPair, DFPair]
 DFTuple = TwoPairs | ThreePairs  # final type
 
 
-IntOrTuple = int | Tuple[int, int] 
+FloatOrTuple = float | Tuple[float, float] 

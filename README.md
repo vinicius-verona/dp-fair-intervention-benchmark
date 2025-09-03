@@ -18,19 +18,19 @@ The framework is part of an academic paper and can be cited (see [Citation](#cit
 
 ## Installation
 
-The framework is available on **PyPI**:
-
-```bash
-pip install dp-fair-intervention-benchmark
-````
-
-Alternatively, you can install from source:
+To install, clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/vinicius-verona/dp-fair-intervention-benchmark.git
 cd dp-fair-intervention-benchmark
 pip install -e .
 ```
+
+Alternatively, you can install from **PyPI** (Yet to be made available):
+
+```bash
+pip install dp-fair-intervention-benchmark
+````
 
 ---
 

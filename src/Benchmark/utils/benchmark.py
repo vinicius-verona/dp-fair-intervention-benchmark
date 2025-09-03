@@ -81,7 +81,7 @@ def original_experiment(x_train, y_train, x_test, y_test, seed=42, normalize=Tru
 
 
 class Benchmark:
-    def __init__(self, name, data_loader, normalize=None, seed=42, verbose=False, threshold=.5):
+    def __init__(self, name, data_loader, normalize=None, seed=42, verbose=False, threshold=.5, dlkwargs=None):
         """
         :param name: name of the experiment
         :param model: instance of a ML model.
@@ -107,19 +107,13 @@ class Benchmark:
         }
         self.threshold   = threshold
         self.results = []
+        self.dlkwargs = dlkwargs
         
         
     def run(self):
-        # Load and preprocess data
-        dataset = dataloader.dataset
         
-        # Partially prepared for Bias on Demand dataset - provided as example
-        if dataset in ["Bias", "bias"]:
-            dataset = f"Biased_datasets/{self.data_loader.synth}/Biased_combo_{dataloader.combo}"
-            train_data, cal_data, test_data = self.data_loader.load_data(split=True, seed=self.seed, test_path=f"../data/{dataset}/DP-dataset-test-val")
-        else:
-            train_data, cal_data, test_data = self.data_loader.load_data(split=True, seed=self.seed, test_path=f"../data/{dataset}/{self.data_loader.synth}/DP-dataset-test-val")
-        
+        # train_data, cal_data, test_data = self.data_loader.load_data(split=True, seed=self.seed, test_path=f"../data/{dataset}/{self.data_loader.synth}/DP-dataset-test-val")
+        train_data, cal_data, test_data = self.data_loader(seed=self.seed, **self.dlkwargs)
         
         X_train, y_train = train_data[0].copy(), train_data[1].copy()
         X_cal, y_cal     = cal_data[0].copy(), cal_data[1].copy()

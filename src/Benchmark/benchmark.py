@@ -1,14 +1,18 @@
 import os
 import warnings
 import pandas as pd
+import numpy as np
 
 from typing import Callable, List, Any, Tuple
 from sklearn.model_selection import train_test_split
 from tabulate import tabulate
 
 from Benchmark.dataconf import BenchmarkDatasetConfig
-from Benchmark.utils.types import IntOrTuple, DFTuple
+from Benchmark.utils.types import FloatOrTuple, DFTuple
 from Benchmark.utils.verifiers import check_data_loader, check_splitdata, check_target, read_verification
+
+from Benchmark.utils.benchmark import Benchmark
+from Benchmark.utils.auxiliar import save_experiment
 
 DEFAULT_SEEDS = [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]
 DEFAULT_EPS   = [0.25, 0.5, 0.75, 1, 5, 10, 15, 20]
@@ -16,10 +20,13 @@ DP_ALGORITHM  = ""
 
 class BenchmarkInfo:
     def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, 
-                 split_data: IntOrTuple | None = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
+                 split_data: FloatOrTuple | None = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
                  eps: List[float|int] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: Any = None):
         """
         Set of possible confiigurations for the Benchmark experiments. 
+
+        **In case you do not use our own generator, read the documentation first to understand how the benchmark expects the data to be organized.**
+
         Parameters
         ----------
         dp_method : str
@@ -28,7 +35,7 @@ class BenchmarkInfo:
             Directory to save the experiment logs and metrics.
         data_loader : Callable, optional
             In case a new data loader needs to be used, refer to the documentation to understand the default data loader's behaviour.
-        split_data : IntOrTuple, optional
+        split_data : FloatOrTuple, optional
             Split distributions used while loading data. If not provided, the final distributions are **0.6, 0.2 and 0.2**, which is `split_data = (0.4, 0.5)`.
         normalize : bool, optional
             Allow MinMax normalization of the data. Default is **True**.
@@ -40,7 +47,6 @@ class BenchmarkInfo:
             Custom classifier. **Must implement fit, predict and predict_proba**. Default is [XGBoost](https://xgboost.readthedocs.io/en/stable/).
         classifier_kwargs : Any, optional
             Custom parameters for the classifier.
-        
         """
         
         self.dp_method    = dp_method
@@ -57,6 +63,7 @@ class BenchmarkInfo:
 
         # Wrap user-supplied function with enforcement
         self.data_loader = check_data_loader(data_loader) if data_loader is not None else self.__data_loader
+        self.custom_laoder = False if data_loader is None else True
 
         self.classifier = classifier
         self.classifer_kwargs = classifier_kwargs
@@ -88,10 +95,6 @@ class BenchmarkInfo:
         kwargs : Any, optional,
             If an extra processing function is provided, will be forwarded while calling, with the loaded dataset.
         
-        data_path : str
-            Path to the directory of the dataset files. (will be in data_conf)
-            Ex: if your dataset named **D1** is located in `~/data/D1/D1.csv`, set it to `~/data/D1/`
-
         Returns
         ----------
         Three tuple[pd.DataFrame, pd.DataFrame]
@@ -105,18 +108,23 @@ class BenchmarkInfo:
         return __load_data(data_conf, filename, seed, self.split, **kwargs)
 
 
-
-def __load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, verbose: bool=False, split: IntOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
+def __load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None = None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")
     
     if split is None:
         split = (0.4, 0.5)
 
-    test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/dataset-test-val/"
-    test_filename = f"{test_path}/{filename}_test_seed_{seed}.csv"
+    base, ext = os.path.splitext(filename)
 
-    ds = pd.read_csv(data_conf.dir + f"/{filename}", index_col=0, usecols=data_conf.usecols)
+    if (os.path.dirname(filename)):
+        test_path = os.path.dirname(filename) + "test-val/"
+    else:
+        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/test-val/"
+        filename = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-{f'epsilon-{epsilon}' if epsilon is not None else 'train'}/{filename}"
+
+    test_filename = f"{base}_test_val_seed_{seed}{ext}"
+    ds = pd.read_csv(filename, index_col=0, usecols=data_conf.usecols)
     
     # Verify if data was read successfully
     read_verification(ds, data_conf.usecols)
@@ -184,3 +192,67 @@ def __load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, ver
     check_target(y_test, data_conf.target)
 
     return (X_train, y_train), (X_val, y_val), (X_test, y_test)
+
+
+############# Experiments #############
+def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: BenchmarkInfo, savefile):
+    np.random.seed(seed)
+    output_dir = f"{benchmark_info.output_dir}/{dataset_conf.name}/{benchmark_info.dp_method}/results/"
+
+    print(f"\n*********************** Fair-only - seed = {seed} ***********************\n")
+    dlkwargs = {
+        "data_conf": dataset_conf,
+        "filename": dataset_conf.name + f"_seed_{seed}.csv",
+        "eps": None
+    }
+    original_experiment = Benchmark(
+        name="baseline", data_loader=benchmark_info.data_loader, 
+        normalize=benchmark_info.normalize, seed=seed, dlkwargs=dlkwargs
+    )
+    original_experiment.run()
+
+    # save_experiment(original_experiment, seed, filename=savefile, path=f"../data/{dataset}/{synth}/metrics/",synth=SYNTH)
+    os.makedirs(os.path.dirname(output_dir, exist_ok=True))
+    save_experiment(original_experiment, seed, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)
+
+    del original_experiment, dataloader
+
+    for epsilon in benchmark_info.eps:
+        print(f"\n*********************** DP & DP+Fair | ε={epsilon} ***********************\n")
+        dlkwargs = {
+            "data_conf": dataset_conf,
+            "filename": dataset_conf.name + f"_seed_{seed}.csv",
+            "eps": epsilon
+        }
+        dp_experiment = Benchmark(
+            name="dp", data_loader=benchmark_info.data_loader, 
+            normalize=benchmark_info.normalize, seed=seed, dlkwargs=dlkwargs
+        )
+        dp_experiment.run()
+
+        save_experiment(dp_experiment, seed, epsilon, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)
+
+        del dp_experiment.data_loader, dp_experiment, dataloader
+
+
+def benchmark(data_conf: BenchmarkDatasetConfig, benchmark_info: BenchmarkInfo):
+    """
+    Execute benchmark of Fairness interventions on models trained on original data and differentially private synthetic data.
+    
+    **The results obtained are output into a csv file in the defined output directory.**
+
+    Parameters
+    -----------
+    data_conf: BenchmarkDatasetConfig
+        Configurations on the dataset used
+    
+    benchmark_info: BenchmarkInfo
+        Configurations about the experiments
+    """
+    
+    print(f"Running DP Benchmark on dataset: '{data_conf.name}' with target: '{data_conf.target}' and sensitive attribute: '{data_conf.sensitive_attr}'")
+
+    savefile = f"benchmark_results_seeds_{'_'.join(str(seed) for seed in benchmark_info.seeds)}_eps_{'_'.join(str(e) for e in benchmark_info.eps)}_synth_{benchmark_info.dp_method}.csv"
+
+    for seed in benchmark_info.seeds:
+        _experiment(seed, data_conf, benchmark_info, savefile)
