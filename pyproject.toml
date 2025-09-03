@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "A differential privacy and fairness intervention benchmark framework"
 authors = [
   { name="Vinicius Gabriel Angelozzi Verona de Resende", email="contact.verona@tutanota.com" }
+  { name="Héber Hwang Arcolezi", email="heber.hwang-arcolezi@inria.fr" }
 ]
 readme = "README.md"
 requires-python = ">=3.8"
@@ -25,9 +26,10 @@ dependencies = [
   "xgboost==3.0.4"
   "private-pgm @ git+https://github.com/ryan112358/private-pgm.git@01f02f17eba440f4e76c1d06fa5ee9eed0bd2bca"
   "smartnoise-sql==1.0.6"
-  "smartnoise-synth==1.0.5",
+  "smartnoise-synth==1.0.5"
   "fairlearn==0.12.0"
 ]
+license = { file = "LICENSE" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
