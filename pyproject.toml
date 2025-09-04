@@ -3,31 +3,35 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dp-fair-intervention-framework"
+name = "BenchmarkDPFair"
 version = "0.1.0"
-description = "A differential privacy and fairness intervention benchmark framework"
+description = "A differentially private data synthesizer and fairness intervention benchmark framework"
 authors = [
-  { name="Vinicius Gabriel Angelozzi Verona de Resende", email="contact.verona@tutanota.com" }
+  { name="Vinicius Gabriel Angelozzi Verona de Resende", email="contact.verona@tutanota.com" },
   { name="Héber Hwang Arcolezi", email="heber.hwang-arcolezi@inria.fr" }
 ]
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-  "aif360==0.6.1"
-  "folktables==0.0.12"
-  "ipython==8.12.3"
-  "matplotlib==3.10.5"
-  "numpy==2.3.2"
-  "pandas==2.3.2"
-  "scikit_learn==1.7.1"
-  "seaborn==0.13.2"
-  "tabulate==0.9.0"
-  "ucimlrepo==0.0.7"
-  "xgboost==3.0.4"
-  "private-pgm @ git+https://github.com/ryan112358/private-pgm.git@01f02f17eba440f4e76c1d06fa5ee9eed0bd2bca"
-  "smartnoise-sql==1.0.6"
-  "smartnoise-synth==1.0.5"
-  "fairlearn==0.12.0"
+  "aif360>=0.6.1",
+  "aif360[AdversarialDebiasing]",
+  "aif360[AdversarialDebiasing]",
+  "aif360[inFairness]",
+  "folktables>=0.0.12",
+  "ipython>=8.12.3",
+  "matplotlib>=3.10.5",
+  "numpy>=2.3.2",
+  "pandas>=2.3.2",
+  "scikit_learn>=1.7.1",
+  "seaborn>=0.13.2",
+  "tabulate>=0.9.0",
+  "ucimlrepo>=0.0.7",
+  "xgboost>=3.0.4",
+  "private-pgm @ git+https://github.com/ryan112358/private-pgm.git@01f02f17eba440f4e76c1d06fa5ee9eed0bd2bca",
+  "smartnoise-sql>=1.0.6",
+  "smartnoise-synth>=1.0.5",
+  "fairlearn>=0.12.0",
+  "cvxpy"
 ]
 license = { file = "LICENSE" }
 

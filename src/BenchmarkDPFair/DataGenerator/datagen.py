@@ -7,19 +7,19 @@ Generate-Adult-DP-Seeds-Epsilons
 import sys
 import random
 from typing import Callable, List
-from DataGenerator.utils.verifiers import read_verification
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from .utils.verifiers import read_verification
 from sklearn.model_selection import train_test_split
-from Benchmark.dataconf import DatasetGeneratorConfig
+from .dataconf import DatasetGeneratorConfig
 
 from snsynth import Synthesizer
 import os
 
-def _default_binary_encoder(df: pd.DataFrame, columns: List[str]) -> pd.Dataframe:
+def _default_binary_encoder(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
     """
     Transform sensitive columns into binary columns by analysing frequency of each value.
     

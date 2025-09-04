@@ -6,12 +6,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
-from utils.auxiliar import getMetrics
-
-from .model import ESTIMATOR_PARAMS
 from xgboost import XGBClassifier
 import numpy as np
 import pandas as pd
+
+from .auxiliar import getMetrics
+
 
 
 #############################################################

@@ -16,9 +16,7 @@ from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions 
 from sklearn.utils import class_weight
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-from utils.auxiliar import getMetrics
-# from .dataloader import sensitive_attr, target_column, dataset
-from .model import ESTIMATOR_PARAMS#, train, predict
+from .auxiliar import getMetrics
 from xgboost import XGBClassifier
 
 import numpy as np

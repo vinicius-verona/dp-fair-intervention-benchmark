@@ -2,26 +2,27 @@ import os
 import warnings
 import pandas as pd
 import numpy as np
+import inspect
 
 from typing import Callable, List, Any, Tuple
 from sklearn.model_selection import train_test_split
 from tabulate import tabulate
 
-from Benchmark.dataconf import BenchmarkDatasetConfig
-from Benchmark.utils.types import FloatOrTuple, DFTuple
-from Benchmark.utils.verifiers import check_data_loader, check_splitdata, check_target, read_verification
+from .dataconf import BenchmarkDatasetConfig
+from .utils.types import FloatOrTuple, DFTuple
+from .utils.verifiers import check_data_loader, check_splitdata, check_target, read_verification, check_dict
 
-from Benchmark.utils.benchmark import Benchmark
-from Benchmark.utils.auxiliar import save_experiment
+from .utils.benchmark import Benchmark
+from .utils.auxiliar import save_experiment
 
 DEFAULT_SEEDS = [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]
 DEFAULT_EPS   = [0.25, 0.5, 0.75, 1, 5, 10, 15, 20]
 DP_ALGORITHM  = ""
 
 class BenchmarkInfo:
-    def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, 
+    def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, dlkwargs: dict | set | None = None,
                  split_data: FloatOrTuple | None = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
-                 eps: List[float|int] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: Any = None):
+                 eps: List[float|int] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: dict | set | None = None):
         """
         Set of possible confiigurations for the Benchmark experiments. 
 
@@ -34,7 +35,9 @@ class BenchmarkInfo:
         output_dir : str
             Directory to save the experiment logs and metrics.
         data_loader : Callable, optional
-            In case a new data loader needs to be used, refer to the documentation to understand the default data loader's behaviour.
+            In case a new data loader needs to be used, refer to the documentation to understand the default data loader's behaviour. data_loader must accept seed as an argument and also kwargs.
+        dlkwargs : dict | set, optional
+            Custom parameters for the data loader.
         split_data : FloatOrTuple, optional
             Split distributions used while loading data. If not provided, the final distributions are **0.6, 0.2 and 0.2**, which is `split_data = (0.4, 0.5)`.
         normalize : bool, optional
@@ -45,7 +48,7 @@ class BenchmarkInfo:
             List of DP epsilons (privacy budget) analysed during the benchmark.
         classifier : Any, optional
             Custom classifier. **Must implement fit, predict and predict_proba**. Default is [XGBoost](https://xgboost.readthedocs.io/en/stable/).
-        classifier_kwargs : Any, optional
+        classifier_kwargs : dict | set, optional
             Custom parameters for the classifier.
         """
         
@@ -63,7 +66,8 @@ class BenchmarkInfo:
 
         # Wrap user-supplied function with enforcement
         self.data_loader = check_data_loader(data_loader) if data_loader is not None else self.__data_loader
-        self.custom_laoder = False if data_loader is None else True
+        self.custom_loader = False if data_loader is None else True
+        self.dlkwargs = dlkwargs
 
         self.classifier = classifier
         self.classifer_kwargs = classifier_kwargs
@@ -200,14 +204,16 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
     output_dir = f"{benchmark_info.output_dir}/{dataset_conf.name}/{benchmark_info.dp_method}/results/"
 
     print(f"\n*********************** Fair-only - seed = {seed} ***********************\n")
-    dlkwargs = {
+    extra_kwargs = {
         "data_conf": dataset_conf,
         "filename": dataset_conf.name + f"_seed_{seed}.csv",
-        "eps": None
+        "eps": None,
+        "custom_loader": benchmark_info.custom_loader,
+        "seed": seed
     }
     original_experiment = Benchmark(
         name="baseline", data_loader=benchmark_info.data_loader, 
-        normalize=benchmark_info.normalize, seed=seed, dlkwargs=dlkwargs
+        normalize=benchmark_info.normalize, seed=seed, dlkwargs=benchmark_info.dlkwargs, ekwargs = extra_kwargs
     )
     original_experiment.run()
 

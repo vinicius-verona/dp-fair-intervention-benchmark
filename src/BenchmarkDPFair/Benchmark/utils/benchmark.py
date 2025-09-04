@@ -11,20 +11,21 @@ from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
 from aif360.datasets import BinaryLabelDataset
 from xgboost import XGBClassifier
-from utils.auxiliar import getMetrics
-import utils.dataloader as dataloader
 
 # from .dataloader import sensitive_attr
-from .model import ESTIMATOR_PARAMS#predict, train
 from .pre import pre_mitigator_experiment
 from .inp import in_mitigator_experiment
 from .pos import pos_mitigator_experiment
 
+from .auxiliar import getMetrics
+from .verifiers import check_signatures
+
 import gc
 
-def original_experiment(x_train, y_train, x_test, y_test, seed=42, normalize=True, threshold=.5):
+def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target_column, seed=42, normalize=True, threshold=.5):
     # import utils.dataloader as dataloader
-    sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
+    # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
+
     
 
     # if dataset is COMPAS, switch
@@ -81,7 +82,7 @@ def original_experiment(x_train, y_train, x_test, y_test, seed=42, normalize=Tru
 
 
 class Benchmark:
-    def __init__(self, name, data_loader, normalize=None, seed=42, verbose=False, threshold=.5, dlkwargs=None):
+    def __init__(self, name, data_loader, normalize=None, seed=42, verbose=False, threshold=.5, dlkwargs=None, ekwargs = None):
         """
         :param name: name of the experiment
         :param model: instance of a ML model.
@@ -107,13 +108,19 @@ class Benchmark:
         }
         self.threshold   = threshold
         self.results = []
-        self.dlkwargs = dlkwargs
+        self.dlkwargs = dlkwargs,
+        self.ekwargs = ekwargs
         
         
     def run(self):
         
-        # train_data, cal_data, test_data = self.data_loader.load_data(split=True, seed=self.seed, test_path=f"../data/{dataset}/{self.data_loader.synth}/DP-dataset-test-val")
-        train_data, cal_data, test_data = self.data_loader(seed=self.seed, **self.dlkwargs)
+        args = check_signatures(self.data_loader, self.dlkwargs|self.ekwargs)
+        train_data, cal_data, test_data = self.data_loader(args)
+        # if not self.ekwargs.custom_loader:
+        #     train_data, cal_data, test_data = self.data_loader(self.ekwargs.data_conf, self.ekwargs.filename, self.seed, self.ekwargs.eps, **self.dlkwargs)
+        # else:
+        #     train_data, cal_data, test_data = self.data_loader(seed=self.seed,**self.dlkwargs)
+
         
         X_train, y_train = train_data[0].copy(), train_data[1].copy()
         X_cal, y_cal     = cal_data[0].copy(), cal_data[1].copy()
@@ -123,7 +130,7 @@ class Benchmark:
         # Run the original experiment
         print("# Original - ", end="")
         try:
-            self.results.append(original_experiment(X_train, y_train, X_test, y_test, self.seed, self.normalize, self.threshold))
+            self.results.append(original_experiment(X_train, y_train, X_test, y_test, self.dlkwargs.data_conf.sensitive_attr, self.dlkwargs.data_conf.target, self.seed, self.normalize, self.threshold))
         except Exception as e:
             self.results.append({"original_classification_metrics": getMetrics(None), "error": e})
         print("OK", flush=True)

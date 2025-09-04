@@ -55,6 +55,10 @@ from Benchmark import BenchmarkDatasetConfig, BenchmarkInfo, benchmark
 from DataGenerator import DatasetGeneratorConfig, generate_data
 from sklearn.ensemble import RandomForestClassifier
 
+# Generate Data
+dataset_conf = DatasetGeneratorConfig()
+
+
 # Dataset configuration
 dataset_conf = BenchmarkDatasetConfig(
     target_column="label",

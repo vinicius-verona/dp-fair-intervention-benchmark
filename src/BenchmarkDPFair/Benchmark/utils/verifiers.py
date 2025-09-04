@@ -1,8 +1,9 @@
-from typing import Callable
+import inspect
+from typing import Callable, Tuple
 from functools import wraps
 import pandas as pd
 
-from Benchmark.utils.types import DFTuple, IntOrTuple
+from .types import DFTuple, FloatOrTuple
 
 def check_data_loader(func: Callable) -> Callable:
     """Decorator used to enforce data_loader returns the correct tuples of DataFrames."""
@@ -23,8 +24,20 @@ def check_data_loader(func: Callable) -> Callable:
         return result
     return wrapper
 
+def check_signatures(func: Callable, kwargs_dict:dict|set):
+    sig = inspect.signature
 
-def check_splitdata(x: IntOrTuple | None) -> IntOrTuple | None:
+    # if function accepts kwargs, send everything as parameters
+    accept_kwarg = any(p.kind == inspect.Parameter.VAR_KEYWORD for p in sig.parameters.values())
+
+    if accept_kwarg:
+        return kwargs_dict
+    else:
+        # Match parameters
+        valid_args = { k: v for k,v in kwargs_dict.items() if  k in sig.parameters }
+        return valid_args
+
+def check_splitdata(x: FloatOrTuple | None) -> FloatOrTuple | None:
     """Type checker for split_data argument"""
     if x is None:
         return None
@@ -51,3 +64,26 @@ def check_target(df : pd.DataFrame, target: str) -> bool:
     
     unique_vals = df[target].dropna().unique()  # ignore NaNs
     return len(unique_vals) == 2
+
+def check_dict(args : dict | set | None = None, key : str | None = None, ktype = None) -> Tuple[bool, str|None]:
+    """Check if a dict has a key of certain type or just a key or if any key of a given type."""
+    ret = False
+    rkey = None
+
+    if args is None:
+        return False, None
+
+    if key is not None:
+        ret = key in args
+        rkey = key
+
+    if key is not None and ktype is not None:
+        ret = key in args and isinstance(value, ktype)
+        rkey = key
+
+    if key is None and ktype is not None:
+        for key, value in args.items():
+            if isinstance(value, ktype):
+                return True, key
+        
+    return ret, rkey

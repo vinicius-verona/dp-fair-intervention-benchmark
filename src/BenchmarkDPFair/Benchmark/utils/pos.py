@@ -6,10 +6,9 @@ from sklearn.model_selection import train_test_split
 from aif360.algorithms.postprocessing import CalibratedEqOddsPostprocessing, EqOddsPostprocessing, RejectOptionClassification, DeterministicReranking
 from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
-from utils.auxiliar import getMetrics
-# from .dataloader import sensitive_attr, target_column, dataset
-from .model import ESTIMATOR_PARAMS#, train, predict
 from xgboost import XGBClassifier
+
+from .auxiliar import getMetrics
 
 import numpy as np
 import pandas as pd

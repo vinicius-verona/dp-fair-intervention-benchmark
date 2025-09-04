@@ -1,7 +1,7 @@
 from typing import Callable, List
 import pandas as pd
 
-from DataGenerator.utils.verifiers import check_transformer
+from .utils.verifiers import check_transformer
 
 class DatasetGeneratorConfig:
     def __init__(self, name : str, target : str, synthesizer: str, sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
