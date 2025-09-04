@@ -8,7 +8,7 @@ class DatasetGeneratorConfig:
                  ordinal_cols : List[str] = [], continuous_cols : List[str] = [],
                 sensitive_cols : List[str] = [], root_dir : str = "../../data/", usecols : List[str] | None = None,
                 data_filter : Callable[..., pd.DataFrame] | None = None, binary_encoder : Callable[..., pd.DataFrame] | None = None, 
-                pre_processer : Callable[..., pd.DataFrame] | None = None, privacy_budgets: List[int | float] = []):
+                pre_processer : Callable[..., pd.DataFrame] | None = None, privacy_budgets: List[int | float] | None = None, seed=42):
         """
         Configuration of a given dataset.
 
@@ -41,14 +41,15 @@ class DatasetGeneratorConfig:
         self.ordinal_cols     = ordinal_cols 
         self.continuous_cols  = continuous_cols
         self.synthesizer = synthesizer
+        self.seed = seed
 
         self.filter = check_transformer(data_filter) if data_filter is not None else None
         self.binary_encoder = check_transformer(binary_encoder) if binary_encoder is not None else None
         self.pre_processing = check_transformer(pre_processer) if pre_processer is not None else None
-        self.privacy_budgets = privacy_budgets or [.25,.5,.75,1,5,10,15,20]
+        self.privacy_budgets = privacy_budgets if privacy_budgets is not None else [.25,.5,.75,1,5,10,15,20]
 
-        if usecols is not None and len(usecols) == 0:
-            usecols = None
+        if usecols is None or len(usecols) == 0:
+            usecols =  [self.target] + self.categorical_cols + self.continuous_cols + self.ordinal_cols + self.sensitive_cols
 
         self.usecols = usecols
         self.split_size = test_split_size

@@ -36,7 +36,7 @@ def _default_binary_encoder(df: pd.DataFrame, columns: List[str]) -> pd.DataFram
         df[col] = (df[col] == most_common_value).astype(int)
     return df
 
-def _default_pre_process_dataset(X, y, non_numerical_columns : List[str] = [], binary_encoder : Callable[..., pd.DataFrame] | None = None, sensitive_columns : List[str] = []):
+def _default_pre_process_dataset(X, y, binary_encoder : Callable[..., pd.DataFrame] | None = None, sensitive_columns : List[str] = []):
     """
     Default pre-processor, starts by encoding all non-numerical columns into numerical columns and then apply a binarization of the sensitive columns.
     The binarization may be changed by providing a different function.
@@ -47,20 +47,19 @@ def _default_pre_process_dataset(X, y, non_numerical_columns : List[str] = [], b
         Dataframe with all features except the target column.
     y: pandas DataFrame
         Dataframe with the target column only.
-    non_numerical_columns: List[str]
-        List of all non-numerical columns to be transformed. 
     binary_encode: Callable[..., pd.DataFrame]
     sensitive_columns: List[str]
     """
     ds = pd.concat([X, y], axis=1)
 
-    for col in non_numerical_columns:
+    for col in ds.columns:
         if not pd.api.types.is_numeric_dtype(ds[col]):
-            ds[col] = ds[col].astype('category').cat.codes # Int encode
+            ds[col] = ds[col].astype('category').cat.codes.astype("int64") # Int encode
 
     # Binary encoding of sensitive columns, where 0 is the value in the category with the highest value
     if binary_encoder is None:
         binary_encoder = _default_binary_encoder
+
 
     ds = binary_encoder(ds, sensitive_columns)
     
@@ -74,7 +73,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
     file_path = path + "/" if path is not None else data_conf.dir + "/" + data_conf.name + "/"
 
     if verbose:
-        print(f"***************************")
+        print(f"\n\n***************************")
         print(f"** Start Data Generation **")
         print(f"***************************")
         print(f"- Filename: {filename}")
@@ -91,6 +90,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         print(f"     * Categorical = {data_conf.categorical_cols}")
         print(f"     * Ordinal     = {data_conf.ordinal_cols}")
         print(f"     * Continuous  = {data_conf.continuous_cols}")
+        print("\n\n")
         
 
     dataset = pd.read_csv(file_path + filename, usecols=data_conf.usecols)
@@ -129,8 +129,8 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
     train, test = train_test_split(ds, test_size=data_conf.split_size, random_state=data_conf.seed)
 
     # Ensure all columns are accounted for
-    save_path = data_conf.dir + "/" + data_conf.name + "/"
     read_verification(ds, data_conf.usecols)
+    save_path = data_conf.dir + "/" + data_conf.name + "/"
 
     if not os.path.exists(f"{save_path}/DP-dataset-test-val"):
         try:
@@ -139,7 +139,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
             pass
 
     name = save_path+'DP-dataset-test-val/split_test_val_dataset_seed_'+str(data_conf.seed)+'.csv'
-    test.to_csv(name, index=True)
+    # test.to_csv(name, index=True)
 
     if not os.path.exists(f"{save_path}/DP-dataset-train/"):
         try:
@@ -148,24 +148,26 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
             pass
     
     name = save_path+'DP-dataset-train/split_train_dataset_seed_'+str(data_conf.seed)+'.csv'
-    train.to_csv(name, index=True)
+    # train.to_csv(name, index=True)
 
     # Train a synthesizer
     nf = train.copy()
-    
+
+    print(train.head(30))
+    print(train.info())
 
     for e in data_conf.privacy_budgets:
         if verbose:
             print(f"[Info] Start DP Data Synthesizer {data_conf.synthesizer.upper()} with budget {e}")
 
-        rounds = None
-        epochs = None
-        if data_conf.synthesizer.lower() == "dpctgan":
-            epochs = 50
-        if e > 1 and data_conf.synthesizer.lower() == "aim":
-            rounds = 50
+        # rounds = None
+        # epochs = None
+        # # if data_conf.synthesizer.lower() == "dpctgan":
+        # #     epochs = 50
+        # # if e > 1 and data_conf.synthesizer.lower() == "aim":
+        # #     rounds = 50
 
-        synth = Synthesizer.create(data_conf.synthesizer, verbose=False, epsilon=e, **({"rounds": rounds} if rounds is not None else {"epochs": epochs} if epochs is not None else {})) 
+        synth = Synthesizer.create(data_conf.synthesizer, verbose=verbose, epsilon=e)#,# **({"rounds": rounds} if rounds is not None else {"epochs": epochs} if epochs is not None else {})) 
         
         # if rounds is None else Synthesizer.create(DP_ALG, verbose=False, epsilon=e, rounds=rounds)
         synth.fit(
@@ -197,6 +199,6 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         name = dp_save_path+data_conf.synthesizer+'_synthetic_train_dataset_seed_'+str(data_conf.seed)+'_epsilon_'+str(e)+'.csv'
 
         dp_dataset = pd.concat([X_dp, Y_dp], axis=1)
-        dp_dataset.to_csv(name, index=True)
+        # dp_dataset.to_csv(name, index=True)
         del synth, dp_dataset, name, save_path, X_dp, Y_dp, sample_data
 
