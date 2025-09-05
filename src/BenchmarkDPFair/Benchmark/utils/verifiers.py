@@ -25,7 +25,7 @@ def check_data_loader(func: Callable) -> Callable:
     return wrapper
 
 def check_signatures(func: Callable, kwargs_dict:dict|set):
-    sig = inspect.signature
+    sig = inspect.signature(func)
 
     # if function accepts kwargs, send everything as parameters
     accept_kwarg = any(p.kind == inspect.Parameter.VAR_KEYWORD for p in sig.parameters.values())

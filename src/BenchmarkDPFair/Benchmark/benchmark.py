@@ -20,7 +20,7 @@ DEFAULT_EPS   = [0.25, 0.5, 0.75, 1, 5, 10, 15, 20]
 DP_ALGORITHM  = ""
 
 class BenchmarkInfo:
-    def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, dlkwargs: dict | set | None = None,
+    def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, dlkwargs: dict | set = {},
                  split_data: FloatOrTuple | None = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
                  eps: List[float|int] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: dict | set | None = None):
         """
@@ -109,10 +109,10 @@ class BenchmarkInfo:
 
     @check_data_loader
     def __data_loader(self, data_conf: BenchmarkDatasetConfig, filename: str, seed: int,  **kwargs) -> DFTuple:
-        return __load_data(data_conf, filename, seed, self.split, **kwargs)
+        return _load_data(data_conf, filename, seed, self.split, **kwargs)
 
 
-def __load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None = None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
+def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None = None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")
     
@@ -162,7 +162,7 @@ def __load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, eps
         y_train = y
 
         test_ds = pd.read_csv(test_filename, index_col=0)
-       
+    
         # Verify if data was read successfully
         read_verification(test_ds, data_conf.usecols)
 
@@ -206,7 +206,7 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
     print(f"\n*********************** Fair-only - seed = {seed} ***********************\n")
     extra_kwargs = {
         "data_conf": dataset_conf,
-        "filename": dataset_conf.name + f"_seed_{seed}.csv",
+        "filename": dataset_conf.name + f"_split_dataset_seed_{seed}.csv",
         "eps": None,
         "custom_loader": benchmark_info.custom_loader,
         "seed": seed
@@ -234,6 +234,7 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
             name="dp", data_loader=benchmark_info.data_loader, 
             normalize=benchmark_info.normalize, seed=seed, dlkwargs=dlkwargs
         )
+        raise Exception()
         dp_experiment.run()
 
         save_experiment(dp_experiment, seed, epsilon, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)

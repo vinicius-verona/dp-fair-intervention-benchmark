@@ -1,7 +1,7 @@
 from typing import List
 
 class BenchmarkDatasetConfig:
-    def __init__(self, name : str, target : str, sensitive_attr : str, categorical_cols : List[str] = [],
+    def __init__(self, name : str, target : str, sensitive_attr : str, sensitive_cols : List[str] = [], categorical_cols : List[str] = [],
                  ordinal_cols : List[str] = [], continuous_cols : List[str] = [], root_dir : str = "../../data/", usecols : List[str] | None = None):
         """
         Configuration of a given dataset.
@@ -31,12 +31,13 @@ class BenchmarkDatasetConfig:
 
         self.target  = target
         self.sensitive_attr   = sensitive_attr
+        self.sensitive_cols   = sensitive_cols or [sensitive_attr]
         self.categorical_cols = categorical_cols
         self.ordinal_cols     = ordinal_cols 
         self.continuous_cols  = continuous_cols
         
         if usecols is not None and len(usecols) == 0:
-            usecols = None
+            usecols = [self.target] + self.categorical_cols + self.continuous_cols + self.ordinal_cols + self.sensitive_cols
 
         self.usecols = usecols
 

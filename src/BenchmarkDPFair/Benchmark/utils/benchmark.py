@@ -108,14 +108,14 @@ class Benchmark:
         }
         self.threshold   = threshold
         self.results = []
-        self.dlkwargs = dlkwargs,
+        self.dlkwargs = dlkwargs
         self.ekwargs = ekwargs
         
         
     def run(self):
         
         args = check_signatures(self.data_loader, self.dlkwargs|self.ekwargs)
-        train_data, cal_data, test_data = self.data_loader(args)
+        train_data, cal_data, test_data = self.data_loader(**args)
         # if not self.ekwargs.custom_loader:
         #     train_data, cal_data, test_data = self.data_loader(self.ekwargs.data_conf, self.ekwargs.filename, self.seed, self.ekwargs.eps, **self.dlkwargs)
         # else:
