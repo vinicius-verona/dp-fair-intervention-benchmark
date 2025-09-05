@@ -116,11 +116,6 @@ class Benchmark:
         
         args = check_signatures(self.data_loader, self.dlkwargs|self.ekwargs)
         train_data, cal_data, test_data = self.data_loader(**args)
-        # if not self.ekwargs.custom_loader:
-        #     train_data, cal_data, test_data = self.data_loader(self.ekwargs.data_conf, self.ekwargs.filename, self.seed, self.ekwargs.eps, **self.dlkwargs)
-        # else:
-        #     train_data, cal_data, test_data = self.data_loader(seed=self.seed,**self.dlkwargs)
-
         
         X_train, y_train = train_data[0].copy(), train_data[1].copy()
         X_cal, y_cal     = cal_data[0].copy(), cal_data[1].copy()
@@ -130,14 +125,15 @@ class Benchmark:
         # Run the original experiment
         print("# Original - ", end="")
         try:
-            self.results.append(original_experiment(X_train, y_train, X_test, y_test, self.dlkwargs.data_conf.sensitive_attr, self.dlkwargs.data_conf.target, self.seed, self.normalize, self.threshold))
+            self.results.append(original_experiment(X_train, y_train, X_test, y_test, self.ekwargs.data_conf.sensitive_attr, self.ekwargs.data_conf.target, self.seed, self.normalize, self.threshold))
         except Exception as e:
-            self.results.append({"original_classification_metrics": getMetrics(None), "error": e})
+            self.results.append({"original_classification_metrics": getMetrics(None), "error": e, 'info': traceback.format_tb(e.__traceback__)})
         print("OK", flush=True)
 
         
         # Run the experiment with mitigators 
         for mitigator, exp_class in self.mitigators.items():
+            continue
             print(f"# {exp_class.upper()} - {mitigator.upper()} - ", end="")
             
             X_train, y_train = train_data[0].copy(), train_data[1].copy()
@@ -153,7 +149,11 @@ class Benchmark:
                     self.results.append(in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, mitigator, self.seed, self.normalize, self.threshold))
             
             except Exception as e:
-                self.results.append({"mitigator": mitigator, "original_classification_metrics": getMetrics(None), "mitigated_classification_metrics": getMetrics(None), "error": e, "dp_method": True, 'info': traceback.format_tb(e.__traceback__)})#sys.exc_info()[-1].tb_lineno})
+                self.results.append({
+                    "mitigator": mitigator, "original_classification_metrics": getMetrics(None), 
+                    "mitigated_classification_metrics": getMetrics(None), "error": e, "dp_method": True, 
+                    'info': traceback.format_tb(e.__traceback__)
+                })
 
             X_train = None
             y_train = None
@@ -166,7 +166,6 @@ class Benchmark:
             print("OK", flush=True)
 
         del train_data, cal_data, test_data
-        del dataset
         gc.collect()
 
             

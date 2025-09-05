@@ -21,8 +21,8 @@ def read_verification(ds:pd.DataFrame, cols) -> bool:
     all_columns = ds.columns.tolist()
 
     # Ensure all columns are accounted for
-    specified_columns = list(cols)
+    specified_columns = set(cols)
 
-    if set(specified_columns) != set(all_columns):
+    if specified_columns != set(all_columns):
         missing_cols = list(set(all_columns) - specified_columns)
         raise KeyError(f"The following columns are not present in the dataframe: {missing_cols}.")

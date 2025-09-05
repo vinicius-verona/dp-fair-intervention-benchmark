@@ -139,7 +139,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         except:
             pass
 
-    name = save_path+f'DP-dataset-test-val/{data_conf.name}_split_test_val_dataset_seed_'+str(data_conf.seed)+'.csv'
+    name = save_path+f'DP-dataset-test-val/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_test.csv'
     test.to_csv(name, index=True)
 
     if not os.path.exists(f"{save_path}/DP-dataset-train/"):
@@ -148,7 +148,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         except:
             pass
     
-    name = save_path+f'DP-dataset-train/{data_conf.name}_split_train_dataset_seed_'+str(data_conf.seed)+'.csv'
+    name = save_path+f'DP-dataset-train/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_train.csv'
     train.to_csv(name, index=True)
 
     # Train a synthesizer
@@ -187,7 +187,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         if not os.path.exists(dp_save_path):
             os.makedirs(dp_save_path)
             
-        name = dp_save_path+data_conf.name+'_synthetic_train_dataset_seed_'+str(data_conf.seed)+'_epsilon_'+str(e)+'.csv'
+        name = dp_save_path+data_conf.name+'_split_dataset_seed_'+str(data_conf.seed)+'_epsilon-'+str(e)+'.csv'
 
         dp_dataset = pd.concat([X_dp, Y_dp], axis=1)
         dp_dataset.to_csv(name, index=True)

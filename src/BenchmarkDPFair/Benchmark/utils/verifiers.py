@@ -18,8 +18,8 @@ def check_data_loader(func: Callable) -> Callable:
         for pair in result:
             if not (isinstance(pair, tuple) and len(pair) == 2):
                 raise TypeError("Each element must be a tuple of exactly 2 DataFrames.")
-            if not all(isinstance(df, pd.DataFrame) for df in pair):
-                raise TypeError("Each element of pair must be a pandas DataFrame.")
+            if not all(isinstance(df, pd.DataFrame) or isinstance(df, pd.Series) for df in pair):
+                raise TypeError("Each element of pair must be a pandas DataFrame or Series.")
 
         return result
     return wrapper
@@ -49,21 +49,34 @@ def check_splitdata(x: FloatOrTuple | None) -> FloatOrTuple | None:
 
 
 def read_verification(ds:pd.DataFrame, cols) -> bool:
+    """
+    Checks that all `cols` have been read and are present in `ds`
+    """
     all_columns = ds.columns.tolist()
 
     # Ensure all columns are accounted for
-    specified_columns = list(cols)
+    specified_columns = set(cols)
 
-    if set(specified_columns) != set(all_columns):
+    if specified_columns != set(all_columns):
         missing_cols = list(set(all_columns) - specified_columns)
         raise KeyError(f"The following columns are not present in the dataframe: {missing_cols}.")
     
-def check_target(df : pd.DataFrame, target: str) -> bool:
+def check_target(df: pd.DataFrame | pd.Series, target: str) -> bool:
+    """
+    Checks that `target` column exists and is binary (2 unique non-NaN values).
+    
+    Accepts either a DataFrame or a Series.
+    """
+    # If a Series is passed, convert to DataFrame
+    if isinstance(df, pd.Series):
+        df = df.to_frame(name=target if df.name is None else df.name)
+    
     if target not in df.columns:
-        raise ValueError(f"Column '{target}' not found in DataFrame.")
+        raise ValueError(f"Column '{target}' not found in DataFrame/Series.")
     
     unique_vals = df[target].dropna().unique()  # ignore NaNs
     return len(unique_vals) == 2
+
 
 def check_dict(args : dict | set | None = None, key : str | None = None, ktype = None) -> Tuple[bool, str|None]:
     """Check if a dict has a key of certain type or just a key or if any key of a given type."""

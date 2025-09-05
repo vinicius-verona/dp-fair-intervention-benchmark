@@ -58,6 +58,7 @@ def save_experiment(experiment, seed, eps=None, filename="exp_metrics.csv", path
                 "Info": r["info"]
             })
             r.pop("error", None)
+            r.pop("info", None)
 
         for exp_set in [exp_set_original, exp_set_mitigator]:
             if exp_set in r:

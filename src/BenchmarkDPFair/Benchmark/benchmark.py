@@ -120,15 +120,21 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         split = (0.4, 0.5)
 
     base, ext = os.path.splitext(filename)
+    base_pattern = base.rsplit("_", 1)
 
     if (os.path.dirname(filename)):
-        test_path = os.path.dirname(filename) + "test-val/"
+        test_path = os.path.dirname(os.path.dirname(filename)) + "DP-dataset-test-val/"
     else:
-        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/test-val/"
+        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-test-val/"
         filename = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-{f'epsilon-{epsilon}' if epsilon is not None else 'train'}/{filename}"
 
-    test_filename = f"{base}_test_val_seed_{seed}{ext}"
-    ds = pd.read_csv(filename, index_col=0, usecols=data_conf.usecols)
+    test_filename = f"{base_pattern[0]}_test{ext}"
+
+    cols = list(dict.fromkeys(data_conf.usecols + data_conf.index_col if data_conf.index_col else data_conf.usecols))
+    ds = pd.read_csv(filename, usecols=cols)
+
+    if data_conf.index_col:
+        ds.set_index(data_conf.index_col, inplace=True)
     
     # Verify if data was read successfully
     read_verification(ds, data_conf.usecols)
@@ -146,13 +152,14 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
     y = ds[data_conf.target]
 
     # Split data
-    if not os.path.exists(test_path) or not os.path.exists(test_filename):
+    if not os.path.exists(test_path) or not os.path.exists(test_path + "/" + test_filename):
         if verbose:
             train_split_distrib = 1 - split[0] if isinstance(split, Tuple) else split
             val_split_distrib = split[0] * (1 - split[1]) if isinstance(split, Tuple) else split * (1 - split)
             test_split_distrib = split[0] * split[1] if isinstance(split, Tuple) else split * split
-            print(f"[Info] Test directory and/or file with test set not found, the provided {filename} will be split into three sets with distributions {(train_split_distrib, val_split_distrib, test_split_distrib)}.")
-        
+            print(f"[WARN] Test directory and/or file with test set not found, the provided {filename} will be split into three sets with distributions {(train_split_distrib, val_split_distrib, test_split_distrib)}.")
+            print(f"       This is the path we are looking for: {test_path + "/" + test_filename}.\n")
+
         # No test path found, so split the data from filename
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=split[0] if isinstance(split, Tuple) else split, random_state=seed)
         X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, test_size=split[1] if isinstance(split, Tuple) else split, random_state=seed)
@@ -161,7 +168,12 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         X_train = X
         y_train = y
 
-        test_ds = pd.read_csv(test_filename, index_col=0)
+        # test_ds = pd.read_csv(test_filename, index_col=0)
+        cols = list(dict.fromkeys(data_conf.usecols + data_conf.index_col if data_conf.index_col else data_conf.usecols))
+        test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=cols)
+
+        if data_conf.index_col:
+            test_ds.set_index(data_conf.index_col, inplace=True)
     
         # Verify if data was read successfully
         read_verification(test_ds, data_conf.usecols)
@@ -174,7 +186,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         y_test = test_ds[data_conf.target]
 
         if isinstance(split, Tuple):
-            warnings.warn(f"You provided a tuple of splitting distribution and a test directory and file has been found in {test_path}, the second value of the tuple will be used.")
+            print(f"[WARN] You provided a tuple {split} of splitting distribution and a test directory and file has been found in {test_path}, the second value of the tuple will be used.\n")
 
         X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, test_size=split[1] if isinstance(split, Tuple) else split, random_state=seed)
 
@@ -187,8 +199,9 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
             ["y_val",   y_val.shape],
             ["y_test",  y_test.shape],
         ]
-        print("#### Data Split Information ####")
+        print("\n#### Data  Information ####")
         print(tabulate(data, headers=["Dataset", "Shape"], tablefmt="github"))
+        print("###########################\n")
 
     # Check that the target column is binary
     check_target(y_train, data_conf.target)
@@ -206,7 +219,7 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
     print(f"\n*********************** Fair-only - seed = {seed} ***********************\n")
     extra_kwargs = {
         "data_conf": dataset_conf,
-        "filename": dataset_conf.name + f"_split_dataset_seed_{seed}.csv",
+        "filename": dataset_conf.name + f"_split_dataset_seed_{seed}_train.csv",
         "eps": None,
         "custom_loader": benchmark_info.custom_loader,
         "seed": seed
@@ -218,21 +231,23 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
     original_experiment.run()
 
     # save_experiment(original_experiment, seed, filename=savefile, path=f"../data/{dataset}/{synth}/metrics/",synth=SYNTH)
-    os.makedirs(os.path.dirname(output_dir, exist_ok=True))
+    # os.makedirs(os.path.dirname(output_dir), exist_ok=True)
     save_experiment(original_experiment, seed, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)
 
-    del original_experiment, dataloader
+    del original_experiment
 
     for epsilon in benchmark_info.eps:
         print(f"\n*********************** DP & DP+Fair | ε={epsilon} ***********************\n")
-        dlkwargs = {
+        extra_kwargs = {
             "data_conf": dataset_conf,
-            "filename": dataset_conf.name + f"_seed_{seed}.csv",
-            "eps": epsilon
+            "filename": dataset_conf.name + f"_split_dataset_seed_{seed}_epsilon-{epsilon}.csv",
+            "eps": epsilon,
+            "custom_loader": benchmark_info.custom_loader,
+            "seed": seed
         }
         dp_experiment = Benchmark(
             name="dp", data_loader=benchmark_info.data_loader, 
-            normalize=benchmark_info.normalize, seed=seed, dlkwargs=dlkwargs
+            normalize=benchmark_info.normalize, seed=seed, dlkwargs=benchmark_info.dlkwargs, ekwargs=extra_kwargs
         )
         raise Exception()
         dp_experiment.run()
