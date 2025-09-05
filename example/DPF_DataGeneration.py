@@ -22,7 +22,6 @@ data_conf = DatasetGeneratorConfig(
     sensitive_cols = ['race', 'sex'],
     privacy_budgets=[.25],
     binary_encoder=binary_encode
-    # usecols=['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'income', 'age', 'hours-per-week']
 )
 
 generate_data("adult.csv", data_conf, verbose=True)

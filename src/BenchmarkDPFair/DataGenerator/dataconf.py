@@ -4,11 +4,11 @@ import pandas as pd
 from .utils.verifiers import check_transformer
 
 class DatasetGeneratorConfig:
-    def __init__(self, name : str, target : str, synthesizer: str, sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
+    def __init__(self, name : str, target : str, synthesizer: any, sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
                  ordinal_cols : List[str] = [], continuous_cols : List[str] = [],
                 sensitive_cols : List[str] = [], root_dir : str = "../../data/", usecols : List[str] | None = None,
                 data_filter : Callable[..., pd.DataFrame] | None = None, binary_encoder : Callable[..., pd.DataFrame] | None = None, 
-                pre_processer : Callable[..., pd.DataFrame] | None = None, privacy_budgets: List[int | float] | None = None, seed=42):
+                pre_processer : Callable[..., pd.DataFrame] | None = None, privacy_budgets: List[int | float] | None = None, seed=42, synthesizer_name: str = ""):
         """
         Configuration of a given dataset.
 
@@ -40,8 +40,12 @@ class DatasetGeneratorConfig:
         self.categorical_cols = categorical_cols
         self.ordinal_cols     = ordinal_cols 
         self.continuous_cols  = continuous_cols
+        self.synthesizer_name = synthesizer_name
         self.synthesizer = synthesizer
         self.seed = seed
+
+        if not isinstance(self.synthesizer, str) and self.synthesizer_name == "":
+            raise ValueError("You have provided a custom synthesizer, you must set a name to it using 'synthesizer_name'.")
 
         self.filter = check_transformer(data_filter) if data_filter is not None else None
         self.binary_encoder = check_transformer(binary_encoder) if binary_encoder is not None else None

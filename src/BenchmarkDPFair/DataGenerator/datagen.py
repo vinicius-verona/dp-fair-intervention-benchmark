@@ -77,7 +77,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         print(f"** Start Data Generation **")
         print(f"***************************")
         print(f"- Filename: {filename}")
-        print(f"- Path: {file_path}\n")
+        print(f"- Path: {file_path}")
         print(f"- Seed: {data_conf.seed}")
         print(f"- DP Data Synthesizer: {data_conf.synthesizer}")
         print(f"- Privacy budget: {data_conf.privacy_budgets}")
@@ -90,7 +90,7 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         print(f"     * Categorical = {data_conf.categorical_cols}")
         print(f"     * Ordinal     = {data_conf.ordinal_cols}")
         print(f"     * Continuous  = {data_conf.continuous_cols}")
-        print("\n\n")
+        print("\n")
         
 
     dataset = pd.read_csv(file_path + filename, usecols=data_conf.usecols)
@@ -130,7 +130,8 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
 
     # Ensure all columns are accounted for
     read_verification(ds, data_conf.usecols)
-    save_path = data_conf.dir + "/" + data_conf.name + "/"
+    synth_name = data_conf.synthesizer if isinstance(data_conf.synthesizer , str) else data_conf.synthesizer_name
+    save_path = data_conf.dir + "/" + data_conf.name + "/" + synth_name + "/"
 
     if not os.path.exists(f"{save_path}/DP-dataset-test-val"):
         try:
@@ -138,8 +139,8 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         except:
             pass
 
-    name = save_path+'DP-dataset-test-val/split_test_val_dataset_seed_'+str(data_conf.seed)+'.csv'
-    # test.to_csv(name, index=True)
+    name = save_path+f'DP-dataset-test-val/{data_conf.name}_split_test_val_dataset_seed_'+str(data_conf.seed)+'.csv'
+    test.to_csv(name, index=True)
 
     if not os.path.exists(f"{save_path}/DP-dataset-train/"):
         try:
@@ -147,28 +148,18 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         except:
             pass
     
-    name = save_path+'DP-dataset-train/split_train_dataset_seed_'+str(data_conf.seed)+'.csv'
-    # train.to_csv(name, index=True)
+    name = save_path+f'DP-dataset-train/{data_conf.name}_split_train_dataset_seed_'+str(data_conf.seed)+'.csv'
+    train.to_csv(name, index=True)
 
     # Train a synthesizer
     nf = train.copy()
-
-    print(train.head(30))
-    print(train.info())
 
     for e in data_conf.privacy_budgets:
         if verbose:
             print(f"[Info] Start DP Data Synthesizer {data_conf.synthesizer.upper()} with budget {e}")
 
-        # rounds = None
-        # epochs = None
-        # # if data_conf.synthesizer.lower() == "dpctgan":
-        # #     epochs = 50
-        # # if e > 1 and data_conf.synthesizer.lower() == "aim":
-        # #     rounds = 50
+        synth = Synthesizer.create(data_conf.synthesizer, epsilon=e)
 
-        synth = Synthesizer.create(data_conf.synthesizer, verbose=verbose, epsilon=e)#,# **({"rounds": rounds} if rounds is not None else {"epochs": epochs} if epochs is not None else {})) 
-        
         # if rounds is None else Synthesizer.create(DP_ALG, verbose=False, epsilon=e, rounds=rounds)
         synth.fit(
             nf, preprocessor_eps = e/2,
@@ -191,14 +182,14 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         if verbose:
             print(f"[Info] Saving DP Synthesized data")
 
-        # print("###**Saving Samples for seed " + str(data_conf.seed) + " epsilon " + str(e) + "**")
+        print("###**Saving Samples for seed " + str(data_conf.seed) + " epsilon " + str(e) + "**")
         dp_save_path = f"{save_path}/DP-dataset-epsilon-" + str(e) + "/"
         if not os.path.exists(dp_save_path):
             os.makedirs(dp_save_path)
             
-        name = dp_save_path+data_conf.synthesizer+'_synthetic_train_dataset_seed_'+str(data_conf.seed)+'_epsilon_'+str(e)+'.csv'
+        name = dp_save_path+data_conf.name+'_synthetic_train_dataset_seed_'+str(data_conf.seed)+'_epsilon_'+str(e)+'.csv'
 
         dp_dataset = pd.concat([X_dp, Y_dp], axis=1)
-        # dp_dataset.to_csv(name, index=True)
+        dp_dataset.to_csv(name, index=True)
         del synth, dp_dataset, name, save_path, X_dp, Y_dp, sample_data
 
