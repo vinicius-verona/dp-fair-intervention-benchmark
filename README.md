@@ -51,13 +51,25 @@ pip install dp-fair-intervention-benchmark
 Here is a minimal usage example:
 
 ```python
-from Benchmark import BenchmarkDatasetConfig, BenchmarkInfo, benchmark
-from DataGenerator import DatasetGeneratorConfig, generate_data
+from BenchmarkDPFair.DataGenerator import generate_data, DatasetGeneratorConfig
+from BenchmarkDPFair.Benchmark import BenchmarkDatasetConfig, BenchmarkInfo
+
 from sklearn.ensemble import RandomForestClassifier
 
 # Generate Data
-dataset_conf = DatasetGeneratorConfig()
+data_conf = DatasetGeneratorConfig(
+    name = "Adult",
+    target= "...",
+    synthesizer = "aim",
+    root_dir="./data",
+    sensitive_attr = "...",
+    categorical_cols = [...],
+    sensitive_cols = [...],
+    privacy_budgets=[...],
+    binary_encoder=...
+)
 
+generate_data("adult.csv", data_conf, verbose=True) # Saves as CSV
 
 # Dataset configuration
 dataset_conf = BenchmarkDatasetConfig(
