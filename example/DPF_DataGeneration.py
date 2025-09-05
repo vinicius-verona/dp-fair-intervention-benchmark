@@ -18,7 +18,6 @@ data_conf = DatasetGeneratorConfig(
     synthesizer = "aim",
     root_dir="./data",
     sensitive_attr = "sex",
-    index_col="Unnamed: 0",
     categorical_cols = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'income', 'age', 'hours-per-week'],
     sensitive_cols = ['race', 'sex'],
     privacy_budgets=[.25],

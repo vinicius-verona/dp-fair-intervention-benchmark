@@ -72,24 +72,24 @@ data_conf = DatasetGeneratorConfig(
 generate_data("adult.csv", data_conf, verbose=True) # Saves as CSV
 
 # Dataset configuration
-dataset_conf = BenchmarkDatasetConfig(
-    target_column="label",
-    categorical_columns=["gender", "race"],
-    ordinal_columns=["education"],
-    # Optional: custom dataloader
-    # dataloader=my_custom_loader
+benchmark_config = BenchmarkInfo(
+    dp_method="aim",
+    output_dir="./data/Adult/output/",
+    seeds = [...],
+    eps = [...]
 )
 
-# Benchmark configuration
-benchmark_conf = BenchmarkInfo(
-    output_dir="./results",
-    data_dir="./data",
-    seed=42,
-    classifier=RandomForestClassifier
+benchmark_dataset = BenchmarkDatasetConfig(
+    name = "Adult",
+    target= "income",
+    root_dir="./data",
+    sensitive_attr = "...",
+    index_col="...",
+    categorical_cols = [...],
+    sensitive_cols = [...],
 )
 
-# Run benchmark
-benchmark(dataset_conf, benchmark_conf)
+benchmark(benchmark_info=benchmark_config, data_conf=benchmark_dataset)
 ```
 
 More detailed examples can be found in the [`examples/`](examples/) directory.

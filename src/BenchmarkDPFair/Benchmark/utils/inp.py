@@ -20,18 +20,13 @@ from .auxiliar import getMetrics
 #############################################################
 #############################################################
 def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5):
-    
-    # import utils.dataloader as dataloader
-    # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
-    
-    # if dataset is COMPAS, switch
+
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
     
     if mitigator not in ["egr", "gsr"]:
         raise ValueError(f"Invalid mitigator {mitigator}. Choose between 'egr' and 'gsr'")
-    
-    
+     
     scaler = None
     if normalize:
         scaler = MinMaxScaler()
@@ -77,10 +72,8 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
     ######################### Model Training ##########################
     ###################################################################
     ###################################################################
-    og_model = XGBClassifier(objective='binary:logistic', random_state=seed)#LogisticRegression(**ESTIMATOR_PARAMS)
-    mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)#LogisticRegression(**ESTIMATOR_PARAMS)
-    # og_model = LogisticRegression(**ESTIMATOR_PARAMS)
-    # mitigator_model = LogisticRegression(**ESTIMATOR_PARAMS)
+    og_model = XGBClassifier(objective='binary:logistic', random_state=seed)
+    mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)
     
     # Test set
     dataset_orig_test = df_test.copy(deepcopy=True)
@@ -91,7 +84,6 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
         in_mitigator = ExponentiatedGradientReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False)
     elif mitigator == "gsr":
         in_mitigator = GridSearchReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False, prot_attr=sensitive_attr)
-        # in_mitigator = GridSearchReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False, prot_attr=sensitive_attr, grid_size=100)
         
 
     # Fit using calibration set (true labels in df_cal, predictions in dataset_orig_cal_pred)
