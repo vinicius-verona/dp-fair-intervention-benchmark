@@ -19,7 +19,7 @@ from .auxiliar import getMetrics
 ########################## Dataset ##########################
 #############################################################
 #############################################################
-def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5):
+def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
 
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
@@ -72,8 +72,8 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
     ######################### Model Training ##########################
     ###################################################################
     ###################################################################
-    og_model = XGBClassifier(objective='binary:logistic', random_state=seed)
-    mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)
+    og_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+    mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
     
     # Test set
     dataset_orig_test = df_test.copy(deepcopy=True)

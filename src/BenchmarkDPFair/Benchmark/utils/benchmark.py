@@ -22,7 +22,7 @@ from .verifiers import check_signatures
 
 import gc
 
-def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target_column, seed=42, normalize=True, threshold=.5):
+def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target_column, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
     # import utils.dataloader as dataloader
     # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
 
@@ -44,9 +44,9 @@ def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target
         x_test = pd.DataFrame(x_test, columns=cols)
         
         
-    model = XGBClassifier(objective='binary:logistic', random_state=seed)
-    # model = LogisticRegression(**ESTIMATOR_PARAMS)
+    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
     model.fit(x_train, y_train)
+
     y_pred_prob = model.predict_proba(x_test)[:, 1]
     y_pred = (y_pred_prob >= threshold).astype(int)
         
@@ -115,6 +115,9 @@ class Benchmark:
     def run(self):
         
         data_conf = self.ekwargs["data_conf"]
+        classifier = self.ekwargs["classifier"]
+        ckwargs    = self.ekwargs["classifier_kwargs"]
+        
         args = check_signatures(self.data_loader, self.dlkwargs|self.ekwargs)
         train_data, cal_data, test_data = self.data_loader(**args)
         
@@ -126,7 +129,9 @@ class Benchmark:
         # Run the original experiment
         print("# Original - ", end="")
         try:
-            self.results.append(original_experiment(X_train, y_train, X_test, y_test, data_conf.sensitive_attr, data_conf.target, self.seed, self.normalize, self.threshold))
+            self.results.append(original_experiment(X_train, y_train, X_test, y_test, 
+                                                    data_conf.sensitive_attr, data_conf.target, self.seed, self.normalize, self.threshold, 
+                                                    classifier=classifier, classifier_kwargs=ckwargs))
         except Exception as e:
             self.results.append({"original_classification_metrics": getMetrics(None), "error": e, 'info': traceback.format_tb(e.__traceback__)})
         print("OK", flush=True)
@@ -142,11 +147,17 @@ class Benchmark:
 
             try: 
                 if exp_class == "pre":
-                    self.results.append(pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold))
+                    self.results.append(pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, 
+                                                                data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold, 
+                                                                classifier=classifier, classifier_kwargs=ckwargs))
                 elif exp_class == "pos":
-                    self.results.append(pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold))
+                    self.results.append(pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, 
+                                                                data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold, 
+                                                                classifier=classifier, classifier_kwargs=ckwargs))
                 else:
-                    self.results.append(in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold))
+                    self.results.append(in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, 
+                                                                data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold, 
+                                                                classifier=classifier, classifier_kwargs=ckwargs))
             
             except Exception as e:
                 self.results.append({

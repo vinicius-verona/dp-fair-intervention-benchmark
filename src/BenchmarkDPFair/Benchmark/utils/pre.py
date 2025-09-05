@@ -29,12 +29,8 @@ optim_options = {
     "dlist": [.1, 0.05, 0]
 }
 
-def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5):
+def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
     
-    # import utils.dataloader as dataloader
-    # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
-    
-    # if dataset is COMPAS, switch
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
     
@@ -87,10 +83,10 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     # ####################################################################
     # ####################################################################
     
-    classifier = XGBClassifier(objective='binary:logistic', random_state=seed)#LogisticRegression(**ESTIMATOR_PARAMS, random_state=seed)
-    # classifier = LogisticRegression(**ESTIMATOR_PARAMS, random_state=seed)
-    classifier.fit(train_set, target.to_numpy())
-    y_pred_prob = classifier.predict_proba(test_set)[:, 1]
+    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+
+    model.fit(train_set, target.to_numpy())
+    y_pred_prob = model.predict_proba(test_set)[:, 1]
     y_pred = (y_pred_prob >= threshold).astype(int)
     
     og_test_preds_dataset = df_test.copy()
@@ -115,31 +111,29 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     if mechanism is None:
         raise ValueError("Mitigator not found")
 
-    # print("Before:", np.unique(df_train.labels, return_counts=True))
     if mitigator != "dir" and mitigator != "DisparateImpactRemover":
         # Fit mitigator on training data
         try:
             mechanism = mechanism.fit(df_train)
         except Exception as e:
-            del mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set
+            del mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set
             raise e
         try:
             mitigated_train = mechanism.transform(df_train)
         except Exception as e:
-            del mitigated_cal, mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
+            del mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
             raise e
         
         try:
             mitigated_cal   = mechanism.transform(df_cal)
         except Exception as e:
-            del mitigated_cal, mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
+            del mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
             raise e
     else:
         # Transform ALL datasets needed using the fitted mitigator
         mitigated_train = mechanism.fit_transform(df_train)
         mitigated_cal   = mechanism.fit_transform(df_cal)
 
-    # print("After:", np.unique(mitigated_train.labels, return_counts=True))
     mitigated_test = df_test.copy(deepcopy=True)
     
     try:
@@ -149,7 +143,7 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
         elif mitigator == "dir" or mitigator == "DisparateImpactRemover":
             mitigated_test = mechanism.fit_transform(df_test) 
     except Exception as e:
-        del mitigated_cal, mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
+        del mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
         del mitigated_test
         raise e
         
@@ -165,12 +159,11 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     y_train_transf = mitigated_train.labels
 
     try:
-        mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)#LogisticRegression(**ESTIMATOR_PARAMS, random_state=seed)   
-        # mitigator_model = LogisticRegression(**ESTIMATOR_PARAMS, random_state=seed)   
+        mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)  if classifier is None else classifier(**classifier_kwargs)
         mitigator_model.fit(X_train_transf, y_train_transf, sample_weight=mitigated_train_weights)
     
     except Exception as e:
-        del mitigated_cal, mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
+        del mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
         del mitigated_test, X_train_transf, mitigated_train_weights, mitigator_model, y_train_transf
         raise e
     
@@ -183,14 +176,14 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
         y_pred_prob_mit = mitigator_model.predict_proba(pd.DataFrame(mitigated_test.features, columns=mitigated_test.feature_names))[:, 1]
     
     except Exception as e:
-        del mitigated_cal, mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
+        del mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
         del mitigated_test, X_train_transf, mitigated_train_weights, mitigator_model, y_pred_prob_mit
         raise e
     
     y_pred_mit = (y_pred_prob_mit >= threshold).astype(int)
     
-    mitigator_test_preds = df_test.copy(deepcopy=True) #mitigated_test.copy()
-    mitigator_test_preds.labels = y_pred_mit#.reshape(-1, 1)
+    mitigator_test_preds = df_test.copy(deepcopy=True)
+    mitigator_test_preds.labels = y_pred_mit
     mitigator_test_preds.scores = y_pred_prob_mit
 
     #############################################################
@@ -222,7 +215,7 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     pre_classification_metrics.classified_dataset = None
 
     del og_classification_metrics, pre_classification_metrics, mitigator_test_preds, y_pred_mit, y_pred_prob_mit, mitigator_model, y_train_transf, X_train_transf, mitigated_train_weights
-    del mitigated_test, mitigated_cal, mechanism, classifier, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set
+    del mitigated_test, mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set
 
     return {
         "original_classification_metrics": og_metrics,

@@ -70,7 +70,7 @@ class BenchmarkInfo:
         self.dlkwargs = dlkwargs
 
         self.classifier = classifier
-        self.classifer_kwargs = classifier_kwargs
+        self.classifier_kwargs = classifier_kwargs
 
     def dataloader(self, **kwargs) -> DFTuple:
         """
@@ -131,7 +131,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
 
     test_filename = f"{base_pattern[0]}_test{ext}"
 
-    cols = list(dict.fromkeys(data_conf.usecols + data_conf.index_col if data_conf.index_col else data_conf.usecols))
+    cols = list(dict.fromkeys(data_conf.usecols + [data_conf.index_col] if data_conf.index_col else data_conf.usecols))
     ds = pd.read_csv(filename, usecols=cols)
 
     if data_conf.index_col:
@@ -170,7 +170,6 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         y_train = y
 
         # test_ds = pd.read_csv(test_filename, index_col=0)
-        cols = list(dict.fromkeys(data_conf.usecols + data_conf.index_col if data_conf.index_col else data_conf.usecols))
         test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=cols)
 
         if data_conf.index_col:
@@ -223,7 +222,9 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
         "filename": dataset_conf.name + f"_split_dataset_seed_{seed}_train.csv",
         "custom_loader": benchmark_info.custom_loader,
         "epsilon": None,
-        "seed": seed
+        "seed": seed,
+        "classifier": benchmark_info.classifier,
+        "classifier_kwargs": benchmark_info.classifier_kwargs
     }
     original_experiment = Benchmark(
         name="baseline", data_loader=benchmark_info.data_loader, 
@@ -242,7 +243,9 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
             "filename": dataset_conf.name + f"_split_dataset_seed_{seed}_epsilon-{epsilon}.csv",
             "custom_loader": benchmark_info.custom_loader,
             "epsilon": epsilon,
-            "seed": seed
+            "seed": seed,
+            "classifier": benchmark_info.classifier,
+            "classifier_kwargs": benchmark_info.classifier_kwargs
         }
         dp_experiment = Benchmark(
             name="dp", data_loader=benchmark_info.data_loader, 

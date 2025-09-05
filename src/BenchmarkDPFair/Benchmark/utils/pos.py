@@ -13,8 +13,6 @@ from .auxiliar import getMetrics
 import numpy as np
 import pandas as pd
 
-# privileged_groups = [{sensitive_attr: 1}] # White
-# unprivileged_groups = [{sensitive_attr: 0}] # Not white
 
 #############################################################
 #############################################################
@@ -22,12 +20,8 @@ import pandas as pd
 #############################################################
 #############################################################
 
-def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5):
-    
-    # import utils.dataloader as dataloader
-    # sensitive_attr, target_column, categorical_cols, sensitive_columns = dataloader.sensitive_attr, dataloader.target_column, dataloader.categorical_cols, dataloader.sensitive_columns
-    
-    # if dataset is COMPAS, switch
+def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
+        
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
     
@@ -86,8 +80,7 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
 
 
     # scaler = MinMaxScaler()
-    og_model = XGBClassifier(objective='binary:logistic', random_state=seed)#LogisticRegression(**ESTIMATOR_PARAMS)
-    # og_model = LogisticRegression(**ESTIMATOR_PARAMS)
+    og_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
     og_model.fit(train_set, target.to_numpy())
     
     
