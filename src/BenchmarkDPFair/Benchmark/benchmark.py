@@ -109,10 +109,11 @@ class BenchmarkInfo:
 
     @check_data_loader
     def __data_loader(self, data_conf: BenchmarkDatasetConfig, filename: str, seed: int,  **kwargs) -> DFTuple:
-        return _load_data(data_conf, filename, seed, self.split, **kwargs)
+        return _load_data(data_conf, filename, seed, split=self.split, **kwargs)
 
 
-def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None = None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
+def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
+    
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")
     
@@ -220,8 +221,8 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
     extra_kwargs = {
         "data_conf": dataset_conf,
         "filename": dataset_conf.name + f"_split_dataset_seed_{seed}_train.csv",
-        "eps": None,
         "custom_loader": benchmark_info.custom_loader,
+        "epsilon": None,
         "seed": seed
     }
     original_experiment = Benchmark(
@@ -230,8 +231,6 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
     )
     original_experiment.run()
 
-    # save_experiment(original_experiment, seed, filename=savefile, path=f"../data/{dataset}/{synth}/metrics/",synth=SYNTH)
-    # os.makedirs(os.path.dirname(output_dir), exist_ok=True)
     save_experiment(original_experiment, seed, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)
 
     del original_experiment
@@ -241,20 +240,19 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
         extra_kwargs = {
             "data_conf": dataset_conf,
             "filename": dataset_conf.name + f"_split_dataset_seed_{seed}_epsilon-{epsilon}.csv",
-            "eps": epsilon,
             "custom_loader": benchmark_info.custom_loader,
+            "epsilon": epsilon,
             "seed": seed
         }
         dp_experiment = Benchmark(
             name="dp", data_loader=benchmark_info.data_loader, 
             normalize=benchmark_info.normalize, seed=seed, dlkwargs=benchmark_info.dlkwargs, ekwargs=extra_kwargs
         )
-        raise Exception()
         dp_experiment.run()
 
         save_experiment(dp_experiment, seed, epsilon, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)
 
-        del dp_experiment.data_loader, dp_experiment, dataloader
+        del dp_experiment.data_loader, dp_experiment
 
 
 def benchmark(data_conf: BenchmarkDatasetConfig, benchmark_info: BenchmarkInfo):

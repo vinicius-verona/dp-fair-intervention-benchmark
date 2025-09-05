@@ -22,10 +22,10 @@ import pandas as pd
 #############################################################
 #############################################################
 
-def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, mitigator, seed=42, normalize=True, threshold=.5):
+def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5):
     
-    import utils.dataloader as dataloader
-    sensitive_attr, target_column, categorical_cols, sensitive_columns = dataloader.sensitive_attr, dataloader.target_column, dataloader.categorical_cols, dataloader.sensitive_columns
+    # import utils.dataloader as dataloader
+    # sensitive_attr, target_column, categorical_cols, sensitive_columns = dataloader.sensitive_attr, dataloader.target_column, dataloader.categorical_cols, dataloader.sensitive_columns
     
     # if dataset is COMPAS, switch
     privileged_groups = [{sensitive_attr: 1}] # Ex: White

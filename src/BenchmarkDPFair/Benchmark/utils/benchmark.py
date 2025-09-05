@@ -114,6 +114,7 @@ class Benchmark:
         
     def run(self):
         
+        data_conf = self.ekwargs["data_conf"]
         args = check_signatures(self.data_loader, self.dlkwargs|self.ekwargs)
         train_data, cal_data, test_data = self.data_loader(**args)
         
@@ -125,7 +126,7 @@ class Benchmark:
         # Run the original experiment
         print("# Original - ", end="")
         try:
-            self.results.append(original_experiment(X_train, y_train, X_test, y_test, self.ekwargs.data_conf.sensitive_attr, self.ekwargs.data_conf.target, self.seed, self.normalize, self.threshold))
+            self.results.append(original_experiment(X_train, y_train, X_test, y_test, data_conf.sensitive_attr, data_conf.target, self.seed, self.normalize, self.threshold))
         except Exception as e:
             self.results.append({"original_classification_metrics": getMetrics(None), "error": e, 'info': traceback.format_tb(e.__traceback__)})
         print("OK", flush=True)
@@ -133,7 +134,6 @@ class Benchmark:
         
         # Run the experiment with mitigators 
         for mitigator, exp_class in self.mitigators.items():
-            continue
             print(f"# {exp_class.upper()} - {mitigator.upper()} - ", end="")
             
             X_train, y_train = train_data[0].copy(), train_data[1].copy()
@@ -142,11 +142,11 @@ class Benchmark:
 
             try: 
                 if exp_class == "pre":
-                    self.results.append(pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, mitigator, self.seed, self.normalize, self.threshold))
+                    self.results.append(pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold))
                 elif exp_class == "pos":
-                    self.results.append(pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, mitigator, self.seed, self.normalize, self.threshold))
+                    self.results.append(pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold))
                 else:
-                    self.results.append(in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, mitigator, self.seed, self.normalize, self.threshold))
+                    self.results.append(in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold))
             
             except Exception as e:
                 self.results.append({
