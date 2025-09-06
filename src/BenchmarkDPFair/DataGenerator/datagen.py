@@ -65,7 +65,23 @@ def _default_pre_process_dataset(X, y, binary_encoder : Callable[..., pd.DataFra
     
     return ds
 
-def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | None = None, verbose:bool = False):
+def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | None = None, verbose:bool = False, **skwargs):
+    """
+    Generate differentially private synthetic data based on `filename` and as configured `data_conf`.
+
+    Parameters
+    ----------
+    filename: str 
+        The file containing the data to be synthesized
+    data_conf: DatasetGeneratorConfig 
+        The configuration of the generator
+    path: str, optional
+        Path to the file
+    verbose : bool, optional
+        Enable prints
+    **skwargs
+        Kwargs for the synthesizer object creation
+    """
     random.seed(data_conf.seed)
     np.random.seed(data_conf.seed)
 
@@ -158,9 +174,8 @@ def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | 
         if verbose:
             print(f"[Info] Start DP Data Synthesizer {data_conf.synthesizer.upper()} with budget {e}")
 
-        synth = Synthesizer.create(data_conf.synthesizer, epsilon=e)
+        synth = Synthesizer.create(data_conf.synthesizer_name, epsilon=e, **skwargs) if isinstance(data_conf.synthesizer, str) else data_conf.synthesizer(epsilon=e, **skwargs)
 
-        # if rounds is None else Synthesizer.create(DP_ALG, verbose=False, epsilon=e, rounds=rounds)
         synth.fit(
             nf, preprocessor_eps = e/2,
             categorical_columns  = data_conf.categorical_cols,

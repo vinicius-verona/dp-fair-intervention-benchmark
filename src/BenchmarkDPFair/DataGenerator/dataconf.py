@@ -4,7 +4,7 @@ import pandas as pd
 from .utils.verifiers import check_transformer
 
 class DatasetGeneratorConfig:
-    def __init__(self, name : str, target : str, synthesizer: any, sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
+    def __init__(self, name : str, target : str, synthesizer: str | Callable, sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
                  ordinal_cols : List[str] = [], continuous_cols : List[str] = [],
                 sensitive_cols : List[str] = [], root_dir : str = "../../data/", usecols : List[str] | None = None,
                 data_filter : Callable[..., pd.DataFrame] | None = None, binary_encoder : Callable[..., pd.DataFrame] | None = None, 
@@ -30,6 +30,11 @@ class DatasetGeneratorConfig:
             Columns with continuous data.
         usecols : List[str], optional
             Columns to be read from the dataset file. If empty or none, all columns will be read.
+        synthesizer: str | Callable
+            Name or class of synthesizer implementing fit and sample. See [CUSTOMIZATION.md](./CUSTOMIZATION.md) to understand what is expected of each method. Names accepted are available in [SmartNoise](https://docs.smartnoise.org/synth/synthesizers/index.html) website.
+        synthesizer_name: str, optional
+            Name of custom synthesizer. Optional when synthesizer is a string, and required otherwise.
+            
         """
 
         self.name    = name
@@ -43,6 +48,9 @@ class DatasetGeneratorConfig:
         self.synthesizer_name = synthesizer_name
         self.synthesizer = synthesizer
         self.seed = seed
+
+        if isinstance(synthesizer, str):
+            self.synthesizer_name = synthesizer
 
         if not isinstance(self.synthesizer, str) and self.synthesizer_name == "":
             raise ValueError("You have provided a custom synthesizer, you must set a name to it using 'synthesizer_name'.")
