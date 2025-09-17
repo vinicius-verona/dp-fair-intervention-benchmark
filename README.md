@@ -92,7 +92,7 @@ benchmark_dataset = BenchmarkDatasetConfig(
 benchmark(benchmark_info=benchmark_config, data_conf=benchmark_dataset)
 ```
 
-More detailed examples can be found in the [`examples/`](examples/) directory.
+More detailed examples can be found in the [`example/`](example/) directory.
 
 ---
 
