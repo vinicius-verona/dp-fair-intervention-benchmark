@@ -1,7 +1,7 @@
 # DP+Fair Benchmarking Framework
 
-This repository provides a Python framework for **benchmarking mechanisms** on **Differential Privacy data synthesizing** and **Fairness**.  
-It has been developed as part of a research project at **Inria**, by *Vinicius Gabriel Angelozzi V. de R.* and *Héber H. Arcolezzi*.  
+This repository provides a Python framework for **benchmarking fairness mechanisms** on **Differentially Private Synthetic Data**.  
+It has been developed as part of a research project at **Inria Grenoble**, by *Vinicius Gabriel Angelozzi V. de R.* and *Héber H. Arcolezi*.  
 
 The framework is part of an academic paper and can be cited (see [Citation](#citation)).  
 
@@ -102,8 +102,8 @@ If you use this framework in your research, please cite:
 
 ```bibtex
 @article{Angelozzi2025WhereToIntervene,
-  title={Where to Intervene? Benchmarking Fairness-Aware Learning on Differentially Private Synthetic Tabular Data [Experiment, Analysis & Benchmark]},
-  author={Angelozzi V. de R. Vinicius Gabriel and H. Arcolezi Héber},
+  title={Where to Intervene? Benchmarking Fairness-Aware Learning on Differentially Private Synthetic Tabular Data},
+  author={Angelozzi, Vinicius Gabriel and Arcolezi, Héber H.},
   conference={To-be-Anounced},
   year={2026},
   institution={Inria, Grenoble INP}
@@ -132,4 +132,4 @@ Contributions are welcome:
 For questions regarding this framework, please contact:
 
 * **Vinicius Gabriel Angelozzi Verona de Resende** — \[contact.verona@tutanota.com]
-* **Héber Hwang Arcolezi** — \[heber.hwang-arcolezi@inria.fr]
+* **[Héber Hwang Arcolezi](https://hharcolezi.github.io/)**
