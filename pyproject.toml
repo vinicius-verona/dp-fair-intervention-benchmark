@@ -7,8 +7,8 @@ name = "BenchmarkDPFair"
 version = "0.1.0"
 description = "A differentially private data synthesizer and fairness intervention benchmark framework"
 authors = [
-  { name="Vinicius Gabriel Angelozzi Verona de Resende", email="contact.verona@tutanota.com" },
-  { name="Héber Hwang Arcolezi", email="heber.hwang-arcolezi@inria.fr" }
+  { name="XXX", email="XXX" },
+  { name="XXX", email="XXX" }
 ]
 readme = "README.md"
 requires-python = ">=3.8"
