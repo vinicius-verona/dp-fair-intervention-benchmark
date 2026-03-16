@@ -6,7 +6,7 @@ Generate-Adult-DP-Seeds-Epsilons
 
 import sys
 import random
-from typing import Callable, List
+from typing import Callable, List, Optional
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -36,7 +36,7 @@ def _default_binary_encoder(df: pd.DataFrame, columns: List[str]) -> pd.DataFram
         df[col] = (df[col] == most_common_value).astype(int)
     return df
 
-def _default_pre_process_dataset(X, y, binary_encoder : Callable[..., pd.DataFrame] | None = None, sensitive_columns : List[str] = []):
+def _default_pre_process_dataset(X, y, binary_encoder : Optional[Callable[..., pd.DataFrame]] = None, sensitive_columns : List[str] = []):
     """
     Default pre-processor, starts by encoding all non-numerical columns into numerical columns and then apply a binarization of the sensitive columns.
     The binarization may be changed by providing a different function.
@@ -65,7 +65,7 @@ def _default_pre_process_dataset(X, y, binary_encoder : Callable[..., pd.DataFra
     
     return ds
 
-def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: str | None = None, verbose:bool = False, **skwargs):
+def generate_data(filename: str, data_conf: DatasetGeneratorConfig, path: Optional[str] = None, verbose:bool = False, **skwargs):
     """
     Generate differentially private synthetic data based on `filename` and as configured `data_conf`.
 

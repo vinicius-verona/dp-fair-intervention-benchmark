@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import inspect
 
-from typing import Callable, List, Any, Tuple
+from typing import Callable, List, Any, Optional, Tuple, Union
 from sklearn.model_selection import train_test_split
 from tabulate import tabulate
 
@@ -20,9 +20,9 @@ DEFAULT_EPS   = [0.25, 0.5, 0.75, 1, 5, 10, 15, 20]
 DP_ALGORITHM  = ""
 
 class BenchmarkInfo:
-    def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, dlkwargs: dict | set = {},
-                 split_data: FloatOrTuple | None = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
-                 eps: List[float|int] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: dict | set | None = None):
+    def __init__(self, dp_method:str, output_dir: str, data_loader: Optional[Callable[..., DFTuple]] = None, dlkwargs: Union[dict, set] = {},
+                 split_data: Optional[FloatOrTuple] = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
+                 eps: List[Union[float,int]] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: Optional[Union[dict,set]] = None):
         """
         Set of possible confiigurations for the Benchmark experiments. 
 
@@ -112,7 +112,8 @@ class BenchmarkInfo:
         return _load_data(data_conf, filename, seed, split=self.split, **kwargs)
 
 
-def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
+def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: Optional[float] = None, 
+               verbose: bool=False, split: Optional[FloatOrTuple] = None, extra_processing: Optional[Callable] = None, **kwargs) -> DFTuple:
     
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")
@@ -159,7 +160,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
             val_split_distrib = split[0] * (1 - split[1]) if isinstance(split, Tuple) else split * (1 - split)
             test_split_distrib = split[0] * split[1] if isinstance(split, Tuple) else split * split
             print(f"[WARN] Test directory and/or file with test set not found, the provided {filename} will be split into three sets with distributions {(train_split_distrib, val_split_distrib, test_split_distrib)}.")
-            print(f"       This is the path we are looking for: {test_path + "/" + test_filename}.\n")
+            print(f"       This is the path we are looking for: {test_path + '/' + test_filename}.\n")
 
         # No test path found, so split the data from filename
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=split[0] if isinstance(split, Tuple) else split, random_state=seed)
@@ -226,6 +227,7 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
         "classifier": benchmark_info.classifier,
         "classifier_kwargs": benchmark_info.classifier_kwargs
     }
+        
     original_experiment = Benchmark(
         name="baseline", data_loader=benchmark_info.data_loader, 
         normalize=benchmark_info.normalize, seed=seed, dlkwargs=benchmark_info.dlkwargs, ekwargs = extra_kwargs

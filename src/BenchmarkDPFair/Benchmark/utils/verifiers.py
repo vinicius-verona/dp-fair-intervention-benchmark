@@ -1,5 +1,5 @@
 import inspect
-from typing import Callable, Tuple
+from typing import Callable, Optional, Tuple, Union
 from functools import wraps
 import pandas as pd
 
@@ -24,7 +24,7 @@ def check_data_loader(func: Callable) -> Callable:
         return result
     return wrapper
 
-def check_signatures(func: Callable, kwargs_dict:dict|set):
+def check_signatures(func: Callable, kwargs_dict:Union[dict,set]):
     sig = inspect.signature(func)
 
     # if function accepts kwargs, send everything as parameters
@@ -37,7 +37,7 @@ def check_signatures(func: Callable, kwargs_dict:dict|set):
         valid_args = { k: v for k,v in kwargs_dict.items() if  k in sig.parameters }
         return valid_args
 
-def check_splitdata(x: FloatOrTuple | None) -> FloatOrTuple | None:
+def check_splitdata(x: Optional[FloatOrTuple]) -> Union[FloatOrTuple, None]:
     """Type checker for split_data argument"""
     if x is None:
         return None
@@ -61,7 +61,7 @@ def read_verification(ds:pd.DataFrame, cols) -> bool:
         missing_cols = list(set(all_columns) - specified_columns)
         raise KeyError(f"The following columns are not present in the dataframe: {missing_cols}.")
     
-def check_target(df: pd.DataFrame | pd.Series, target: str) -> bool:
+def check_target(df: Union[pd.DataFrame, pd.Series], target: str) -> bool:
     """
     Checks that `target` column exists and is binary (2 unique non-NaN values).
     
@@ -78,7 +78,7 @@ def check_target(df: pd.DataFrame | pd.Series, target: str) -> bool:
     return len(unique_vals) == 2
 
 
-def check_dict(args : dict | set | None = None, key : str | None = None, ktype = None) -> Tuple[bool, str|None]:
+def check_dict(args : Optional[Union[dict, set]] = None, key : Optional[str] = None, ktype = None) -> Tuple[bool, Union[str,None]]:
     """Check if a dict has a key of certain type or just a key or if any key of a given type."""
     ret = False
     rkey = None

@@ -80,7 +80,7 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
 
 
     # scaler = MinMaxScaler()
-    og_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+    og_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(random_state=seed, **classifier_kwargs)
     og_model.fit(train_set, target.to_numpy())
     
     
@@ -129,6 +129,7 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
 
         raise e
 
+    post_mitigated_dataset = None
     try:
         # Apply mitigation to test set
         post_mitigated_dataset = post_mitigator.predict(dataset_orig_test)

@@ -26,8 +26,6 @@ def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target
     # import utils.dataloader as dataloader
     # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
 
-    
-
     # if dataset is COMPAS, switch
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
@@ -43,8 +41,7 @@ def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target
         x_test = scaler.transform(x_test)
         x_test = pd.DataFrame(x_test, columns=cols)
         
-        
-    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(random_state=seed, **classifier_kwargs)
     model.fit(x_train, y_train)
 
     y_pred_prob = model.predict_proba(x_test)[:, 1]

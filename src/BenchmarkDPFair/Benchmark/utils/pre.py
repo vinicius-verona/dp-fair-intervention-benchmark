@@ -83,7 +83,7 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     # ####################################################################
     # ####################################################################
     
-    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(random_state=seed, **classifier_kwargs)
 
     model.fit(train_set, target.to_numpy())
     y_pred_prob = model.predict_proba(test_set)[:, 1]
@@ -118,12 +118,15 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
         except Exception as e:
             del mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set
             raise e
+        
+        mitigated_train = None
         try:
             mitigated_train = mechanism.transform(df_train)
         except Exception as e:
             del mitigated_cal, mechanism, model, test_set, df_test, target_test, scaler, train_set, target, df_train, df_cal, target_cal, cal_set, mitigated_train
             raise e
         
+        mitigated_cal   = None
         try:
             mitigated_cal   = mechanism.transform(df_cal)
         except Exception as e:
@@ -157,9 +160,10 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     # Extract features and labels from transformed data
     X_train_transf = pd.DataFrame(mitigated_train.features, columns=X_train.columns)
     y_train_transf = mitigated_train.labels
-
+    mitigator_model = None
+    
     try:
-        mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)  if classifier is None else classifier(**classifier_kwargs)
+        mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)  if classifier is None else classifier(random_state=seed,**classifier_kwargs)
         mitigator_model.fit(X_train_transf, y_train_transf, sample_weight=mitigated_train_weights)
     
     except Exception as e:
@@ -170,7 +174,8 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     ###############################################################################
     ###################### Evaluate on Transformed Test Data ######################
     ###############################################################################
-
+    y_pred_prob_mit = None
+    
     try:
         # Predict using transformed features
         y_pred_prob_mit = mitigator_model.predict_proba(pd.DataFrame(mitigated_test.features, columns=mitigated_test.feature_names))[:, 1]

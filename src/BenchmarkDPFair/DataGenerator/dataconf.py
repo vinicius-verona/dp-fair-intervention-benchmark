@@ -1,14 +1,14 @@
-from typing import Callable, List
+from typing import Callable, List, Union, Optional
 import pandas as pd
 
 from .utils.verifiers import check_transformer
 
 class DatasetGeneratorConfig:
-    def __init__(self, name : str, target : str, synthesizer: str | Callable, sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
+    def __init__(self, name : str, target : str, synthesizer: Union[str, Callable], sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
                  ordinal_cols : List[str] = [], continuous_cols : List[str] = [],
-                sensitive_cols : List[str] = [], root_dir : str = "../../data/", usecols : List[str] | None = None,
-                data_filter : Callable[..., pd.DataFrame] | None = None, binary_encoder : Callable[..., pd.DataFrame] | None = None, 
-                pre_processer : Callable[..., pd.DataFrame] | None = None, privacy_budgets: List[int | float] | None = None, seed=42, synthesizer_name: str = ""):
+                sensitive_cols : List[str] = [], root_dir : str = "../../data/", usecols : Optional[List[str]] = None,
+                data_filter : Optional[Callable[..., pd.DataFrame]] = None, binary_encoder : Optional[Callable[..., pd.DataFrame]] = None, 
+                pre_processer : Optional[Callable[..., pd.DataFrame]] = None, privacy_budgets: Optional[List[Union[int,float]]] = None, seed=42, synthesizer_name: str = ""):
         """
         Configuration of a given dataset.
 
