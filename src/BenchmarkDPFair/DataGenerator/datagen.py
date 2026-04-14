@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Generate-Adult-DP-Seeds-Epsilons
-- Vinícius Gabriel Angelozzi Verona de Resende (vinicius-gabriel.angelozzi-verona-de-resende@inria.fr)
 """
 
 import sys
