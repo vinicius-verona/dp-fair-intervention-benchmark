@@ -4,11 +4,12 @@ import pandas as pd
 from .utils.verifiers import check_transformer
 
 class DatasetGeneratorConfig:
-    def __init__(self, name : str, target : str, synthesizer: Union[str, Callable], sensitive_attr : str,  test_split_size: float = 0.4, categorical_cols : List[str] = [],
+    def __init__(self, name : str, target : str, synthesizer: Union[str, Callable], sensitive_attr : str,  test_split_size: float = 0.2, cal_split_size: float = 0.2, categorical_cols : List[str] = [],
                  ordinal_cols : List[str] = [], continuous_cols : List[str] = [],
-                sensitive_cols : List[str] = [], root_dir : str = "../../data/", usecols : Optional[List[str]] = None,
+                sensitive_cols : List[str] = [], index_col : Optional[str] = None, root_dir : str = "../../data/", usecols : Optional[List[str]] = None,
                 data_filter : Optional[Callable[..., pd.DataFrame]] = None, binary_encoder : Optional[Callable[..., pd.DataFrame]] = None, 
-                pre_processer : Optional[Callable[..., pd.DataFrame]] = None, privacy_budgets: Optional[List[Union[int,float]]] = None, seed=42, synthesizer_name: str = ""):
+                pre_processer : Optional[Callable[..., pd.DataFrame]] = None, compressor : Optional[Callable[..., pd.DataFrame]] = None,
+                privacy_budgets: Optional[List[Union[int,float]]] = None, seed=42, synthesizer_name: str = ""):
         """
         Configuration of a given dataset.
 
@@ -34,6 +35,7 @@ class DatasetGeneratorConfig:
             Name or class of synthesizer implementing fit and sample. See [CUSTOMIZATION.md](./CUSTOMIZATION.md) to understand what is expected of each method. Names accepted are available in [SmartNoise](https://docs.smartnoise.org/synth/synthesizers/index.html) website.
         synthesizer_name: str, optional
             Name of custom synthesizer. Optional when synthesizer is a string, and required otherwise.
+        
             
         """
 
@@ -48,6 +50,7 @@ class DatasetGeneratorConfig:
         self.synthesizer_name = synthesizer_name
         self.synthesizer = synthesizer
         self.seed = seed
+        self.index_col = index_col
 
         if isinstance(synthesizer, str):
             self.synthesizer_name = synthesizer
@@ -58,13 +61,22 @@ class DatasetGeneratorConfig:
         self.filter = check_transformer(data_filter) if data_filter is not None else None
         self.binary_encoder = check_transformer(binary_encoder) if binary_encoder is not None else None
         self.pre_processing = check_transformer(pre_processer) if pre_processer is not None else None
+        self.compressor = check_transformer(compressor) if compressor is not None else None
         self.privacy_budgets = privacy_budgets if privacy_budgets is not None else [.25,.5,.75,1,5,10,15,20]
 
         if usecols is None or len(usecols) == 0:
-            usecols =  [self.target] + self.categorical_cols + self.continuous_cols + self.ordinal_cols + self.sensitive_cols
+            usecols = list(set(
+                [self.target] + 
+                self.categorical_cols + 
+                self.continuous_cols + 
+                self.ordinal_cols + 
+                self.sensitive_cols +
+                ([self.index_col] if self.index_col is not None else [])
+            ))
 
         self.usecols = usecols
-        self.split_size = test_split_size
+        self.test_split_size = test_split_size
+        self.cal_split_size = cal_split_size
 
         if not name:
             raise ValueError(f"Argument 'name' must not be empty as it is necessary for the benchmark.")

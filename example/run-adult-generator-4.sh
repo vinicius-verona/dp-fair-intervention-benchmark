@@ -1,0 +1,5 @@
+python3 DPF_DataGeneration-Adult.py -s 4112   > log/DataGeneration/Adult-old-split-pets-review-batch-16.out 2> log/DataGeneration/Adult-old-split-pets-review-batch-16.err &
+python3 DPF_DataGeneration-Adult.py -s 53453  > log/DataGeneration/Adult-old-split-pets-review-batch-17.out 2> log/DataGeneration/Adult-old-split-pets-review-batch-17.err &
+python3 DPF_DataGeneration-Adult.py -s 113647 > log/DataGeneration/Adult-old-split-pets-review-batch-18.out 2> log/DataGeneration/Adult-old-split-pets-review-batch-18.err &
+python3 DPF_DataGeneration-Adult.py -s 133843 > log/DataGeneration/Adult-old-split-pets-review-batch-19.out 2> log/DataGeneration/Adult-old-split-pets-review-batch-19.err &
+python3 DPF_DataGeneration-Adult.py -s 583879 > log/DataGeneration/Adult-old-split-pets-review-batch-20.out 2> log/DataGeneration/Adult-old-split-pets-review-batch-20.err &

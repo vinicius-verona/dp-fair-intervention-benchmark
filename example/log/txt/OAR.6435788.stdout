@@ -1,0 +1,25 @@
+grele-11.nancy.grid5000.fr: grvingt-30.nancy.grid5000.fr (6177): connector > Warning: Permanently added '[grvingt-30.nancy.grid5000.fr]:6667,[172.16.76.30]:6667' (RSA) to the list of known hosts.
+grele-11.nancy.grid5000.fr: grvingt-29.nancy.grid5000.fr (6175): connector > Warning: Permanently added '[grvingt-29.nancy.grid5000.fr]:6667,[172.16.76.29]:6667' (RSA) to the list of known hosts.
+grele-11.nancy.grid5000.fr: grvingt-36.nancy.grid5000.fr (6179): connector > Warning: Permanently added '[grvingt-36.nancy.grid5000.fr]:6667,[172.16.76.36]:6667' (RSA) to the list of known hosts.
+grele-11.nancy.grid5000.fr: grele-11.nancy.grid5000.fr (6172): connector > Warning: Permanently added '[grele-11.nancy.grid5000.fr]:6667,[172.16.74.11]:6667' (RSA) to the list of known hosts.
+grele-11.nancy.grid5000.fr: grele-5.nancy.grid5000.fr (6173): connector > Warning: Permanently added '[grele-5.nancy.grid5000.fr]:6667,[172.16.74.5]:6667' (RSA) to the list of known hosts.
+grele-11.nancy.grid5000.fr-1: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6245): output > Node: grele-11.nancy.grid5000.fr, Position: 1
+grele-5.nancy.grid5000.fr-2: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6175): output > Node: grele-5.nancy.grid5000.fr, Position: 2
+grvingt-29.nancy.grid5000.fr-3: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6213): output > Node: grvingt-29.nancy.grid5000.fr, Position: 3
+grvingt-30.nancy.grid5000.fr-4: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6256): output > Node: grvingt-30.nancy.grid5000.fr, Position: 4
+grvingt-36.nancy.grid5000.fr-5: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6238): output > Node: grvingt-36.nancy.grid5000.fr, Position: 5
+grele-11.nancy.grid5000.fr-1: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6245): output > Starting: ./run-adult.sh 1 > nohup-Adult-1-old-split-pets-automated.out
+grele-11.nancy.grid5000.fr-1: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6245): output > Process started with PID: 6255
+grele-11.nancy.grid5000.fr-1: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6245): status > Exited with status 0
+grvingt-29.nancy.grid5000.fr-3: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6213): output > Starting: ./run-adult.sh 3 > nohup-Adult-3-old-split-pets-automated.out
+grvingt-29.nancy.grid5000.fr-3: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6213): output > Process started with PID: 6225
+grvingt-30.nancy.grid5000.fr-4: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6256): output > Starting: ./run-adult.sh 4 > nohup-Adult-4-old-split-pets-automated.out
+grvingt-30.nancy.grid5000.fr-4: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6256): output > Process started with PID: 6269
+grvingt-29.nancy.grid5000.fr-3: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6213): status > Exited with status 0
+grele-5.nancy.grid5000.fr-2: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6175): output > Starting: ./run-adult.sh 2 > nohup-Adult-2-old-split-pets-automated.out
+grele-5.nancy.grid5000.fr-2: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6175): output > Process started with PID: 6186
+grvingt-30.nancy.grid5000.fr-4: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6256): status > Exited with status 0
+grvingt-36.nancy.grid5000.fr-5: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6238): output > Starting: ./run-adult.sh 5 > nohup-Adult-5-old-split-pets-automated.out
+grvingt-36.nancy.grid5000.fr-5: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6238): output > Process started with PID: 6252
+grele-5.nancy.grid5000.fr-2: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6175): status > Exited with status 0
+grvingt-36.nancy.grid5000.fr-5: /home/vangeloz/experiment-controller.sh Adult old-split-pets-automated (6238): status > Exited with status 0

@@ -15,14 +15,14 @@ from .utils.verifiers import check_data_loader, check_splitdata, check_target, r
 from .utils.benchmark import Benchmark
 from .utils.auxiliar import save_experiment
 
-DEFAULT_SEEDS = [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]
-DEFAULT_EPS   = [0.25, 0.5, 0.75, 1, 5, 10, 15, 20]
-DP_ALGORITHM  = ""
+DEFAULT_SEEDS : List[float]= [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]
+DEFAULT_EPS  : List[float] = [0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20]
+DP_ALGORITHM  : str = ""
 
 class BenchmarkInfo:
     def __init__(self, dp_method:str, output_dir: str, data_loader: Optional[Callable[..., DFTuple]] = None, dlkwargs: Union[dict, set] = {},
-                 split_data: Optional[FloatOrTuple] = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
-                 eps: List[Union[float,int]] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: Optional[Union[dict,set]] = None):
+                 split_data: Optional[FloatOrTuple] = None, normalize: bool = True, seeds: List[float] = DEFAULT_SEEDS,
+                 eps: List[Union[float,int]] = DEFAULT_EPS, classifier: Any = None, classifier_kwargs: Optional[Union[dict,set]] = None):
         """
         Set of possible confiigurations for the Benchmark experiments. 
 
@@ -125,15 +125,15 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
     base_pattern = base.rsplit("_", 1)
 
     if (os.path.dirname(filename)):
-        test_path = os.path.dirname(os.path.dirname(filename)) + "DP-dataset-test-val/"
+        test_path = os.path.dirname(os.path.dirname(filename)) + "DP-dataset-test/"
     else:
-        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-test-val/"
+        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-test/"
         filename = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-{f'epsilon-{epsilon}' if epsilon is not None else 'train'}/{filename}"
 
     test_filename = f"{base_pattern[0]}_test{ext}"
 
     cols = list(dict.fromkeys(data_conf.usecols + [data_conf.index_col] if data_conf.index_col else data_conf.usecols))
-    ds = pd.read_csv(filename, usecols=cols)
+    ds = pd.read_csv(filename, usecols=lambda col: col in cols)
 
     if data_conf.index_col:
         ds.set_index(data_conf.index_col, inplace=True)
@@ -170,8 +170,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         X_train = X
         y_train = y
 
-        # test_ds = pd.read_csv(test_filename, index_col=0)
-        test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=cols)
+        test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=lambda col: col in cols)
 
         if data_conf.index_col:
             test_ds.set_index(data_conf.index_col, inplace=True)

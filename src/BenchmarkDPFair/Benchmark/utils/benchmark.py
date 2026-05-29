@@ -41,12 +41,18 @@ def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target
         x_test = scaler.transform(x_test)
         x_test = pd.DataFrame(x_test, columns=cols)
         
-    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(random_state=seed, **classifier_kwargs)
+    model = XGBClassifier(objective='binary:logistic', random_state=seed)
+
+    if classifier is not None:
+        model = classifier(random_state=seed, **classifier_kwargs)
+
     model.fit(x_train, y_train)
 
+    y_pred_prob = None
+    y_pred = None
+    
     y_pred_prob = model.predict_proba(x_test)[:, 1]
-    y_pred = (y_pred_prob >= threshold).astype(int)
-        
+    y_pred = (y_pred_prob >= threshold).astype(int)        
     y_preds = pd.DataFrame(y_pred, columns=[target_column])
     
     # Reset the index
