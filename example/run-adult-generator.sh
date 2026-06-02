@@ -1,5 +1,4 @@
 #!/bin/bash
-# run_benchmark.sh
 
 VENV_PATH="$HOME/dp-fair-intervention-benchmark/venv"
 

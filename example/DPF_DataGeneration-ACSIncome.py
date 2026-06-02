@@ -5,15 +5,6 @@ import pandas as pd
 from BenchmarkDPFair.DataGenerator import generate_data, DatasetGeneratorConfig
 from utils.Groups import ACSIncome_categories_group
 
-
-
-# seeds = [ 
-#     5,42,253,4112,32645,
-#     602627,153073,53453,178753,243421,
-#     767707,113647,796969,553067,96797,
-#     133843,6977,460403,126613,583879 
-# ]
-
 def compress_dataset(df):
     categorical_columns = ['COW','MAR','OCCP','POBP','RELP','WKHP','SEX','RAC1P','PINCP']
     for col in categorical_columns:

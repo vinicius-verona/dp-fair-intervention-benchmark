@@ -3,8 +3,6 @@ from BenchmarkDPFair.Benchmark import BenchmarkDatasetConfig, BenchmarkInfo, ben
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-# from tabicl import TabICLClassifier
-# from pytorch_tabnet.tab_model import TabNetClassifier
 
 import argparse
 
@@ -19,28 +17,18 @@ ESTIMATOR_PARAMS = {
 lr = LogisticRegression
 rf = RandomForestClassifier
 xgb = XGBClassifier
-# tn = TabNetClassifier
-# ti = TabICLClassifier
-classifiers = [lr, rf, xgb]#, tn, ti]
+classifiers = [lr, rf, xgb]
 ckwargs = [
     ESTIMATOR_PARAMS,
     {},
     {"objective": 'binary:logistic'},
-    # {},
-    # {}
 ]
-classifier_name = ["LR", "RF", "XGB"]#, "TN", "TI"]
+classifier_name = ["LR", "RF", "XGB"]
 
 combinations = [
-    # (3, 0), # TN + AIM
-    # (4, 0), # TI + AIM
     (0, 0),
     (1, 0),
     (2, 0),
-    # (1, 1),
-    # (2, 1),
-    # (3, 1),
-    # (4, 1),
 ]
 
 synths = ["aim", "mst"]
@@ -70,15 +58,10 @@ if __name__ == "__main__":
 
     if bod_combo == 5:
         combinations = [
-            # (3, 0), # TN + AIM
-            # (4, 0), # TI + AIM
-            # (0, 0),
-            # (1, 0),
-            # (2, 0),
-            # (1, 1),
+            (0, 0),
+            (1, 0),
+            (2, 0),
             (2, 1),
-            # (3, 1),
-            # (4, 1),
         ]
 
     for clf_idx, syn_idx in combinations:
@@ -102,7 +85,7 @@ if __name__ == "__main__":
             index_col="Unnamed: 0",
             categorical_cols = ['Q', 'A', 'Y'],
             ordinal_cols=[],
-            continuous_cols=['R']#['P', 'R']
+            continuous_cols=['R']
         )
 
 

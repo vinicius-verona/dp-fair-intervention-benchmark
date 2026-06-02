@@ -43,12 +43,6 @@ def binary_encode(df, columns):
     return df
 
 
-# seeds = [ 
-#     5,42,253,4112,32645,
-#     602627,153073,53453,178753,243421,
-#     767707,113647,796969,553067,96797,
-#     133843,6977,460403,126613,583879 
-# ]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Arguments of Data Generation for Adult")

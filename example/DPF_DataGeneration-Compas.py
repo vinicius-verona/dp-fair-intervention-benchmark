@@ -24,13 +24,6 @@ def filter_compas(df: pd.DataFrame) -> pd.DataFrame:
         df = df[(df['days_b_screening_arrest'] <= 30) & (df['days_b_screening_arrest'] >= -30)]
     return df
 
-# seeds = [ 
-#     5,42,253,4112,32645,
-#     602627,153073,53453,178753,243421,
-#     767707,113647,796969,553067,96797,
-#     133843,6977,460403,126613,583879 
-# ]
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Arguments of Data Generation for Adult")
 
@@ -43,8 +36,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     seeds = args.seeds
     
-    # eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
-    eps : List[Union[int,float]] = [.05, .1, 2, 3]
+    eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
 
     for synthesizer in ["aim", "mst"]:
         for s in seeds:
@@ -54,16 +46,14 @@ if __name__ == "__main__":
                 synthesizer = synthesizer,
                 root_dir="../data",
                 sensitive_attr = "race",
-                # index_col="Unnamed: 0",
                 categorical_cols = ['race', 'score_text', 'c_charge_degree','age', 'sex', 'two_year_recid'],
                 sensitive_cols = ['race', 'sex'],
                 ordinal_cols = ['priors_count'],
                 privacy_budgets=eps,
                 binary_encoder=binary_encode,
                 seed = s,
-                test_split_size=0.4,#0.2,
+                test_split_size=0.4,
                 data_filter = filter_compas
-                # cal_split_size=0.2
             )
 
             generate_data(f"compas.csv", "", data_conf, verbose=True)

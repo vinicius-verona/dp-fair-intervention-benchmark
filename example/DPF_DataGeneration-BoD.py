@@ -7,13 +7,14 @@ sensitive_columns = ['A']
 sensitive_attr = 'A'
 
 # Non-sensitive columns
-non_sensitive_columns = ['Q', 'R']#['P', 'Q', 'R'] #P columns does not exist in our data
+non_sensitive_columns = ['Q', 'R']
+
 # Target column
 target_column = 'Y'
 
 categorical_columns = ['Q', 'A', 'Y']
 ordinal_columns = []
-continuous_columns = ['R'] #['P', 'R']  #P columns does not exist in our data
+continuous_columns = ['R']
 
 
 def binary_encode(df, columns):
@@ -29,12 +30,6 @@ def binary_encode(df, columns):
             df[col] = (df[col] != most_common_value).astype(int)
     return df
 
-# seeds = [ 
-#     5,42,253,4112,32645,
-#     602627,153073,53453,178753,243421,
-#     767707,113647,796969,553067,96797,
-#     133843,6977,460403,126613,583879 
-# ]
 
 def compress_data(df):
     return df
@@ -95,8 +90,7 @@ if __name__ == "__main__":
                     compressor = compress_data,
                     pre_processer=pre_process_dataset,
                     seed = s,
-                    test_split_size=0.4#0.4,
-                    # cal_split_size=0.2
+                    test_split_size=0.4
                 )
 
                 generate_data(f"train.csv", f"test.csv", data_conf, verbose=True)
