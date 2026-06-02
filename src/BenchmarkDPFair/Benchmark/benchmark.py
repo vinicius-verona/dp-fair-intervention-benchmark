@@ -19,10 +19,12 @@ DEFAULT_SEEDS : List[float]= [5,42,253,4112,32645,602627,153073,53453,178753,243
 DEFAULT_EPS  : List[float] = [0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20]
 DP_ALGORITHM  : str = ""
 
+
 class BenchmarkInfo:
     def __init__(self, dp_method:str, output_dir: str, data_loader: Optional[Callable[..., DFTuple]] = None, dlkwargs: Union[dict, set] = {},
                  split_data: Optional[FloatOrTuple] = None, normalize: bool = True, seeds: List[float] = DEFAULT_SEEDS,
-                 eps: List[Union[float,int]] = DEFAULT_EPS, classifier: Any = None, classifier_kwargs: Optional[Union[dict,set]] = None):
+                 eps: List[Union[float,int]] = DEFAULT_EPS, classifier: Any = None, classifier_kwargs: Optional[Union[dict,set]] = None, 
+                 mitigator_kwargs: Optional[Union[dict,set]] = None):
         """
         Set of possible confiigurations for the Benchmark experiments. 
 
@@ -50,6 +52,8 @@ class BenchmarkInfo:
             Custom classifier. **Must implement fit, predict and predict_proba**. Default is [XGBoost](https://xgboost.readthedocs.io/en/stable/).
         classifier_kwargs : dict | set, optional
             Custom parameters for the classifier.
+        mitigator_kwargs : dict | set, optional
+            Custom parameters for the mitigator.
         """
         
         self.dp_method    = dp_method
@@ -71,6 +75,7 @@ class BenchmarkInfo:
 
         self.classifier = classifier
         self.classifier_kwargs = classifier_kwargs
+        self.mitigator_kwargs = mitigator_kwargs
 
     def dataloader(self, **kwargs) -> DFTuple:
         """
@@ -113,7 +118,7 @@ class BenchmarkInfo:
 
 
 def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: Optional[float] = None, 
-               verbose: bool=True, split: Optional[FloatOrTuple] = None, extra_processing: Optional[Callable] = None, **kwargs) -> DFTuple:
+               verbose: bool=False, split: Optional[FloatOrTuple] = None, extra_processing: Optional[Callable] = None, **kwargs) -> DFTuple:
     
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")
@@ -148,7 +153,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
     # Ensure all dataset is numerical
     for col in data_conf.categorical_cols:
         if not pd.api.types.is_numeric_dtype(ds[col]):
-            ds[col] = ds[col].astype('category').cat.codes # Int encode
+            ds[col] = ds[col].astype('category').cat.codes
 
     X = ds.drop(columns=[data_conf.target])
     y = ds[data_conf.target]
@@ -224,18 +229,9 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
         "epsilon": None,
         "seed": seed,
         "classifier": benchmark_info.classifier,
-        "classifier_kwargs": benchmark_info.classifier_kwargs
+        "classifier_kwargs": benchmark_info.classifier_kwargs,
+        "mitigator_kwargs": benchmark_info.mitigator_kwargs,
     }
-        
-    original_experiment = Benchmark(
-        name="baseline", data_loader=benchmark_info.data_loader, 
-        normalize=benchmark_info.normalize, seed=seed, dlkwargs=benchmark_info.dlkwargs, ekwargs = extra_kwargs
-    )
-    original_experiment.run()
-
-    save_experiment(original_experiment, seed, filename=savefile, path=output_dir,synth=benchmark_info.dp_method)
-
-    del original_experiment
 
     for epsilon in benchmark_info.eps:
         print(f"\n*********************** DP & DP+Fair | ε={epsilon} ***********************\n")
@@ -246,7 +242,8 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
             "epsilon": epsilon,
             "seed": seed,
             "classifier": benchmark_info.classifier,
-            "classifier_kwargs": benchmark_info.classifier_kwargs
+            "classifier_kwargs": benchmark_info.classifier_kwargs,
+            "mitigator_kwargs": benchmark_info.mitigator_kwargs,
         }
         dp_experiment = Benchmark(
             name="dp", data_loader=benchmark_info.data_loader, 

@@ -19,7 +19,7 @@ from .auxiliar import getMetrics
 ########################## Dataset ##########################
 #############################################################
 #############################################################
-def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
+def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sensitive_attr, target_column, mitigator, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None, mitigator_kwarg=None):
 
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
@@ -86,9 +86,17 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
     
     # Fit mitigator using calibration set
     if mitigator == "egr":
-        in_mitigator = ExponentiatedGradientReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False)
+        in_mitigator = ExponentiatedGradientReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False, **mitigator_kwarg)
+        # Can update constraint "DemographicParity, EqualizedOdds, TruePositiveRateParity, FalsePositiveRateParity, ErrorRateParity"
+        # max_iter (default=50), greater values should allow better convergence
+        # run_linprog_step (default = True)
+        # nu (default is none, computed by the algorithm), set to low values (0.01) for more stable convergence (slower) and higher (0.1) for faster but unstable
     elif mitigator == "gsr":
-        in_mitigator = GridSearchReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False, prot_attr=sensitive_attr)
+        in_mitigator = GridSearchReduction(mitigator_model, "EqualizedOdds", drop_prot_attr=False, prot_attr=sensitive_attr, **mitigator_kwarg)
+        # Can update constraint (same as above)
+        # grid_size (default 10), Larger grids explore more solutions
+        # grid_limit (default 2.0), constrains how much the algorithm can weight different predictions
+        # loss (default ZeroOne), is the  loss function for constraints. “ZeroOne”, “Square”, and “Absolute.”
         
 
     # Fit using calibration set (true labels in df_cal, predictions in dataset_orig_cal_pred)
@@ -139,6 +147,7 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
         "original_classification_metrics": og_metrics,
         "mitigated_classification_metrics": fair_metrics,
         "mitigator": mitigator,
+        "mitigator_kwarg": mitigator_kwarg,
         "dp_method": True
     }
 

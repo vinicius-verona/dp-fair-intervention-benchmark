@@ -90,19 +90,15 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     ######################### Mitigator ##########################
     ##############################################################
 
-    # Generate predictions for calibration and test sets
     y_cal_pred_prob = None 
     y_pred_cal = None
     y_test_pred_prob = None 
     y_pred = None
-    
-
     y_cal_pred_prob = og_model.predict_proba(calibration_set)[:, 1] 
     y_pred_cal = (y_cal_pred_prob >= threshold).astype(int)
     
     y_test_pred_prob = og_model.predict_proba(test_set)[:, 1] 
     y_pred = (y_test_pred_prob >= threshold).astype(int)
-        
 
     # For calibration set
     dataset_orig_cal_pred = df_cal.copy(deepcopy=True)

@@ -54,6 +54,7 @@ def save_experiment(experiment, seed, eps=None, filename="exp_metrics.csv", path
                 "Epsilon": eps if eps is not None else "",
                 "Fair-Method": r["mitigator"] if "mitigator" in r else "",
                 "DP-Method": synth if "dp_method" in r else "",
+                "Mitigator-Config": r["mitigator_kwarg"] if "mitigator_kwarg" in r else "",
                 "Error": r["error"],
                 "Info": r["info"]
             })
@@ -70,6 +71,7 @@ def save_experiment(experiment, seed, eps=None, filename="exp_metrics.csv", path
                     "Epsilon": eps if eps is not None else "",
                     "Fair-Method": r["mitigator"] if "mitigator" in r else "",
                     "DP-Method": synth if "dp_method" in r else "",
+                    "Mitigator-Config": r["mitigator_kwarg"] if "mitigator_kwarg" in r else "",
                     **(r[exp_set]),
                 })
 

@@ -20,6 +20,7 @@ from .verifiers import check_signatures
 import gc
 
 def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target_column, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
+    # if dataset is COMPAS, switch
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
     
@@ -93,14 +94,8 @@ class Benchmark:
         self.seed        = seed
         self.verbose     = verbose
         self.mitigators  = {
-            "reweigh":"pre",
-            "dir": "pre",
-            "lfr": "pre",
             "egr": "in", 
-            "gsr": "in",
-            "roc":"pos",
-            "eqodds":"pos",
-            "ceop": "pos",
+            "gsr": "in"
         }
         self.threshold   = threshold
         self.results = []
@@ -113,6 +108,7 @@ class Benchmark:
         data_conf = self.ekwargs["data_conf"]
         classifier = self.ekwargs["classifier"]
         ckwargs    = self.ekwargs["classifier_kwargs"]
+        mkwargs    = self.ekwargs["mitigator_kwargs"]
         
         args = check_signatures(self.data_loader, self.dlkwargs|self.ekwargs)
         train_data, cal_data, test_data = self.data_loader(**args)
@@ -120,18 +116,6 @@ class Benchmark:
         X_train, y_train = train_data[0].copy(), train_data[1].copy()
         X_cal, y_cal     = cal_data[0].copy(), cal_data[1].copy()
         X_test, y_test   = test_data[0].copy(), test_data[1].copy()
-        
-        
-        # Run the original experiment
-        print("# Original - ", end="")
-        try:
-            self.results.append(original_experiment(X_train, y_train, X_test, y_test, 
-                                                    data_conf.sensitive_attr, data_conf.target, self.seed, self.normalize, self.threshold, 
-                                                    classifier=classifier, classifier_kwargs=ckwargs))
-        except Exception as e:
-            self.results.append({"original_classification_metrics": getMetrics(None), "error": e, 'info': traceback.format_tb(e.__traceback__)})
-        print("OK", flush=True)
-
         
         # Run the experiment with mitigators 
         for mitigator, exp_class in self.mitigators.items():
@@ -151,14 +135,16 @@ class Benchmark:
                                                                 data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold, 
                                                                 classifier=classifier, classifier_kwargs=ckwargs))
                 else:
+                    mkwarg = mkwargs[mitigator]
                     self.results.append(in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, 
                                                                 data_conf.sensitive_attr, data_conf.target, mitigator, self.seed, self.normalize, self.threshold, 
-                                                                classifier=classifier, classifier_kwargs=ckwargs))
+                                                                classifier=classifier, classifier_kwargs=ckwargs, mitigator_kwarg=mkwarg))
             
             except Exception as e:
                 self.results.append({
                     "mitigator": mitigator, "original_classification_metrics": getMetrics(None), 
-                    "mitigated_classification_metrics": getMetrics(None), "error": e, "dp_method": True, 
+                    "mitigated_classification_metrics": getMetrics(None), "error": e, "dp_method": True,
+                    "mkwargs": str(mkwargs[mitigator]),
                     'info': traceback.format_tb(e.__traceback__)
                 })
 
