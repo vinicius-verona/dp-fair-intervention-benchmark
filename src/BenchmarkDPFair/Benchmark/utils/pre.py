@@ -23,7 +23,6 @@ import numpy as np
 import pandas as pd
 
 optim_options = {
-    # "distortion_fun": get_distortion_adult,
     "epsilon": 0.05,
     "clist": [0.99, 1.99, 2.99],
     "dlist": [.1, 0.05, 0]
@@ -83,7 +82,6 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     # ####################################################################
     # ####################################################################
     
-    # model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(random_state=seed, **classifier_kwargs)
     model = XGBClassifier(objective='binary:logistic', random_state=seed)
 
     if classifier is not None:
@@ -91,8 +89,6 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
 
     model.fit(train_set, target.to_numpy())
     
-    # y_pred_prob = model.predict_proba(test_set)[:, 1]
-    # y_pred = (y_pred_prob >= threshold).astype(int)
     y_pred_prob = None
     y_pred = None
 
@@ -173,8 +169,6 @@ def pre_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     mitigator_model = None
     
     try:
-        # mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)  if classifier is None else classifier(random_state=seed,**classifier_kwargs)
-        # mitigator_model.fit(X_train_transf, y_train_transf, sample_weight=mitigated_train_weights)
         mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)
 
         if classifier is not None:

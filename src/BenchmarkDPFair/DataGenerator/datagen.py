@@ -60,7 +60,7 @@ def _default_pre_process_dataset(X, y, binary_encoder : Optional[Callable[..., p
     
     for col in ds.columns:
         if not pd.api.types.is_numeric_dtype(ds[col]):
-            ds[col] = ds[col].astype('category').cat.codes.astype("int64") # Int encode
+            ds[col] = ds[col].astype('category').cat.codes.astype("int64")
 
     # Binary encoding of sensitive columns, where 0 is the value in the category with the highest value
     if binary_encoder is None:
@@ -132,7 +132,6 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
         if test_filename != "":
             dataset_test = data_conf.filter(dataset_test)
     
-    # data (as pandas dataframes)
     df_X = dataset.drop(columns=[data_conf.target], axis=1)
     df_y = dataset[[data_conf.target]]
     
