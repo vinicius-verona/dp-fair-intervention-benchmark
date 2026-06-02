@@ -172,16 +172,14 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
         pre_processing = data_conf.pre_processing
 
     test_size = data_conf.test_split_size if data_conf.test_split_size is not None else 0.2
-
-    if test_filename != "":
-        df_X = pd.concat([df_X, df_test_X], axis=0)
-        df_y = pd.concat([df_y, df_test_y], axis=0)
+    cal_size  = data_conf.cal_split_size if data_conf.cal_split_size is not None else 0.2
+    ratios    = (1 - (cal_size + test_size), cal_size, test_size)
     
     ds          = pre_processing(df_X, df_y, **(preproc_kwargs if data_conf.pre_processing is None else {}))
     train, test = train_test_split(ds, test_size=test_size, random_state=data_conf.seed)
 
     # Ensure all columns are accounted for
-    read_verification(ds, [x for x in data_conf.usecols if x != data_conf.index_col])
+    read_verification(ds, data_conf.usecols)
     synth_name = data_conf.synthesizer if isinstance(data_conf.synthesizer , str) else data_conf.synthesizer_name
     save_path = data_conf.dir + "/" + data_conf.name + "/" + synth_name + "/"
 
@@ -193,16 +191,6 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
 
     name = save_path+f'DP-dataset-test/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_test.csv'
     test.to_csv(name, index=True)
-
-    # Save the calibration and training datasets.
-    if not os.path.exists(f"{save_path}/DP-dataset-train/"):
-        try:
-            os.makedirs(f"{save_path}/DP-dataset-train/")
-        except:
-            pass
-    
-    name = save_path+f'DP-dataset-train/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_train.csv'
-    train.to_csv(name, index=True)
 
     # Train a synthesizer
     nf = train.copy()
@@ -240,10 +228,37 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
             os.makedirs(dp_save_path)
         
         dp_dataset = pd.concat([X_dp, Y_dp], axis=1)
-        dp_train_set = dp_dataset.copy()
+        dp_train_set, dp_cal_set = train_test_split(dp_dataset, test_size=ratios[1]/(ratios[0]+ratios[1]), random_state=data_conf.seed)
         
+        # dp_dataset.to_csv(name, index=True)
         name = dp_save_path+data_conf.name+'_split_dataset_seed_'+str(data_conf.seed)+'_epsilon-'+str(e)+'.csv'
         dp_train_set.to_csv(name, index=True)
         
-        del synth, dp_dataset, name, X_dp, Y_dp, sample_data, dp_train_set#, dp_cal_set
+        dp_save_path = f"{save_path}/DP-dataset-epsilon-" + str(e) + "-cal/"
+        if not os.path.exists(dp_save_path):
+            os.makedirs(dp_save_path)
+            
+        name = dp_save_path+data_conf.name+'_split_dataset_seed_'+str(data_conf.seed)+'_epsilon-'+str(e)+'.csv'
+        dp_cal_set.to_csv(name, index=True)
+        del synth, dp_dataset, name, X_dp, Y_dp, sample_data, dp_train_set, dp_cal_set
+    
+    train, cal  = train_test_split(train, test_size=ratios[1]/(ratios[0]+ratios[1]), random_state=data_conf.seed)
+    
+    # Save the calibration and training datasets.
+    if not os.path.exists(f"{save_path}/DP-dataset-train/"):
+        try:
+            os.makedirs(f"{save_path}/DP-dataset-train/")
+        except:
+            pass
+    
+    name = save_path+f'DP-dataset-train/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_train.csv'
+    train.to_csv(name, index=True)
 
+    if not os.path.exists(f"{save_path}/DP-dataset-cal/"):
+        try:
+            os.makedirs(f"{save_path}/DP-dataset-cal/")
+        except:
+            pass
+    
+    name = save_path+f'DP-dataset-cal/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_cal.csv'
+    cal.to_csv(name, index=True)

@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
         benchmark_config = BenchmarkInfo(
             dp_method=synth,
-            output_dir=f"./data/ACSIncome/output/{classifier_name[clf_idx]}/",
+            output_dir=f"./ablation/dp-split/ACSIncome/output/{classifier_name[clf_idx]}/",
             seeds=seeds,
             eps = [0.05, 0.1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20],
             classifier=classifier,

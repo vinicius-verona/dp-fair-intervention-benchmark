@@ -126,11 +126,14 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
 
     if (os.path.dirname(filename)):
         test_path = os.path.dirname(os.path.dirname(filename)) + "DP-dataset-test/"
+        cal_path  = os.path.dirname(os.path.dirname(filename)) # new 2026
     else:
         test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-test/"
         filename = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-{f'epsilon-{epsilon}' if epsilon is not None else 'train'}/{filename}"
+        cal_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-{f'epsilon-{epsilon}-cal' if epsilon is not None else 'cal'}" # new 2026
 
     test_filename = f"{base_pattern[0]}_test{ext}"
+    cal_filename  = f"{cal_path}/{base}{ext}" if epsilon is not None else f"{cal_path}/{base.replace('_train', '_cal')}{ext}"  # new 2026
 
     cols = list(dict.fromkeys(data_conf.usecols + [data_conf.index_col] if data_conf.index_col else data_conf.usecols))
     ds = pd.read_csv(filename, usecols=lambda col: col in cols)
@@ -171,32 +174,34 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         y_train = y
 
         test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=lambda col: col in cols)
+        cal_ds = pd.read_csv(cal_filename, usecols=lambda col: col in cols) # new 2026
 
         if data_conf.index_col:
             test_ds.set_index(data_conf.index_col, inplace=True)
+            cal_ds.set_index(data_conf.index_col, inplace=True) # new 2026
     
         # Verify if data was read successfully
         read_verification(test_ds, data_conf.usecols)
+        read_verification(cal_ds, data_conf.usecols) # new 2026
 
         # Apply extra processing to dataset if the user wants it
         if extra_processing is not None:
             extra_processing(test_ds, **kwargs)
+            extra_processing(cal_ds, **kwargs) # new 2026
             
         X_test = test_ds.drop(columns=[data_conf.target])
         y_test = test_ds[data_conf.target]
 
-        if isinstance(split, Tuple):
-            print(f"[WARN] You provided a tuple {split} of splitting distribution and a test directory and file has been found in {test_path}, the second value of the tuple will be used.\n")
-
-        X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, test_size=split[1] if isinstance(split, Tuple) else split, random_state=seed)
+        X_cal = cal_ds.drop(columns=[data_conf.target])
+        y_cal = cal_ds[data_conf.target]
 
     if verbose:
         data = [
             ["X_train", X_train.shape],
-            ["X_val",   X_val.shape],
+            ["X_cal",   X_cal.shape],
             ["X_test",  X_test.shape],
             ["y_train", y_train.shape],
-            ["y_val",   y_val.shape],
+            ["y_cal",   y_cal.shape],
             ["y_test",  y_test.shape],
         ]
         print("\n#### Data  Information ####")
@@ -204,11 +209,12 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         print("###########################\n")
 
     # Check that the target column is binary
+    print(f"x_cal and y_cal has been taken from {cal_filename}")
     check_target(y_train, data_conf.target)
-    check_target(y_val, data_conf.target)
+    check_target(y_cal, data_conf.target)
     check_target(y_test, data_conf.target)
 
-    return (X_train, y_train), (X_val, y_val), (X_test, y_test)
+    return (X_train, y_train), (X_cal, y_cal), (X_test, y_test)
 
 
 ############# Experiments #############

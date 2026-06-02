@@ -52,8 +52,9 @@ if __name__ == "__main__":
                 privacy_budgets=eps,
                 binary_encoder=binary_encode,
                 seed = s,
-                test_split_size=0.4,
-                data_filter = filter_compas
+                data_filter = filter_compas,
+                test_split_size=0.2,
+                cal_split_size=0.2,
             )
 
             generate_data(f"compas.csv", "", data_conf, verbose=True)

@@ -61,7 +61,8 @@ if __name__ == "__main__":
                 binary_encoder=binary_encode,
                 compressor=compress_dataset,
                 seed = s,
-                test_split_size=0.4
+                test_split_size=0.2,
+                cal_split_size=0.2
             )
 
             generate_data(f"acsincome.csv", "", data_conf, verbose=True)

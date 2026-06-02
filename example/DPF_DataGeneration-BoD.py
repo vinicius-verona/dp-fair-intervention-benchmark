@@ -90,7 +90,8 @@ if __name__ == "__main__":
                     compressor = compress_data,
                     pre_processer=pre_process_dataset,
                     seed = s,
-                    test_split_size=0.4
+                    test_split_size=0.2,
+                    cal_split_size=0.2
                 )
 
                 generate_data(f"train.csv", f"test.csv", data_conf, verbose=True)
