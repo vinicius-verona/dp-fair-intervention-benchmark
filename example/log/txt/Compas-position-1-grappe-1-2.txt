@@ -1,0 +1,1 @@
+Node: grappe-1.nancy.grid5000.fr, Position: 1, Dataset: Compas, Combo: , Suffix: old-split-pets-automated, Option: 2

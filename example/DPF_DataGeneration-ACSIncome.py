@@ -53,28 +53,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     seeds = args.seeds
-    # eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
-    eps : List[Union[int,float]] = [.05, .1, 2, 3]
+    eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
 
     for synthesizer in ["aim", "mst"]:
         for s in seeds:
-            # if s not in [5,42,253,6977,32645,153073,178753,243421,460403,553067,602627,796969]:
-            #     eps += [0.05]
-            # if s not in [5,42,253,6977,32645,53453,153073,178753,243421,460403,553067,602627,796969]:
-            #     eps += [0.1, 0.25, 0.75, 1, 2, 3, 5, 10]
-            # if s not in [5,42,253,4112,6977,32645,53453,153073,178753,243421,460403,553067,602627,796969]:
-            #     eps += [15]
-            # if s not in [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]:
-            #     eps += [20]
-
-
             data_conf = DatasetGeneratorConfig(
                 name = "ACSIncome",
                 target= "PINCP",
                 synthesizer = synthesizer,
                 root_dir="../data",
                 sensitive_attr = "SEX",
-                # index_col="Unnamed: 0",
                 categorical_cols = ['COW','MAR','OCCP','POBP','RELP','WKHP','SEX','RAC1P','PINCP'],
                 sensitive_cols = ['SEX', 'RAC1P'],
                 ordinal_cols = ['SCHL', 'AGEP'],
@@ -82,8 +70,7 @@ if __name__ == "__main__":
                 binary_encoder=binary_encode,
                 compressor=compress_dataset,
                 seed = s,
-                test_split_size=0.4#0.2,
-                # cal_split_size=0.2
+                test_split_size=0.4
             )
 
             generate_data(f"acsincome.csv", "", data_conf, verbose=True)

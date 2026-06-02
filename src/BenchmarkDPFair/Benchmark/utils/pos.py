@@ -122,8 +122,6 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     y_test_pred_prob = og_model.predict_proba(test_set)[:, 1] 
     y_pred = (y_test_pred_prob >= threshold).astype(int)
         
-        
-        
 
     # For calibration set
     dataset_orig_cal_pred = df_cal.copy(deepcopy=True)

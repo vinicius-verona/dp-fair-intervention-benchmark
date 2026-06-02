@@ -62,33 +62,23 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     seeds = args.seeds
-    # eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
-    eps : List[Union[int,float]] = [.05, .1, 2, 3]
+    eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
     
     for synthesizer in ["aim", "mst"]:
         for s in seeds:
-            # if s in [5,32645,96797,243421,767707]:
-            #     continue
-            # if s in [42, 253, 6977, 126613, 460403, 553067, 602627, 796969]:
-            #     eps = [20]
-            # if s in [178753, 153073]:
-            #     eps = [15, 20]
-            
             data_conf = DatasetGeneratorConfig(
                 name = "Adult",
                 target= "income",
                 synthesizer = synthesizer,
                 root_dir="../data",
                 sensitive_attr = "sex",
-                # index_col="Unnamed: 0",
                 categorical_cols = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'income', 'age', 'hours-per-week'],
                 sensitive_cols = ['race', 'sex'],
                 privacy_budgets=eps,
                 binary_encoder=binary_encode,
                 compressor=compress_dataset,
                 seed = s,
-                test_split_size=0.4 #0.2,
-                # cal_split_size=0.2
+                test_split_size=0.4
             )
 
             generate_data(f"adult.csv", "", data_conf, verbose=True)

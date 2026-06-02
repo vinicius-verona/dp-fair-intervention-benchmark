@@ -1,0 +1,80 @@
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: compas.csv
+- Path: ../data/Compas/
+- Seed: 602627
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: race
+- Use custom filter: True
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['race', 'sex']
+     * Categorical = ['race', 'score_text', 'c_charge_degree', 'age', 'sex', 'two_year_recid']
+     * Ordinal     = ['priors_count']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Apply filtering to dataset
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+7
+Initial Sigma 1156.858964624939
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+7
+Initial Sigma 592.674636674939
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+7
+Initial Sigma 33.29456126530298
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+7
+Initial Sigma 22.715941675856175
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: compas.csv
+- Path: ../data/Compas/
+- Seed: 602627
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: race
+- Use custom filter: True
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['race', 'sex']
+     * Categorical = ['race', 'score_text', 'c_charge_degree', 'age', 'sex', 'two_year_recid']
+     * Ordinal     = ['priors_count']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Apply filtering to dataset
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 602627 epsilon 3**

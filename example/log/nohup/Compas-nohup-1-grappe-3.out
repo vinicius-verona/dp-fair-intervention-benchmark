@@ -1,2 +1,2 @@
-Starting: ./run-compas.sh 1 > nohup-Compas-1-old-split-pets-automated.out
-Process started with PID: 8113
+Starting: ./run-compas-generator.sh 1 > nohup-Compas-1---sufix.out
+Process started with PID: 222839

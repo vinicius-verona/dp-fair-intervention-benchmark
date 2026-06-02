@@ -71,17 +71,11 @@ if __name__ == "__main__":
         nargs="+", # 1 or more values
         type=int
     )
-    # parser.add_argument(
-    #     "--combo", "-c",
-    #     type=int
-    # )
 
     args = parser.parse_args()
     seeds = args.seeds
     
-    # eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
-    eps : List[Union[int,float]] = [.05, .1, 2, 3]
-    # bod = args.combo
+    eps : List[Union[int,float]] = [.05, .1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20]
     for synthesizer in ["aim", "mst"]:
         for bod in range(1,7):
             for s in seeds:

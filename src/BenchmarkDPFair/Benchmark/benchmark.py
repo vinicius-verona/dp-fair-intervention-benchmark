@@ -113,7 +113,7 @@ class BenchmarkInfo:
 
 
 def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: Optional[float] = None, 
-               verbose: bool=False, split: Optional[FloatOrTuple] = None, extra_processing: Optional[Callable] = None, **kwargs) -> DFTuple:
+               verbose: bool=True, split: Optional[FloatOrTuple] = None, extra_processing: Optional[Callable] = None, **kwargs) -> DFTuple:
     
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")

@@ -1,8 +1,10 @@
 import argparse
+from turtle import pd
 from typing import List, Union
 from BenchmarkDPFair.DataGenerator import generate_data, DatasetGeneratorConfig
+import pandas as pd
 
-def binary_encode(df, columns):
+def binary_encode(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
     for col in columns:
         if col == 'sex':
             df[col] = df[col].apply(lambda x: 1 if x == 'Male' or x == 1 else 0)
@@ -13,6 +15,13 @@ def binary_encode(df, columns):
         else:
             most_common_value = df[col].mode()[0]
             df[col] = (df[col] != most_common_value).astype(int)
+    return df
+
+def filter_compas(df: pd.DataFrame) -> pd.DataFrame:
+    df = df[(df['race'] == "African-American") | (df['race'] == "Caucasian")]
+
+    if 'days_b_screening_arrest' in df.columns:
+        df = df[(df['days_b_screening_arrest'] <= 30) & (df['days_b_screening_arrest'] >= -30)]
     return df
 
 # seeds = [ 
@@ -52,7 +61,8 @@ if __name__ == "__main__":
                 privacy_budgets=eps,
                 binary_encoder=binary_encode,
                 seed = s,
-                test_split_size=0.4#0.2,
+                test_split_size=0.4,#0.2,
+                data_filter = filter_compas
                 # cal_split_size=0.2
             )
 

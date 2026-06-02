@@ -117,12 +117,12 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
         
 
     dataset = pd.read_csv(file_path + filename, usecols=data_conf.usecols)
-    dataset_test = pd.read_csv(file_path + test_filename, usecols=data_conf.usecols) if test_filename != "" else pd.DataFrame() # BoD
+    dataset_test = pd.read_csv(file_path + test_filename, usecols=data_conf.usecols) if test_filename != "" else pd.DataFrame()
 
     if data_conf.index_col is not None:
         dataset.set_index(data_conf.index_col, inplace=True)
         if test_filename != "":
-            dataset_test.set_index(data_conf.index_col, inplace=True) # BoD
+            dataset_test.set_index(data_conf.index_col, inplace=True)
 
 
     if data_conf.filter is not None and isinstance(data_conf.filter, Callable):
@@ -130,18 +130,18 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
             print("[Info] Apply filtering to dataset")
         dataset = data_conf.filter(dataset)
         if test_filename != "":
-            dataset_test = data_conf.filter(dataset_test) # BoD
+            dataset_test = data_conf.filter(dataset_test)
     
     # data (as pandas dataframes)
     df_X = dataset.drop(columns=[data_conf.target], axis=1)
     df_y = dataset[[data_conf.target]]
     
     if test_filename != "":
-        df_test_X = dataset_test.drop(columns=[data_conf.target], axis=1) # BoD
-        df_test_y = dataset_test[[data_conf.target]]  # BoD
+        df_test_X = dataset_test.drop(columns=[data_conf.target], axis=1)
+        df_test_y = dataset_test[[data_conf.target]]
     else:
-        df_test_X = pd.DataFrame() # BoD
-        df_test_y = pd.DataFrame() # BoD
+        df_test_X = pd.DataFrame()
+        df_test_y = pd.DataFrame()
 
     # Remove null values from dataset and its respective label
     null_indices = df_X[df_X.isnull().any(axis=1)].index
@@ -152,11 +152,11 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
 
     if test_filename != "":
         # Remove null values from dataset and its respective label
-        null_indices = df_test_X[df_test_X.isnull().any(axis=1)].index # BoD
+        null_indices = df_test_X[df_test_X.isnull().any(axis=1)].index
 
         # Drop those indices from both X and y
-        df_test_X = df_test_X.drop(null_indices) # BoD
-        df_test_y = df_test_y.drop(null_indices) # BoD
+        df_test_X = df_test_X.drop(null_indices)
+        df_test_y = df_test_y.drop(null_indices)
 
 
     if verbose:
@@ -179,15 +179,7 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
         df_X = pd.concat([df_X, df_test_X], axis=0)
         df_y = pd.concat([df_y, df_test_y], axis=0)
     
-    ds        = pre_processing(df_X, df_y, **(preproc_kwargs if data_conf.pre_processing is None else {}))
-    # if test_filename != "":
-    #     ds_test   = pre_processing(df_test_X, df_test_y, **(preproc_kwargs if data_conf.pre_processing is None else {}))
-    
-    # Just for BoD execution 
-    # if "BoD" in data_conf.name:
-    #     train = ds.copy()
-    #     # test = ds_test.copy()
-    # else:
+    ds          = pre_processing(df_X, df_y, **(preproc_kwargs if data_conf.pre_processing is None else {}))
     train, test = train_test_split(ds, test_size=test_size, random_state=data_conf.seed)
 
     # Ensure all columns are accounted for
@@ -250,40 +242,10 @@ def generate_data(filename: str, test_filename: str,  data_conf: DatasetGenerato
             os.makedirs(dp_save_path)
         
         dp_dataset = pd.concat([X_dp, Y_dp], axis=1)
-        # dp_train_set, dp_cal_set = train_test_split(dp_dataset, test_size=ratios[1]/(ratios[0]+ratios[1]), random_state=data_conf.seed)
         dp_train_set = dp_dataset.copy()
         
-        # dp_dataset.to_csv(name, index=True)
         name = dp_save_path+data_conf.name+'_split_dataset_seed_'+str(data_conf.seed)+'_epsilon-'+str(e)+'.csv'
         dp_train_set.to_csv(name, index=True)
         
-        # dp_save_path = f"{save_path}/DP-dataset-epsilon-" + str(e) + "-cal/"
-        # if not os.path.exists(dp_save_path):
-        #     os.makedirs(dp_save_path)
-            
-        # name = dp_save_path+data_conf.name+'_split_dataset_seed_'+str(data_conf.seed)+'_epsilon-'+str(e)+'.csv'
-        # dp_cal_set.to_csv(name, index=True)
         del synth, dp_dataset, name, X_dp, Y_dp, sample_data, dp_train_set#, dp_cal_set
-    
-    # train, cal  = train_test_split(train, test_size=ratios[1]/(ratios[0]+ratios[1]), random_state=data_conf.seed)
-    
-    # # Save the calibration and training datasets.
-    # if not os.path.exists(f"{save_path}/DP-dataset-train/"):
-    #     try:
-    #         os.makedirs(f"{save_path}/DP-dataset-train/")
-    #     except:
-    #         pass
-    
-    # name = save_path+f'DP-dataset-train/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_train.csv'
-    # train.to_csv(name, index=True)
-
-    # if not os.path.exists(f"{save_path}/DP-dataset-cal/"):
-    #     try:
-    #         os.makedirs(f"{save_path}/DP-dataset-cal/")
-    #     except:
-    #         pass
-    
-    # name = save_path+f'DP-dataset-cal/{data_conf.name}_split_dataset_seed_'+str(data_conf.seed)+'_cal.csv'
-    # cal.to_csv(name, index=True)
-
 

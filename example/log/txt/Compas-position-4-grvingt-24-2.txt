@@ -1,0 +1,1 @@
+Node: grvingt-24.nancy.grid5000.fr, Position: 4, Dataset: Compas, Combo: old-split-pets-automated, Suffix: --sufix, Option: 2

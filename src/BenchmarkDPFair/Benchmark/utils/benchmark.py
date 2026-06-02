@@ -23,10 +23,6 @@ from .verifiers import check_signatures
 import gc
 
 def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target_column, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
-    # import utils.dataloader as dataloader
-    # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
-
-    # if dataset is COMPAS, switch
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
     
