@@ -1,0 +1,2 @@
+Starting: ./run-bod.sh 5 2 > nohup-BoD-2-5-old-split-pets-automated.out
+Process started with PID: 135778

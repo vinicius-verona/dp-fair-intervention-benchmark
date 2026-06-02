@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import inspect
 
-from typing import Callable, List, Any, Tuple
+from typing import Callable, List, Any, Optional, Tuple, Union
 from sklearn.model_selection import train_test_split
 from tabulate import tabulate
 
@@ -15,14 +15,14 @@ from .utils.verifiers import check_data_loader, check_splitdata, check_target, r
 from .utils.benchmark import Benchmark
 from .utils.auxiliar import save_experiment
 
-DEFAULT_SEEDS = [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]
-DEFAULT_EPS   = [0.25, 0.5, 0.75, 1, 5, 10, 15, 20]
-DP_ALGORITHM  = ""
+DEFAULT_SEEDS : List[float]= [5,42,253,4112,32645,602627,153073,53453,178753,243421,767707,113647,796969,553067,96797,133843,6977,460403,126613,583879]
+DEFAULT_EPS  : List[float] = [0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20]
+DP_ALGORITHM  : str = ""
 
 class BenchmarkInfo:
-    def __init__(self, dp_method:str, output_dir: str, data_loader: Callable[..., DFTuple] | None = None, dlkwargs: dict | set = {},
-                 split_data: FloatOrTuple | None = None, normalize: bool = True, seeds: List[int] = [DEFAULT_SEEDS],
-                 eps: List[float|int] = [DEFAULT_EPS], classifier: Any = None, classifier_kwargs: dict | set | None = None):
+    def __init__(self, dp_method:str, output_dir: str, data_loader: Optional[Callable[..., DFTuple]] = None, dlkwargs: Union[dict, set] = {},
+                 split_data: Optional[FloatOrTuple] = None, normalize: bool = True, seeds: List[float] = DEFAULT_SEEDS,
+                 eps: List[Union[float,int]] = DEFAULT_EPS, classifier: Any = None, classifier_kwargs: Optional[Union[dict,set]] = None):
         """
         Set of possible confiigurations for the Benchmark experiments. 
 
@@ -112,7 +112,8 @@ class BenchmarkInfo:
         return _load_data(data_conf, filename, seed, split=self.split, **kwargs)
 
 
-def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: float | None, verbose: bool=False, split: FloatOrTuple | None = None, extra_processing: Callable | None = None, **kwargs) -> DFTuple:
+def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsilon: Optional[float] = None, 
+               verbose: bool=True, split: Optional[FloatOrTuple] = None, extra_processing: Optional[Callable] = None, **kwargs) -> DFTuple:
     
     if verbose:
         print(f"** Loading dataset {data_conf.name.upper()} **")
@@ -124,15 +125,15 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
     base_pattern = base.rsplit("_", 1)
 
     if (os.path.dirname(filename)):
-        test_path = os.path.dirname(os.path.dirname(filename)) + "DP-dataset-test-val/"
+        test_path = os.path.dirname(os.path.dirname(filename)) + "DP-dataset-test/"
     else:
-        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-test-val/"
+        test_path = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-test/"
         filename = f"{data_conf.dir}/{data_conf.name}/{DP_ALGORITHM}/DP-dataset-{f'epsilon-{epsilon}' if epsilon is not None else 'train'}/{filename}"
 
     test_filename = f"{base_pattern[0]}_test{ext}"
 
     cols = list(dict.fromkeys(data_conf.usecols + [data_conf.index_col] if data_conf.index_col else data_conf.usecols))
-    ds = pd.read_csv(filename, usecols=cols)
+    ds = pd.read_csv(filename, usecols=lambda col: col in cols)
 
     if data_conf.index_col:
         ds.set_index(data_conf.index_col, inplace=True)
@@ -159,7 +160,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
             val_split_distrib = split[0] * (1 - split[1]) if isinstance(split, Tuple) else split * (1 - split)
             test_split_distrib = split[0] * split[1] if isinstance(split, Tuple) else split * split
             print(f"[WARN] Test directory and/or file with test set not found, the provided {filename} will be split into three sets with distributions {(train_split_distrib, val_split_distrib, test_split_distrib)}.")
-            print(f"       This is the path we are looking for: {test_path + "/" + test_filename}.\n")
+            print(f"       This is the path we are looking for: {test_path + '/' + test_filename}.\n")
 
         # No test path found, so split the data from filename
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=split[0] if isinstance(split, Tuple) else split, random_state=seed)
@@ -169,8 +170,7 @@ def _load_data(data_conf: BenchmarkDatasetConfig, filename: str, seed: int, epsi
         X_train = X
         y_train = y
 
-        # test_ds = pd.read_csv(test_filename, index_col=0)
-        test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=cols)
+        test_ds = pd.read_csv(test_path + "/" + test_filename, usecols=lambda col: col in cols)
 
         if data_conf.index_col:
             test_ds.set_index(data_conf.index_col, inplace=True)
@@ -226,6 +226,7 @@ def _experiment(seed, dataset_conf: BenchmarkDatasetConfig, benchmark_info: Benc
         "classifier": benchmark_info.classifier,
         "classifier_kwargs": benchmark_info.classifier_kwargs
     }
+        
     original_experiment = Benchmark(
         name="baseline", data_loader=benchmark_info.data_loader, 
         normalize=benchmark_info.normalize, seed=seed, dlkwargs=benchmark_info.dlkwargs, ekwargs = extra_kwargs

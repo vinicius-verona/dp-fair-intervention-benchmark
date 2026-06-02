@@ -1,0 +1,78 @@
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: adult.csv
+- Path: ../data/Adult/
+- Seed: 126613
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: sex
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['race', 'sex']
+     * Categorical = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'income', 'age', 'hours-per-week']
+     * Ordinal     = []
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+11
+Initial Sigma 1450.1994594027378
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+11
+Initial Sigma 742.9569757333079
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+11
+Initial Sigma 41.736941342411264
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+11
+Initial Sigma 28.475939890244923
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: adult.csv
+- Path: ../data/Adult/
+- Seed: 126613
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: sex
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['race', 'sex']
+     * Categorical = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'income', 'age', 'hours-per-week']
+     * Ordinal     = []
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 126613 epsilon 3**

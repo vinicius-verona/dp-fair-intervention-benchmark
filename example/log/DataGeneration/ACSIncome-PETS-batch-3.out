@@ -1,0 +1,312 @@
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 178753
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+11
+Initial Sigma 1450.1994594027378
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+11
+Initial Sigma 742.9569757333079
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+11
+Initial Sigma 41.736941342411264
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+11
+Initial Sigma 28.475939890244923
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 243421
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+11
+Initial Sigma 1450.1994594027378
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+11
+Initial Sigma 742.9569757333079
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+11
+Initial Sigma 41.736941342411264
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+11
+Initial Sigma 28.475939890244923
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 767707
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+11
+Initial Sigma 1450.1994594027378
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+11
+Initial Sigma 742.9569757333079
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+11
+Initial Sigma 41.736941342411264
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+11
+Initial Sigma 28.475939890244923
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 113647
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+11
+Initial Sigma 1450.1994594027378
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+11
+Initial Sigma 742.9569757333079
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+11
+Initial Sigma 41.736941342411264
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+11
+Initial Sigma 28.475939890244923
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 178753
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 178753 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 243421
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 243421 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 767707
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 767707 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: acsincome.csv
+- Path: ../data/ACSIncome/
+- Seed: 113647
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: SEX
+- Use custom filter: False
+- Use custom pre-processer: False
+- Train-Cal-Test distribution: (0.39999999999999997, 0.2, 0.4)
+- Columns: 
+     * Sensitive   = ['SEX', 'RAC1P']
+     * Categorical = ['COW', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'PINCP']
+     * Ordinal     = ['SCHL', 'AGEP']
+     * Continuous  = []
+     * Index Col   = None
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 113647 epsilon 3**

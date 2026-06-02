@@ -1,0 +1,1408 @@
+Running DP Benchmark on dataset: 'Compas' with target: 'two_year_recid' and sensitive attribute: 'race'
+
+*********************** Fair-only - seed = 126613 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.05 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.25 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.75 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=2 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=3 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=10 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=15 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=20 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+Running DP Benchmark on dataset: 'Compas' with target: 'two_year_recid' and sensitive attribute: 'race'
+
+*********************** Fair-only - seed = 126613 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.05 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.25 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.75 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=2 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=3 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=10 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=15 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=20 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+Running DP Benchmark on dataset: 'Compas' with target: 'two_year_recid' and sensitive attribute: 'race'
+
+*********************** Fair-only - seed = 126613 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.05 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.25 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.75 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=2 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=3 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=10 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=15 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=20 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/aim/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+Running DP Benchmark on dataset: 'Compas' with target: 'two_year_recid' and sensitive attribute: 'race'
+
+*********************** Fair-only - seed = 126613 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.05 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.25 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=0.75 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=1 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=2 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=3 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=5 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=10 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=15 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK
+
+*********************** DP & DP+Fair | ε=20 ***********************
+
+** Loading dataset COMPAS **
+[WARN] You provided a tuple (0.4, 0.5) of splitting distribution and a test directory and file has been found in ../data/Compas/mst/DP-dataset-test/, the second value of the tuple will be used.
+
+
+#### Data  Information ####
+| Dataset   | Shape     |
+|-----------|-----------|
+| X_train   | (3690, 6) |
+| X_val     | (1230, 6) |
+| X_test    | (1230, 6) |
+| y_train   | (3690,)   |
+| y_val     | (1230,)   |
+| y_test    | (1230,)   |
+###########################
+
+# Original - OK
+# PRE - REWEIGH - OK
+# PRE - DIR - OK
+# PRE - LFR - OK
+# IN - EGR - OK
+# IN - GSR - OK
+# POS - ROC - OK
+# POS - EQODDS - OK
+# POS - CEOP - OK

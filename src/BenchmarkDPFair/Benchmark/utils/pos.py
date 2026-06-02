@@ -79,21 +79,30 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
     ###################################################################
 
 
-    # scaler = MinMaxScaler()
-    og_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+    og_model = XGBClassifier(objective='binary:logistic', random_state=seed)
+
+    if classifier is not None:
+        og_model = classifier(random_state=seed, **classifier_kwargs)
+
     og_model.fit(train_set, target.to_numpy())
-    
     
     ##############################################################
     ######################### Mitigator ##########################
     ##############################################################
 
     # Generate predictions for calibration and test sets
+    y_cal_pred_prob = None 
+    y_pred_cal = None
+    y_test_pred_prob = None 
+    y_pred = None
+    
+
     y_cal_pred_prob = og_model.predict_proba(calibration_set)[:, 1] 
     y_pred_cal = (y_cal_pred_prob >= threshold).astype(int)
     
     y_test_pred_prob = og_model.predict_proba(test_set)[:, 1] 
     y_pred = (y_test_pred_prob >= threshold).astype(int)
+        
 
     # For calibration set
     dataset_orig_cal_pred = df_cal.copy(deepcopy=True)
@@ -126,9 +135,11 @@ def pos_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sen
         del scaler, train_set, target, df_train, calibration_set, target_cal, df_cal, test_set
         del target_test, df_test, og_model, y_cal_pred_prob, y_pred_cal, y_test_pred_prob, y_pred,
         del dataset_orig_cal_pred, dataset_orig_test, post_mitigator
+        
 
         raise e
 
+    post_mitigated_dataset = None
     try:
         # Apply mitigation to test set
         post_mitigated_dataset = post_mitigator.predict(dataset_orig_test)

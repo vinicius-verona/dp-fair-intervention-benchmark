@@ -1,0 +1,336 @@
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/aim//BoD-2/
+- Seed: 796969
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+4
+Initial Sigma 1705.7672254095723
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+4
+Initial Sigma 874.5031778209308
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+4
+Initial Sigma 48.730232753102136
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+4
+Initial Sigma 33.080128431352605
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/aim//BoD-2/
+- Seed: 553067
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+4
+Initial Sigma 1705.7672254095723
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+4
+Initial Sigma 874.5031778209308
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+4
+Initial Sigma 48.730232753102136
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+4
+Initial Sigma 33.080128431352605
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/aim//BoD-2/
+- Seed: 96797
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+4
+Initial Sigma 1705.7672254095723
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+4
+Initial Sigma 874.5031778209308
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+4
+Initial Sigma 48.730232753102136
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+4
+Initial Sigma 33.080128431352605
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/aim//BoD-2/
+- Seed: 133843
+- DP Data Synthesizer: aim
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer AIM with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+4
+Initial Sigma 1705.7672254095723
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 0.05**
+[Info] Start DP Data Synthesizer AIM with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+4
+Initial Sigma 874.5031778209308
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 0.1**
+[Info] Start DP Data Synthesizer AIM with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+4
+Initial Sigma 48.730232753102136
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 2**
+[Info] Start DP Data Synthesizer AIM with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+4
+Initial Sigma 33.080128431352605
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/mst//BoD-2/
+- Seed: 796969
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 796969 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/mst//BoD-2/
+- Seed: 553067
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 553067 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/mst//BoD-2/
+- Seed: 96797
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 96797 epsilon 3**
+
+
+***************************
+** Start Data Generation **
+***************************
+- Filename: train.csv
+- Path: ../data/BoD/mst//BoD-2/
+- Seed: 133843
+- DP Data Synthesizer: mst
+- Privacy budget: [0.05, 0.1, 2, 3]
+- Sensitive Attribute: A
+- Use custom filter: False
+- Use custom pre-processer: True
+- Train-Cal-Test distribution: (0.6000000000000001, 0.2, 0.2)
+- Columns: 
+     * Sensitive   = ['A']
+     * Categorical = ['Q', 'A', 'Y']
+     * Ordinal     = []
+     * Continuous  = ['R']
+
+
+[Info] Start pre-processing dataset
+[Info] Start DP Data Synthesizer MST with budget 0.05
+Spent 0.025 epsilon on preprocessor, leaving 0.025 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 0.05**
+[Info] Start DP Data Synthesizer MST with budget 0.1
+Spent 0.05 epsilon on preprocessor, leaving 0.05 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 0.1**
+[Info] Start DP Data Synthesizer MST with budget 2
+Spent 1.0 epsilon on preprocessor, leaving 1.0 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 2**
+[Info] Start DP Data Synthesizer MST with budget 3
+Spent 1.5 epsilon on preprocessor, leaving 1.5 for training
+[Info] Saving DP Synthesized data
+###**Saving Samples for seed 133843 epsilon 3**

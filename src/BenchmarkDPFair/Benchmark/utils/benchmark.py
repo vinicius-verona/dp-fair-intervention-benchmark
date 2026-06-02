@@ -1,18 +1,15 @@
 EXP_CLASSES = ["original", "pre", "pos", "in"]
 
-# from memory_profiler import profile
 import sys
 import traceback
 import pandas as pd
 import numpy as np
-# from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
 from aif360.datasets import BinaryLabelDataset
 from xgboost import XGBClassifier
 
-# from .dataloader import sensitive_attr
 from .pre import pre_mitigator_experiment
 from .inp import in_mitigator_experiment
 from .pos import pos_mitigator_experiment
@@ -23,12 +20,6 @@ from .verifiers import check_signatures
 import gc
 
 def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target_column, seed=42, normalize=True, threshold=.5, classifier=None, classifier_kwargs=None):
-    # import utils.dataloader as dataloader
-    # sensitive_attr, target_column, dataset = dataloader.sensitive_attr, dataloader.target_column, dataloader.dataset
-
-    
-
-    # if dataset is COMPAS, switch
     privileged_groups = [{sensitive_attr: 1}] # Ex: White
     unprivileged_groups = [{sensitive_attr: 0}] # Ex: Not white
     
@@ -43,13 +34,18 @@ def original_experiment(x_train, y_train, x_test, y_test, sensitive_attr, target
         x_test = scaler.transform(x_test)
         x_test = pd.DataFrame(x_test, columns=cols)
         
-        
-    model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
+    model = XGBClassifier(objective='binary:logistic', random_state=seed)
+
+    if classifier is not None:
+        model = classifier(random_state=seed, **classifier_kwargs)
+
     model.fit(x_train, y_train)
 
+    y_pred_prob = None
+    y_pred = None
+    
     y_pred_prob = model.predict_proba(x_test)[:, 1]
-    y_pred = (y_pred_prob >= threshold).astype(int)
-        
+    y_pred = (y_pred_prob >= threshold).astype(int)        
     y_preds = pd.DataFrame(y_pred, columns=[target_column])
     
     # Reset the index

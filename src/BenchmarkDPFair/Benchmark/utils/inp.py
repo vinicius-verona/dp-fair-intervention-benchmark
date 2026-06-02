@@ -72,9 +72,14 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
     ######################### Model Training ##########################
     ###################################################################
     ###################################################################
-    og_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
-    mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed) if classifier is None else classifier(**classifier_kwargs)
-    
+    og_model = XGBClassifier(objective='binary:logistic', random_state=seed)
+    mitigator_model = XGBClassifier(objective='binary:logistic', random_state=seed)
+
+    if classifier is not None:
+        og_model = classifier(random_state=seed, **classifier_kwargs)
+        mitigator_model = classifier(random_state=seed, **classifier_kwargs)
+
+
     # Test set
     dataset_orig_test = df_test.copy(deepcopy=True)
     dataset_mitigated_test = df_test.copy(deepcopy=True)
@@ -91,6 +96,7 @@ def in_mitigator_experiment(X_train, y_train, X_cal, y_cal, X_test, y_test, sens
     in_mitigator = in_mitigator.fit(df_train)
 
     # Apply mitigation to test set
+    og_model_dataset_predictions = None
     og_model_dataset_predictions = og_model.predict(test_set)
     dataset_orig_test.labels = og_model_dataset_predictions
     
