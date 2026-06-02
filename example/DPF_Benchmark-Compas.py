@@ -5,14 +5,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
-
-# seeds  of paper -> 
-# [ 5,42,253,4112,32645,
-#   602627,153073,53453,178753,243421,
-#   767707,113647,796969,553067,96797,
-#   133843,6977,460403,126613,583879 ],
-
-
 ESTIMATOR_PARAMS = {
     'max_iter': 10000,
     'solver': 'saga',
