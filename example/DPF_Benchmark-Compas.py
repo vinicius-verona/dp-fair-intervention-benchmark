@@ -25,10 +25,10 @@ ckwargs = [
 classifier_name = ["LR", "RF", "XGB"]
 
 combinations = [
-    (0, 0),
-    (1, 0),
+    # (0, 0),
+    # (1, 0),
     (2, 0),
-    (2, 1),
+    # (2, 1),
 ]
 
 synths = ["aim", "mst"]
