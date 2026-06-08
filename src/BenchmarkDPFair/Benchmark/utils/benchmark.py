@@ -3,8 +3,6 @@ EXP_CLASSES = ["original", "pre", "pos", "in"]
 import sys
 import traceback
 import pandas as pd
-import numpy as np
-from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
 from aif360.datasets import BinaryLabelDataset

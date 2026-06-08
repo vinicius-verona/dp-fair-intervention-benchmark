@@ -1,16 +1,11 @@
-from aif360.metrics import BinaryLabelDatasetMetric
-from aif360.datasets import BinaryLabelDataset, RegressionDataset
-# from IPython.display import Markdown, display
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from aif360.algorithms.postprocessing import CalibratedEqOddsPostprocessing, EqOddsPostprocessing, RejectOptionClassification, DeterministicReranking
+from aif360.datasets import BinaryLabelDataset
+from aif360.algorithms.postprocessing import CalibratedEqOddsPostprocessing, EqOddsPostprocessing, RejectOptionClassification
 from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
 from xgboost import XGBClassifier
 
 from .auxiliar import getMetrics
 
-import numpy as np
 import pandas as pd
 
 

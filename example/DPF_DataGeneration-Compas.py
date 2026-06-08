@@ -1,5 +1,4 @@
 import argparse
-from turtle import pd
 from typing import List, Union
 from BenchmarkDPFair.DataGenerator import generate_data, DatasetGeneratorConfig
 import pandas as pd

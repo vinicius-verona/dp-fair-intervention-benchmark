@@ -54,15 +54,12 @@ def filter_compas(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Arguments of DPFBenchmark for Compas")
+    parser = argparse.ArgumentParser(description="Arguments of Data Generation for Adult")
 
     parser.add_argument(
         "--seeds", "-s",
-        nargs="+",        
-        type=int,         
-        required=True,
-        metavar="SEED",
-        help="One or more integer seeds (e.g. 42 123 456)"
+        nargs="+",        # 1 or more values
+        type=int          # convert automatically to int
     )
 
     args = parser.parse_args()
@@ -96,7 +93,7 @@ if __name__ == "__main__":
 
         benchmark_config = BenchmarkInfo(
             dp_method=synth,
-            output_dir=f"./output/Compas/{classifier_name[clf_idx]}/",
+            output_dir=f"./output/Dummy-Compas/{classifier_name[clf_idx]}/",
             seeds=seeds,
             eps = eps,
             classifier=classifier,

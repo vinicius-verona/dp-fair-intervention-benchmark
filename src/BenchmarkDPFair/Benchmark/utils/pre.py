@@ -1,25 +1,16 @@
-from aif360.metrics import BinaryLabelDatasetMetric
 from aif360.datasets import BinaryLabelDataset
-from IPython.display import Markdown, display
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
 from aif360.metrics import ClassificationMetric
 
-from aif360.metrics import BinaryLabelDatasetMetric
 from aif360.datasets import BinaryLabelDataset
 from aif360.algorithms.preprocessing import Reweighing, LFR, OptimPreproc, DisparateImpactRemover
 from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptTools
-from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions import get_distortion_adult
 
 
-from sklearn.utils import class_weight
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler
 
 from .auxiliar import getMetrics
 from xgboost import XGBClassifier
 
-import numpy as np
 import pandas as pd
 
 optim_options = {

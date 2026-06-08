@@ -1,13 +1,9 @@
 # In-processing Fairness for the DP-Benchmark
-from aif360.metrics import BinaryLabelDatasetMetric
 from aif360.datasets import BinaryLabelDataset
 from aif360.algorithms.inprocessing import ExponentiatedGradientReduction, GridSearchReduction
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from aif360.metrics import ClassificationMetric
 from xgboost import XGBClassifier
-import numpy as np
 import pandas as pd
 
 from .auxiliar import getMetrics
