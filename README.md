@@ -27,7 +27,7 @@ pip install -e .
 
 > Using PyPi **(SUGGESTED)**
 ```bash
-pip install dp-fair-intervention-benchmark
+pip install BenchmarkDPFair
 ````
 
 ---
