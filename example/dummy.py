@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
         benchmark_config = BenchmarkInfo(
             dp_method=synth,
-            output_dir=f"./output/Compas/{classifier_name[clf_idx]}/",
+            output_dir=f"./output/Dummy-Compas/{classifier_name[clf_idx]}/",
             seeds=seeds,
             eps = eps,
             classifier=classifier,
