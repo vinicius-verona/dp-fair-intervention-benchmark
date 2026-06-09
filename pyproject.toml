@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BenchmarkDPFair"
-version = "0.2.1"
+version = "0.2.2"
 description = "A differentially private data synthesizer and fairness intervention benchmark framework"
 authors = [
   { name="Vinicius Gabriel Angelozzi Verona de Resende", email="verona.projects@tutanota.com" },
   { name="Héber Hwang Arcolezi", email="heber.hwang-arcolezi@etsmtl.ca" }
 ]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.13"
 dependencies = [
   "aif360>=0.6.1",
   "aif360[inFairness]>=0.6.1",
