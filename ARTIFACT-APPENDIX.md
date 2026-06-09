@@ -59,7 +59,9 @@ The precise configurations can be found in [https://www.grid5000.fr/w/Nancy:Hard
 
 **OS used during experiments**: Debian GNU/Linux 11 (bullseye)
 
-**Python**: Python 3.9 or higher (tested on Python 3.9–3.12).
+**Python**: Python 3.9 or less than 3.13 (tested on Python 3.9–3.12).
+
+The limitation behind the 3.13 version is due to Tensorflow dependencies 
  
 **Package manager**: `pip` (standard). No container runtime is required for this artifact.
 
