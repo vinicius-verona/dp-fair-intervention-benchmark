@@ -29,6 +29,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--seeds", "-s",
         nargs="+",        # 1 or more values
+        required=True,    
         type=int          # convert automatically to int
     )
 
@@ -43,7 +44,7 @@ if __name__ == "__main__":
                 name = "Compas",
                 target= "two_year_recid",
                 synthesizer = synthesizer,
-                root_dir="../data",
+                root_dir="./data",
                 sensitive_attr = "race",
                 categorical_cols = ['race', 'score_text', 'c_charge_degree','age', 'sex', 'two_year_recid'],
                 sensitive_cols = ['race', 'sex'],

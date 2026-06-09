@@ -10,6 +10,8 @@ fi
 
 SCRIPT_NUM=$1
 PYTHON="$VENV_PATH/bin/python3"
+mkdir -p log
+mkdir -p log/Benchmark
 
 case $SCRIPT_NUM in
     1)

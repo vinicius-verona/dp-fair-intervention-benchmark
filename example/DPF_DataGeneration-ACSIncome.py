@@ -38,6 +38,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--seeds", "-s",
         nargs="+",        # 1 or more values
+        required=True,    
         type=int          # convert automatically to int
     )
 
@@ -52,7 +53,7 @@ if __name__ == "__main__":
                 name = "ACSIncome",
                 target= "PINCP",
                 synthesizer = synthesizer,
-                root_dir="../data",
+                root_dir="./data",
                 sensitive_attr = "SEX",
                 categorical_cols = ['COW','MAR','OCCP','POBP','RELP','WKHP','SEX','RAC1P','PINCP'],
                 sensitive_cols = ['SEX', 'RAC1P'],

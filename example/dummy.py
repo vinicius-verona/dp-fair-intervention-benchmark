@@ -59,6 +59,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--seeds", "-s",
         nargs="+",        # 1 or more values
+        required=True,    
         type=int          # convert automatically to int
     )
 

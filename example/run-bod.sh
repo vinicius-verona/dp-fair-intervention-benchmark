@@ -11,7 +11,8 @@ fi
 SCRIPT_NUM=$1
 COMBO=$2
 PYTHON="$VENV_PATH/bin/python3"
-
+mkdir -p log
+mkdir -p log/Benchmark
 case $SCRIPT_NUM in
     1)
         echo "Running Script 1 (batches 1-4)..."

@@ -63,8 +63,9 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--seeds", "-s",
-        nargs="+", # 1 or more values
-        type=int
+        nargs="+",        # 1 or more values
+        required=True,    
+        type=int          # convert automatically to int
     )
 
     args = parser.parse_args()
@@ -78,7 +79,7 @@ if __name__ == "__main__":
                     name = f"BoD-{bod}",
                     target= "Y",
                     synthesizer = synthesizer,
-                    root_dir=f"../data/BoD/{synthesizer}/",
+                    root_dir=f"./data/BoD/{synthesizer}/",
                     sensitive_attr = "A",
                     index_col="Unnamed: 0",
                     categorical_cols = ['Q', 'A', 'Y'],

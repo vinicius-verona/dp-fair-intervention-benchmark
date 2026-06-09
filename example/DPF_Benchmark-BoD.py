@@ -40,10 +40,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Receive n numbers from CLI")
 
     parser.add_argument(
-        "seeds",
-        nargs="+",        # 1 or more values
+        "--seeds", "-s",
+        nargs="+",        # 1 or more values,
+        required=True,    
         type=int          # convert automatically to int
     )
+
     parser.add_argument(
         "--combo",
         type=int,
@@ -70,7 +72,7 @@ if __name__ == "__main__":
 
         benchmark_config = BenchmarkInfo(
             dp_method=synth,
-            output_dir=f"./data/BoD/BoD-{bod_combo}/output/{classifier_name[clf_idx]}/",
+            output_dir=f"./output/BoD/BoD-{bod_combo}/output/{classifier_name[clf_idx]}/",
             seeds=seeds,
             eps = [0.05, 0.1, .25, .5, .75, 1, 2, 3, 5, 10, 15, 20],
             classifier=classifier,
@@ -80,7 +82,7 @@ if __name__ == "__main__":
         benchmark_dataset = BenchmarkDatasetConfig(
             name = f"BoD-{bod_combo}",
             target= "Y",
-            root_dir="../data/BoD",
+            root_dir="./data/BoD",
             sensitive_attr = "A",
             index_col="Unnamed: 0",
             categorical_cols = ['Q', 'A', 'Y'],

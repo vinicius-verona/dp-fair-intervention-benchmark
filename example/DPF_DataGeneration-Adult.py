@@ -50,6 +50,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--seeds", "-s",
         nargs="+",        # 1 or more values
+        required=True,    
         type=int          # convert automatically to int
     )
 
@@ -64,7 +65,7 @@ if __name__ == "__main__":
                 name = "Adult",
                 target= "income",
                 synthesizer = synthesizer,
-                root_dir="../data",
+                root_dir="./data",
                 sensitive_attr = "sex",
                 categorical_cols = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'income', 'age', 'hours-per-week'],
                 sensitive_cols = ['race', 'sex'],
