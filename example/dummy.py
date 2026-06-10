@@ -86,7 +86,7 @@ if __name__ == "__main__":
                 data_filter = filter_compas
             )
 
-            generate_data(f"compas.csv", "", data_conf, "./data", verbose=True)
+            generate_data(f"compas.csv", "", data_conf, "./data/Compas/", verbose=True)
 
     for clf_idx, syn_idx in combinations:
         classifier = classifiers[clf_idx]
