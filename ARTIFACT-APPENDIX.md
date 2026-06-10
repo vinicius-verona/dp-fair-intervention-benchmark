@@ -231,6 +231,9 @@ Assuming sufficient computational resources (CPU cores and RAM), the full experi
 
 This experiment validates the main findings presented in ****Figures 2 and 3**** for the **COMPAS** dataset.
 
+- ***Warning***
+In case you have chosen to clone the repository, remember to replace the `example/data` directory by the `data` directory in the root of the project.
+
 ## Limitations
 
 Numerical reproducibility of every data reported in the paper cannot be guaranteed due

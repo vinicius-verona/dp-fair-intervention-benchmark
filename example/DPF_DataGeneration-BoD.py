@@ -79,7 +79,7 @@ if __name__ == "__main__":
                     name = f"BoD-{bod}",
                     target= "Y",
                     synthesizer = synthesizer,
-                    root_dir=f"./data/BoD/{synthesizer}/",
+                    root_dir=f"./data/BoD/",
                     sensitive_attr = "A",
                     index_col="Unnamed: 0",
                     categorical_cols = ['Q', 'A', 'Y'],

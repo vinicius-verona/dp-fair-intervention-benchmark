@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BenchmarkDPFair"
-version = "0.2.2"
+version = "0.2.3"
 description = "A differentially private data synthesizer and fairness intervention benchmark framework"
 authors = [
   { name="Vinicius Gabriel Angelozzi Verona de Resende", email="verona.projects@tutanota.com" },
-  { name="Héber Hwang Arcolezi", email="heber.hwang-arcolezi@etsmtl.ca" }
+  { name="HÃ©ber Hwang Arcolezi", email="heber.hwang-arcolezi@etsmtl.ca" }
 ]
 readme = "README.md"
 requires-python = ">=3.9,<3.13"
@@ -28,12 +28,9 @@ dependencies = [
   "tabulate>=0.9.0",
   "ucimlrepo>=0.0.7",
   "xgboost>=2.1.1",
-  "tensorflow>=2.19.0",
-  "tensorflow-io-gcs-filesystem>=0.37.1",
   "cvxpy>=1.6.5",
-  "jax>=0.4.30,<0.5",
-  "jaxlib>=0.4.30,<0.5",
-  "chex>=0.1.87"
+  "chex>=0.1.87",
+  "BlackBoxAuditing==0.1.54"
 
 ]
 license = { file = "LICENSE" }
