@@ -131,12 +131,11 @@ When installing from PyPi, the latest version will be used.
 After installation, a quick dummy test  can also be run using the provided example script, which runs a minimal experiment (two seeds, and two reduced privacy budget) on the COMPAS dataset:
 
 ```bash
-mkdir dummy-test
-mkdir dummy-test/data
+mkdir -p dummy-test/data/Compas
 
 cd dummy-test
 
-curl -L https://raw.githubusercontent.com/vinicius-verona/dp-fair-intervention-benchmark/dev/data/Compas/compas.csv -o ./data/compas.csv
+curl -L https://raw.githubusercontent.com/vinicius-verona/dp-fair-intervention-benchmark/dev/data/Compas/compas.csv -o ./data/Compas/compas.csv
 
 curl -L https://raw.githubusercontent.com/vinicius-verona/dp-fair-intervention-benchmark/dev/example/dummy.py -o ./dummy.py
 
