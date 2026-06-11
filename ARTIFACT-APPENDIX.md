@@ -95,11 +95,21 @@ https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev
 - **PyPI package** (latest release, v0.2.0):
 https://pypi.org/project/BenchmarkDPFair/
 
-The artifact evaluators should use the GitHub repository as the primary reference for the full codebase, datasets, and example scripts. The PyPI package provides the installable library with no ablation study.
+The artifact evaluators should use the GitHub repository as the primary reference for accessing/dowloading one of the following: all code versions, datasets, configuration files, and example scripts required to reproduce the experiments presented in the paper. The repository contains both the implementation used for the main results and the additional code necessary to reproduce the ablation studies in its respective branch.
+
+The PyPI package, in contrast, provides a simplified installation of the framework corresponding to the version used for the paper's main results. While it offers a convenient way to reproduce the primary experiments, it does not include the modifications and supplementary components required to reproduce the ablation studies. Consequently, evaluators interested only in validating the main results are recommended to use the PyPI package for its simplicity, whereas those seeking to reproduce the complete set of experiments, including the ablations, should use the GitHub repository.
 
 ### Set up the environment
 
-Our recommended installation method is via PyPI. With a Python 3.9+ environment:
+Firstly, we strongly recommend creating a new Python environment prior to installing the package. This helps maintain a clean and reproducible setup, facilitates dependency and version management and update, and minimizes potential conflicts with previously installed libraries.
+
+```bash
+python3 -m venv dpfair-env
+source dpfair-env/bin/activate   # On Windows: dpfair-env\\Scripts\\activate
+# Installation approach via PyPi or source installation
+```
+
+Our recommended installation method is via PyPI. With a Python 3.9+ and <3.13 environment:
 
 ```bash
 pip install BenchmarkDPFair
@@ -113,20 +123,9 @@ cd dp-fair-intervention-benchmark
 pip install -e .
 ```
 
-For both, we recommend using a dedicated virtual environment to avoid dependency conflicts:
-
-```bash
-python3 -m venv dpfair-env
-source dpfair-env/bin/activate   # On Windows: dpfair-env\\Scripts\\activate
-# Installation approach via PyPi or source installation
-```
-
-The `private-pgm` dependency is fetched directly from GitHub if instsalled from source at install time (pinned commit).
-When installing from PyPi, the latest version will be used.
-
 **Expected result**: Installation completes without errors and the `BenchmarkDPFair` package is importable.
 
-### Testing the Environment (Required for Functional and Reproduced badges)
+### Testing the Environment
 
 After installation, a quick dummy test  can also be run using the provided example script, which runs a minimal experiment (two seeds, and two reduced privacy budget) on the COMPAS dataset:
 
@@ -139,18 +138,63 @@ curl -L https://raw.githubusercontent.com/vinicius-verona/dp-fair-intervention-b
 
 curl -L https://raw.githubusercontent.com/vinicius-verona/dp-fair-intervention-benchmark/dev/example/dummy.py -o ./dummy.py
 
-python3 dummy.py --seeds 1 2
+python3 dummy.py --seeds 1 2 # You may choose any seed and amount of seeds you like, here, 1 and 2 are examples
 ```
 
 **Expected output**: The script prints progress messages for each seed/synthesizer combination during data generation, followed by benchmark results.
-No exceptions should be raised. Output CSV files with fairness and utility metrics will be written to `./output/Dummy-Compas/`. The run should complete in a few minutes for the minimal configuration.
-Some warning may raise concerning GPU or DataFrame, these are harmless.
-
-To remove the GPU warning, you may export three environment variables
-
+No exceptions should be raised. Output CSV files with fairness and utility metrics will be written to `./output/Dummy-Compas/`. The execution should complete in a few minutes for the minimal configuration.
+For a detailed verification that everything the execution was successfull, following the example above, the following files should be found:
+```text
+data/
+├── Compas/ # Dataset
+│   ├── aim/
+|   │   ├── DP-dataset-epsilon-0.1/
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.1.csv # 3691 rows
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.1.csv # 3691 rows
+|   │   ├── DP-dataset-epsilon-0.05/
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.05.csv # 3691 rows
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.05.csv # 3691 rows
+|   │   ├── DP-dataset-test/
+|   │   │   ├── Compas_split_dataset_seed_1_test.csv # 2461 rows
+|   │   │   └── Compas_split_dataset_seed_2_test.csv # 2461 rows
+|   │   └── DP-dataset-train/
+|   │       ├── Compas_split_dataset_seed_1_train.csv # 3691 rows
+|   │       └── Compas_split_dataset_seed_2_train.csv # 3691 rows
+│   ├── mst/
+|   │   ├── DP-dataset-epsilon-0.1/
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.1.csv # 3691 rows
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.1.csv # 3691 rows
+|   │   ├── DP-dataset-epsilon-0.05/
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.05.csv # 3691 rows
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.05.csv # 3691 rows
+|   │   ├── DP-dataset-test/
+|   │   │   ├── Compas_split_dataset_seed_1_test.csv # 2461 rows
+|   │   │   └── Compas_split_dataset_seed_2_test.csv # 2461 rows
+|   │   └── DP-dataset-train/
+|   │       ├── Compas_split_dataset_seed_1_train.csv # 3691 rows
+|   │       └── Compas_split_dataset_seed_2_train.csv # 3691 rows
+│   └── compas.csv/
+│
+├── output/
+│   └── Dummy-Compas/
+│       └── LR/ # Classifier
+│           └── Compas/ # Dataset
+|               ├── aim/
+|               │   └── results/
+|               │       ├── log/
+|               │       └── benchmark_results_seeds_1_2_eps_0.05_0.1_synth_aim.csv # 103 rows
+|               │
+|               ├── mst/
+|                   └── results/
+|                       ├── log/
+|                       └── benchmark_results_seeds_1_2_eps_0.05_0.1_synth_mst.csv # 103 rows
+│
+└── dummy.py
 ```
-TF_CPP_MIN_LOG_LEVEL=3 TF_ENABLE_ONEDNN_OPTS=0 PYTHONWARNINGS=ignore
-```
+
+Some warning messages related to GPU availability or DataFrame operations may be displayed during execution. These warnings are expected and can be safely ignored, as they do not affect the correctness of the results.
+
+Additionally, warnings related to division-by-zero operations may appear for certain methods. These warnings are also expected and were taken into account during our analysis, as they correspond to specific cases that are subsequently identified and filtered during result processing.
 
 ## Artifact Evaluation
 
@@ -204,7 +248,7 @@ The script arguments are defined as follows:
 
 - `-output-suffix`: A string appended to the generated log file names for identification.
 
-3. ****Merge and plot results.**** Once execution is complete, merge the output files for each configuration (fixed dataset, ML model, and synthesizer). Merging scripts and a plotting notebook are available at:
+3. ****Merge and plot results.**** Once execution is complete, merge the output files found in `./output/$DATSET/` for each configuration (fixed dataset, ML model, and synthesizer). Merging scripts and a plotting notebook are available at:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/notebook
 
@@ -218,7 +262,7 @@ python3 DPF_DataGeneration-Compas.py -h
 
 - ***Expected Output****
 
-Successful execution will produce:
+Successful execution generates a directory structure similar to the one reported on the dummy execution. So it produces:
 
 - Synthetic train and test datasets for seeds `5`, `602627`, `767707`, and `133843`, and privacy budgets ε ∈ {0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20}, stored under `./data/Compas/aim/` and `./data/Compas/mst/`.
 - Benchmark results for the same configuration (dataset, seed, and ε), stored under `./output/Compas/`.
