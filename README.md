@@ -17,16 +17,24 @@ This repository provides a Python framework for **benchmarking fairness mechanis
 ## Installation
 
 > From source
-To install, clone the repository and install dependencies:
+To install, either use PyPi to isntall it, or clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/vinicius-verona/dp-fair-intervention-benchmark.git
 cd dp-fair-intervention-benchmark
+
+python3 -m venv dpfair-env
+source dpfair-env/bin/activate 
+
+pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -e .
 ```
 
 > Using PyPi **(SUGGESTED)**
 ```bash
+python3 -m venv dpfair-env
+source dpfair-env/bin/activate 
+pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install BenchmarkDPFair
 ````
 

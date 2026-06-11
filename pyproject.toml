@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BenchmarkDPFair"
-version = "0.2.3"
+version = "0.2.4"
 description = "A differentially private data synthesizer and fairness intervention benchmark framework"
 authors = [
   { name="Vinicius Gabriel Angelozzi Verona de Resende", email="verona.projects@tutanota.com" },
@@ -27,11 +27,10 @@ dependencies = [
   "smartnoise-synth>=1.0.5",
   "tabulate>=0.9.0",
   "ucimlrepo>=0.0.7",
-  "xgboost>=2.1.1",
+  "xgboost-cpu>=3.2.0",
   "cvxpy>=1.6.5",
   "chex>=0.1.87",
   "BlackBoxAuditing==0.1.54"
-
 ]
 license = { file = "LICENSE" }
 

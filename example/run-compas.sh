@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VENV_PATH="$HOME/dp-fair-intervention-benchmark/venv"
+VENV_PATH="$(dirname $(dirname $(which python3)))"
 
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <script_number>"

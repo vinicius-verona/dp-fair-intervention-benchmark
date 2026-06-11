@@ -109,7 +109,14 @@ source dpfair-env/bin/activate   # On Windows: dpfair-env\\Scripts\\activate
 # Installation approach via PyPi or source installation
 ```
 
-Our recommended installation method is via PyPI. With a Python 3.9+ and <3.13 environment:
+Next, install PyTorch CPU-only dependencies: [Step not required for Mac users]
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+```
+
+Then, the library installation can proceed as per usual.
+
+Our recommended method is via PyPI. With a Python 3.9+ and <3.13 environment:
 
 ```bash
 pip install BenchmarkDPFair
@@ -143,7 +150,7 @@ python3 dummy.py --seeds 1 2 # You may choose any seed and amount of seeds you l
 
 **Expected output**: The script prints progress messages for each seed/synthesizer combination during data generation, followed by benchmark results.
 No exceptions should be raised. Output CSV files with fairness and utility metrics will be written to `./output/Dummy-Compas/`. The execution should complete in a few minutes for the minimal configuration.
-For a detailed verification that everything the execution was successfull, following the example above, the following files should be found:
+For a detailed verification that the execution was successfull, following the example above, the following files should be found:
 ```text
 data/
 ├── Compas/ # Dataset
@@ -214,37 +221,41 @@ Among the three intervention stages (pre-processing, in-processing, post-process
 
 - ***Overview****
 
-A set of shell scripts is provided to facilitate experiment execution. These scripts are available at:
+A set of python and shell scripts are provided to facilitate experiment execution. These scripts are available at:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/example
 
 - ***Execution Steps****
 
-1. ****Download the dataset.**** Obtain the original CSV file for the desired dataset from:
+**Note**: The example hereby provided is intended to be executed on a computing cluster or a machine equipped with considerably computational resources. 
+Each script execution launches 4 seeds in parallel, which may exceed the resource constraints of a standard personal computer. 
+If sufficient resources are unavailable, sequential execution is recommended either by modifying the script accordingly or by invoking the Python scripts manually.
+
+1. ****Download/Copy the data directory.**** Obtain the original used datasets from:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/data
 
-Place the file in the directory `./data/$DATASET/`, where `$DATASET` is the name of the chosen dataset. A pre-generated example of the expected directory structure is available at the same link.
+Place the directory within the same location as the execution scripts, i.e., `./example`, if you clonned the repository. 
+Verify that every `./data/$DATASET/` contains its own `$DATASET.csv` file, where `$DATASET` is the name of the chosen dataset, e.g. `Compas`.
+
+The downloaded directory `./data` is a pre-generated example for the framework execution. All dataset files generated will be replaced once the framework is executed.
+
+- ***Warning***
+In case you have chosen to clone the repository, remember to replace the `example/data` directory by the `data` directory in the root of the project.
 
 2. ****Run data generation and benchmarking.**** Execute the shell script twice — once for data generation (`-option 2`) and once for benchmarking (`-option 1`). The example below runs both steps for Batch 1 of the COMPAS dataset:
 
-```
-
-./script.sh --option 2 --dataset Compas \
-
---number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-DataGen"
-
-./script.sh --option 1 --dataset Compas \
-
---number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-Benchmark"
-
+```bash
+./script.sh --option 2 --dataset Compas --number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-DataGen" 
+# wait until it finishes before executing the next step
+./script.sh --option 1 --dataset Compas --number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-Benchmark"
 ```
 
 The script arguments are defined as follows:
 
 - `-option`: Execution mode. Use `1` for benchmarking and `2` for data generation.
 
-- `-number`: Batch index. Accepts values `1` through `5`.
+- `-number`: Batch index. Accepts values `1` through `5`, each execute 4 seeds in parallel.
 
 - `-output-suffix`: A string appended to the generated log file names for identification.
 
@@ -254,10 +265,9 @@ https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/noteb
 
 4. ****(Optional) Run Python scripts directly.**** To view verbose output, the underlying Python scripts can be executed individually. Only the desired seeds need to be specified. Run any script with the `h` flag to display usage instructions:
 
-```
-
-python3 DPF_DataGeneration-Compas.py -h
-
+```bash
+python3 DPF_DataGeneration-Compas.py -h # Display the help menu for the Data Generation module
+python3 DPF_Benchmark-Compas.py -h # Display the help menu for the Benchmark module
 ```
 
 - ***Expected Output****
@@ -273,9 +283,6 @@ Assuming sufficient computational resources (CPU cores and RAM), the full experi
 - ***Supported Claims****
 
 This experiment validates the main findings presented in ****Figures 2 and 3**** for the **COMPAS** dataset.
-
-- ***Warning***
-In case you have chosen to clone the repository, remember to replace the `example/data` directory by the `data` directory in the root of the project.
 
 ## Limitations
 
