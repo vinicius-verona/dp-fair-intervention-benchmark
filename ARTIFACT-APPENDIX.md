@@ -149,30 +149,30 @@ data/
 ├── Compas/ # Dataset
 │   ├── aim/
 |   │   ├── DP-dataset-epsilon-0.1/
-|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.1.csv # 3691 rows
-|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.1.csv # 3691 rows
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.1.csv # 3691 rows and 8 columns all integer values
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.1.csv # 3691 rows and 8 columns all integer values
 |   │   ├── DP-dataset-epsilon-0.05/
-|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.05.csv # 3691 rows
-|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.05.csv # 3691 rows
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.05.csv # 3691 rows and 8 columns all integer values
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.05.csv # 3691 rows and 8 columns all integer values
 |   │   ├── DP-dataset-test/
-|   │   │   ├── Compas_split_dataset_seed_1_test.csv # 2461 rows
-|   │   │   └── Compas_split_dataset_seed_2_test.csv # 2461 rows
+|   │   │   ├── Compas_split_dataset_seed_1_test.csv # 2461 rows and 8 columns all integer values
+|   │   │   └── Compas_split_dataset_seed_2_test.csv # 2461 rows and 8 columns all integer values
 |   │   └── DP-dataset-train/
-|   │       ├── Compas_split_dataset_seed_1_train.csv # 3691 rows
-|   │       └── Compas_split_dataset_seed_2_train.csv # 3691 rows
+|   │       ├── Compas_split_dataset_seed_1_train.csv # 3691 rows and 8 columns all integer values
+|   │       └── Compas_split_dataset_seed_2_train.csv # 3691 rows and 8 columns all integer values
 │   ├── mst/
 |   │   ├── DP-dataset-epsilon-0.1/
-|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.1.csv # 3691 rows
-|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.1.csv # 3691 rows
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.1.csv # 3691 rows and 8 columns all integer values
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.1.csv # 3691 rows and 8 columns all integer values
 |   │   ├── DP-dataset-epsilon-0.05/
-|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.05.csv # 3691 rows
-|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.05.csv # 3691 rows
+|   │   │   ├── Compas_split_dataset_seed_1_epsilon-0.05.csv # 3691 rows and 8 columns all integer values
+|   │   │   └── Compas_split_dataset_seed_2_epsilon-0.05.csv # 3691 rows and 8 columns all integer values
 |   │   ├── DP-dataset-test/
-|   │   │   ├── Compas_split_dataset_seed_1_test.csv # 2461 rows
-|   │   │   └── Compas_split_dataset_seed_2_test.csv # 2461 rows
+|   │   │   ├── Compas_split_dataset_seed_1_test.csv # 2461 rows and 8 columns all integer values
+|   │   │   └── Compas_split_dataset_seed_2_test.csv # 2461 rows and 8 columns all integer values
 |   │   └── DP-dataset-train/
-|   │       ├── Compas_split_dataset_seed_1_train.csv # 3691 rows
-|   │       └── Compas_split_dataset_seed_2_train.csv # 3691 rows
+|   │       ├── Compas_split_dataset_seed_1_train.csv # 3691 rows and 8 columns all integer values
+|   │       └── Compas_split_dataset_seed_2_train.csv # 3691 rows and 8 columns all integer values
 │   └── compas.csv/
 │
 ├── output/
@@ -182,12 +182,12 @@ data/
 |               ├── aim/
 |               │   └── results/
 |               │       ├── log/
-|               │       └── benchmark_results_seeds_1_2_eps_0.05_0.1_synth_aim.csv # 103 rows
+|               │       └── benchmark_results_seeds_1_2_eps_0.05_0.1_synth_aim.csv # 103 rows and 18 columns
 |               │
 |               ├── mst/
 |                   └── results/
 |                       ├── log/
-|                       └── benchmark_results_seeds_1_2_eps_0.05_0.1_synth_mst.csv # 103 rows
+|                       └── benchmark_results_seeds_1_2_eps_0.05_0.1_synth_mst.csv # 103 rows and 18 columns
 │
 └── dummy.py
 ```
