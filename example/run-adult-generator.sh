@@ -52,3 +52,4 @@ case $SCRIPT_NUM in
         exit 1
         ;;
 esac
+wait

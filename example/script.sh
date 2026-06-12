@@ -65,7 +65,7 @@ if [ -z "$option" ] || [ -z "$dataset" ]; then
     echo "Parameters:"
     echo "  dataset: Adult, ACSI, or Compas"
     echo "  number: Passed to the script being executed -> ex: run-adult.sh 1"
-    echo "  output_suffix: Replaces 'script' in nohup-script.out output file"
+    echo "  output_suffix: Replaces 'script' in script.out output file"
     echo "  bod_combo: Combo number for BoD dataset (1-6)"
     exit 1
 fi
@@ -111,18 +111,19 @@ case "$option" in
         
         # Determine output filename
         if [ -n "$output_suffix" ]; then
-            output_file="nohup-${output_suffix}.out"
+            output_file="${output_suffix}.out"
         else
             if [ "${dataset,,}" == "bod" ]; then
-                output_file="nohup-${script}-combo-${bod_combo}-${number}.out"
+                output_file="${script}-combo-${bod_combo}-${number}.out"
             else
-                output_file="nohup-${script}-${number}.out"
+                output_file="${script}-${number}.out"
             fi
         fi
         
         echo "Starting: $cmd > $output_file"
-        nohup $cmd > "$output_file" 2>&1 &
-        echo "Process started with PID: $!"
+        $cmd > "$output_file" 2>&1 &
+        wait $!
+        echo "Process finished!"
         ;;
     2)
         # Convert to lowercase
@@ -142,18 +143,19 @@ case "$option" in
         
         # Determine output filename
         if [ -n "$output_suffix" ]; then
-            output_file="nohup-${output_suffix}.out"
+            output_file="${output_suffix}.out"
         else
             if [ "${dataset,,}" == "bod" ]; then
-                output_file="nohup-${script}-combo-${bod_combo}-${number}.out"
+                output_file="${script}-combo-${bod_combo}-${number}.out"
             else
-                output_file="nohup-${script}-${number}.out"
+                output_file="${script}-${number}.out"
             fi
         fi
         
         echo "Starting: $cmd > $output_file"
-        nohup $cmd > "$output_file" 2>&1 &
-        echo "Process started with PID: $!"
+        $cmd > "$output_file" 2>&1 &
+        wait $! 
+        echo "Process finished!"
         ;;
     3)
         # Convert to uppercase
