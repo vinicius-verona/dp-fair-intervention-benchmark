@@ -1,7 +1,5 @@
 #!/bin/bash
 
-VENV_PATH="$(dirname $(dirname $(which python3)))"
-
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <script_number>"
     echo "Where script_number is 1-5"
@@ -9,7 +7,7 @@ if [ $# -eq 0 ]; then
 fi
 
 SCRIPT_NUM=$1
-PYTHON="$VENV_PATH/bin/python3"
+PYTHON="$VIRTUAL_ENV/bin/python3"
 mkdir -p log
 mkdir -p log/DataGeneration
 
