@@ -231,7 +231,9 @@ https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/examp
 Each script execution launches 4 seeds in parallel, which may exceed the resource constraints of a standard personal computer. 
 If sufficient resources are unavailable, sequential execution is recommended either by modifying the script accordingly or by invoking the Python scripts manually.
 
-1. ****Download/Copy the data directory.**** Obtain the original used datasets from:
+1. ****Download/Copy the data directory.**** 
+
+Obtain the original used datasets from:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/data
 
@@ -241,9 +243,12 @@ Verify that every `./data/$DATASET/` contains its own `$DATASET.csv` file, where
 The downloaded directory `./data` is a pre-generated example for the framework execution. All dataset files generated will be replaced once the framework is executed.
 
 - ***Warning***
+
 In case you have chosen to clone the repository, remember to replace the `example/data` directory by the `data` directory in the root of the project.
 
-2. ****Run data generation and benchmarking.**** Execute the shell script twice — once for data generation (`-option 2`) and once for benchmarking (`-option 1`). The example below runs both steps for Batch 1 of the COMPAS dataset:
+2. ****Run data generation and benchmarking.**** 
+
+Execute the shell script twice — once for data generation (`-option 2`) and once for benchmarking (`-option 1`). The example below runs both steps for Batch 1 of the COMPAS dataset:
 
 ```bash
 ./script.sh --option 2 --dataset Compas --number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-DataGen" 
@@ -251,23 +256,50 @@ In case you have chosen to clone the repository, remember to replace the `exampl
 ./script.sh --option 1 --dataset Compas --number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-Benchmark"
 ```
 
+If you want to execute the full batch of experiments, please refer to the note at the end of the section.
+
 The script arguments are defined as follows:
 
-- `-option`: Execution mode. Use `1` for benchmarking and `2` for data generation.
+- `-option`: Execution mode. Use `1` for benchmarking and `2` for data generation and `3` for tracking the execution via process status command.
 
 - `-number`: Batch index. Accepts values `1` through `5`, each execute 4 seeds in parallel.
 
 - `-output-suffix`: A string appended to the generated log file names for identification.
 
-3. ****Merge and plot results.**** Once execution is complete, merge the output files found in `./output/$DATSET/` for each configuration (fixed dataset, ML model, and synthesizer). Merging scripts and a plotting notebook are available at:
+- `--bod-combo`: This parameter should only be used when the dataset chosen is the BiasOnDemand. It accepts values from `1` to `6` and it selects a specific BoD dataset combo. To replicate the main one in the paper, select the value `5`.
+
+3. ****Merge and plot results.**** 
+
+Once execution is complete, merge the output files found in `./output/$DATSET/` for each configuration (fixed dataset, ML model, and synthesizer). Merging scripts and a plotting notebook are available at:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/notebook
 
-4. ****(Optional) Run Python scripts directly.**** To view verbose output, the underlying Python scripts can be executed individually. Only the desired seeds need to be specified. Run any script with the `h` flag to display usage instructions:
+4. ****(Optional) Run Python scripts directly.****
+
+ To view verbose output, the underlying Python scripts can be executed individually. Only the desired seeds need to be specified. Run any script with the `h` flag to display usage instructions:
 
 ```bash
 python3 DPF_DataGeneration-Compas.py -h # Display the help menu for the Data Generation module
 python3 DPF_Benchmark-Compas.py -h # Display the help menu for the Benchmark module
+```
+
+- ***Track Execution****
+
+The script includes an option `3` to monitor which processes are currently executing for a selected dataset, displaying their associated commands.
+Below are examples of execution and expected output:
+
+```bash
+
+./script --option 3 --dataset Compas
+# Output Example
+
+1198338  111  0.9 /..../dp-fair-intervention-benchmark/dpfair-env/bin/python3 DPF_DataGeneration-Compas.py -s 5
+1198339  109  0.9 /..../dp-fair-intervention-benchmark/dpfair-env/bin/python3 DPF_DataGeneration-Compas.py -s 602627
+1198340  107  0.9 /..../dp-fair-intervention-benchmark/dpfair-env/bin/python3 DPF_DataGeneration-Compas.py -s 767707
+1198342  106  0.9 /..../dp-fair-intervention-benchmark/dpfair-env/bin/python3 DPF_DataGeneration-Compas.py -s 133843
+1198561  0.0  0.0 /bin/bash ./script.sh --option 3 --dataset Compas
+COMPAS processes under execution
+
 ```
 
 - ***Expected Output****
@@ -276,6 +308,7 @@ Successful execution generates a directory structure similar to the one reported
 
 - Synthetic train and test datasets for seeds `5`, `602627`, `767707`, and `133843`, and privacy budgets ε ∈ {0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20}, stored under `./data/Compas/aim/` and `./data/Compas/mst/`.
 - Benchmark results for the same configuration (dataset, seed, and ε), stored under `./output/Compas/`.
+
 - ***Runtime****
 
 Assuming sufficient computational resources (CPU cores and RAM), the full experiment is expected to complete within ****3–4 days****.
@@ -283,6 +316,10 @@ Assuming sufficient computational resources (CPU cores and RAM), the full experi
 - ***Supported Claims****
 
 This experiment validates the main findings presented in ****Figures 2 and 3**** for the **COMPAS** dataset.
+
+- ***Full Experiments Replication****
+The example provided above executes only a subset of the experiments presented in the paper. 
+To replicate the complete set of experiments for a single dataset, re-execute the script 5 times, varying the `--number` parameter at each run.
 
 ## Limitations
 

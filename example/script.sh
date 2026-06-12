@@ -159,7 +159,9 @@ case "$option" in
         # Convert to uppercase
         dataset_upper=$(to_upper "$dataset")
 
-        clear && ps -o pid,%cpu,%mem,cmd > log/$dataset-log-exec-status.log && echo "${dataset_upper}-${number}-Benchmark" >> log/$dataset-log-exec-status.log
+        mkdir -p log
+        ps -o pid,%cpu,%mem,cmd | grep -i "$dataset" | grep -v grep > log/$dataset-log-exec-status.log && echo "${dataset_upper} processes under execution" >> log/$dataset-log-exec-status.log
+        cat log/$dataset-log-exec-status.log
         ;;
     *)
         echo "Error: Invalid option. Use 1 or 2"
