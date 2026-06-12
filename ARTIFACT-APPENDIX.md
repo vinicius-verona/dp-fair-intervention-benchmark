@@ -251,9 +251,18 @@ In case you have chosen to clone the repository, remember to replace the `exampl
 Execute the shell script twice — once for data generation (`-option 2`) and once for benchmarking (`-option 1`). The example below runs both steps for Batch 1 of the COMPAS dataset:
 
 ```bash
-./script.sh --option 2 --dataset Compas --number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-DataGen" 
-# wait until it finishes before executing the next step
-./script.sh --option 1 --dataset Compas --number 1 --output-suffix "COMPAS-1-experiment-artifact-functional-Benchmark"
+batch=1; \
+dataset=Compas; \
+./script.sh \
+  --option 2 \
+  --dataset "$dataset" \
+  --number "$batch" \
+  --output-suffix "$dataset-$batch-experiment-artifact-functional-DataGen" && \
+./script.sh \
+  --option 1 \
+  --dataset "$dataset" \
+  --number "$batch" \
+  --output-suffix "$dataset-$batch-experiment-artifact-functional-Benchmark"
 ```
 
 If you want to execute the full batch of experiments, please refer to the note at the end of the section.
@@ -319,7 +328,7 @@ This experiment validates the main findings presented in ****Figures 2 and 3****
 
 - ***Full Experiments Replication****
 The example provided above executes only a subset of the experiments presented in the paper. 
-To replicate the complete set of experiments for a single dataset, re-execute the script 5 times, varying the `--number` parameter at each run.
+To replicate the complete set of experiments for a single dataset, re-execute the script 5 times, varying the `--number` parameter at each run (or the `$batch` variable in the given command example).
 
 ## Limitations
 
