@@ -248,9 +248,11 @@ In case you have chosen to clone the repository, remember to replace the `exampl
 
 2. ****Run data generation and benchmarking.**** 
 
-Execute the shell script twice — once for data generation (`-option 2`) and once for benchmarking (`-option 1`). The example below runs both steps for Batch 1 of the COMPAS dataset:
+Execute the shell script twice — once for data generation (`-option 2`) and once for benchmarking (`-option 1`). 
+The example below runs both steps for Batch 1 of the COMPAS dataset:
 
 ```bash
+# Batch 1 = seeds 5 602627 767707 133843
 batch=1; \
 dataset=Compas; \
 ./script.sh \
@@ -314,9 +316,8 @@ COMPAS processes under execution
 - ***Expected Output****
 
 Successful execution generates a directory structure similar to the one reported on the dummy execution. So it produces:
-
-- Synthetic train and test datasets for seeds `5`, `602627`, `767707`, and `133843`, and privacy budgets ε ∈ {0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20}, stored under `./data/Compas/aim/` and `./data/Compas/mst/`.
-- Benchmark results for the same configuration (dataset, seed, and ε), stored under `./output/Compas/`.
+1. Synthetic train and test datasets for seeds `5`, `602627`, `767707`, and `133843`, and privacy budgets ε ∈ {0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20}, stored under `./data/Compas/aim/` and `./data/Compas/mst/`.
+2. Benchmark results for the same configuration (dataset, seed, and ε), stored under `./output/Compas/`.
 
 - ***Runtime****
 
@@ -327,8 +328,16 @@ Assuming sufficient computational resources (CPU cores and RAM), the full experi
 This experiment validates the main findings presented in ****Figures 2 and 3**** for the **COMPAS** dataset.
 
 - ***Full Experiments Replication****
+
 The example provided above executes only a subset of the experiments presented in the paper. 
 To replicate the complete set of experiments for a single dataset, re-execute the script 5 times, varying the `--number` parameter at each run (or the `$batch` variable in the given command example).
+
+- ***All seeds used in the paper****
+
+The following seeds were used across all datasets in the paper: 
+```
+5 602627 767707 133843 42 153073 113647 6977 253 53453 796969 460403 4112 178753 553067 126613 32645 243421 96797 583879
+```
 
 ## Limitations
 
