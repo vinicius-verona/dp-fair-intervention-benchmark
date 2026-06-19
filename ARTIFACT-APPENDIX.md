@@ -286,7 +286,7 @@ The script arguments are defined as follows:
 To generate the figures and tables associated with the Wilcoxon and Pareto analyses, execute the `plot.sh` script located in the `notebook` directory. This can be accomplished using the following commands:
 
 ```bash
-cd notebook && ./plot.sh data  # Generates figures and tables for the main paper findings
+cd notebook && ./plot.sh output  # Generates figures and tables for the main paper findings
 ```
 
 For the ablation studies, use:
