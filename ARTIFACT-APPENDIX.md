@@ -281,9 +281,43 @@ The script arguments are defined as follows:
 
 3. ****Merge and plot results.**** 
 
-Once execution is complete, merge the output files found in `./output/$DATSET/` for each configuration (fixed dataset, ML model, and synthesizer). Merging scripts and a plotting notebook are available at:
+**Note**: It is required the installation of the `texlive-full` package. The below-provided scripts verify if the package is installed and otherwise it installs it.
 
-https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/notebook
+To generate the figures and tables associated with the Wilcoxon and Pareto analyses, execute the `plot.sh` script located in the `notebook` directory. This can be accomplished using the following commands:
+
+```bash
+cd notebook && ./plot.sh data  # Generates figures and tables for the main paper findings
+```
+
+For the ablation studies, use:
+
+```bash
+cd notebook &&  ./plot.sh ablation dp-split     # Generates figures for the dp-split ablation study
+```
+
+A successfull execution should generate at least 7 PDF files for each of the main datasets (Compas Adult and ACSIncome), 2 TeX files, 8 CSV files for claim 1, and 5 CSV files for claim 2. If some experiment has not been found, a message will be displayed on the form:
+```
+[SKIP] Results directory not found for ML=RF, Dataset=BoD-Config-5, Synth=aim, searched_dir=None
+```
+
+Below is an example of what the user should see upon running the script for the ablation study `dp-split`:
+```
+texlive-full is already installed.
+Copying results to the current directory...
+Copied: Adult
+Copied: ACSIncome
+Copied: Compas
+Not found: /...../dp-fair-intervention-benchmark/notebook/../example/ablation/dp-split//BoD
+Done.
+Generating plots...
+[RESULTS_ROOT] /...../dp-fair-intervention-benchmark/notebook
+[DP_SYNTHESIZER] aim
+
+================================================================================
+Reading Claim 1 data for ML model: XGB
+================================================================================
+[READ] ML=XGB, Dataset=Adult, Synth=aim: 20 CSV files, 4420 rows
+```
 
 4. ****(Optional) Run Python scripts directly.****
 
