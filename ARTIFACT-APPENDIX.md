@@ -92,7 +92,7 @@ The artifact is publicly accessible via GitHub and PyPI:
 
 - **GitHub repository** (source code, datasets, notebooks, examples):
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev
-- **PyPI package** (latest release, v0.2.0):
+- **PyPI package** (latest release, v0.2.4):
 https://pypi.org/project/BenchmarkDPFair/
 
 The artifact evaluators should use the GitHub repository as the primary reference for accessing/dowloading one of the following: all code versions, datasets, configuration files, and example scripts required to reproduce the experiments presented in the paper. The repository contains both the implementation used for the main results and the additional code necessary to reproduce the ablation studies in its respective branch.
@@ -286,13 +286,19 @@ The script arguments are defined as follows:
 To generate the figures and tables associated with the Wilcoxon and Pareto analyses, execute the `plot.sh` script located in the `notebook` directory. This can be accomplished using the following commands:
 
 ```bash
-cd notebook && ./plot.sh output  # Generates figures and tables for the main paper findings
+sudo apt update && \
+sudo apt install -y texlive-full && \
+cd notebook && chmod u+x plot.sh && \
+chmod u+x get-results.sh && ./plot.sh output  # Generates figures and tables for the main paper findings
 ```
 
 For the ablation studies, use:
 
 ```bash
-cd notebook &&  ./plot.sh ablation dp-split     # Generates figures for the dp-split ablation study
+sudo apt update && \
+sudo apt install -y texlive-full && \
+cd notebook && chmod u+x plot.sh && \
+chmod u+x get-results.sh && ./plot.sh ablation dp-split # Generates figures for the dp-split ablation study
 ```
 
 A successfull execution should generate at least 7 PDF files for each of the main datasets (Compas Adult and ACSIncome), 2 TeX files, 8 CSV files for claim 1, and 5 CSV files for claim 2. If some experiment has not been found, a message will be displayed on the form:

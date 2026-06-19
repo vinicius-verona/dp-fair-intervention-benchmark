@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Check if texlive-full is installed (Debian/Ubuntu)
-if dpkg -s texlive-full >/dev/null 2>&1; then
-    echo "texlive-full is already installed."
-else
-    echo "texlive-full is not installed. Installing now..."
-    sudo apt update
-    sudo apt install -y texlive-full
-fi
-
 type=$1
 if [ -z "$type" ]; then
     echo "Usage: $0 <type>"
@@ -53,7 +44,6 @@ if [ $result -ne 0 ]; then
     exit 1
 fi
 
-# run plots
 echo "Generating plots..."
 python3 main_claim_1.py && \
 python3 main_claim_2.py && \
