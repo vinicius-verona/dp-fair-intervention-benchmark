@@ -13,14 +13,14 @@ Requested Badge(s):
 The artifact accompanying the paper **Where to Intervene? Benchmarking Fairness-Aware Learning on Differentially Private Synthetic Tabular Data**
 consists of the complete benchmarking framework mentioned in the paper, used to evaluate
 fairness-aware learning mechanisms on differentially private (DP)  synthetic tabular data.
-The framework is organized into two independent modules:
-`Data Generation` and `Benchmarking`, enabling reproducible experiments and straightforward extensibility.
+The framework is organised into two independent modules:
+`Data Generation` and `Benchmarking`, enabling reproducible experiments and straightforward extensibility
 
 > Data Generation Module:
-The data generation modules provides an interface for producing DP synthetic data from arbitrary
+The data generation module provides an interface for producing DP synthetic data from arbitrary
 tabular data source. Given an input dataset and a user-defined privacy budget, the module automatically
-executes the selected DP synthesizer and generates one or more synthetic datasets preserving the original schema.
-The current version supports both AIM and MST data synthesizers and accept other synhtesizers using common interface.
+executes the selected DP synthesiser and generates one or more synthetic datasets preserving the original schema.
+The current version supports both AIM and MST data synthesisers and accepts other synthesisers using a common interface.
 
 > Benchmarking Module:
 This module provides a generic evaluation framework for investigating utility, privacy and fairness trade-offs.
@@ -28,14 +28,14 @@ It accepts any dataset, considering it has at least one untouched dataset, as we
 originated as a result of the Data Generation module. It also provides a way to integrate any machine learning classifier
 that implements the method `train()`, `predict()`, and `predict_proba()`.
 
-The abstraction and independence of both modules facilitate the generation of DP synthetic datasets,
-it also enables benchmarking across a wide range of machine learning algorithms. Furthermore, the modular
+The abstraction and independence of both modules facilitate the generation of DP synthetic datasets;
+It also enables benchmarking across a wide range of machine learning algorithms. Furthermore, the modular
 approach between data generation and benchmarking enables reproducible experiments while simplifying the
-integration of other datasets, synthesizers, and classifiers.
+integration of other datasets, synthesisers, and classifiers.
 
 ### Security/Privacy Issues and Ethical Concerns
 
-This artifact does not introduce additional security risks to the evaluator's machine.
+This artifact does not introduce additional security risks to the evaluator’s machine.
 
 This framework does not collect, send, transmit or share any user data outside the local environment.
 The artifact depends on several open-source third-party Python libraries. As with any software dependency,
@@ -44,18 +44,18 @@ evaluators should follow standard software supply-chain security practices.
 The benchmark relies exclusively on publicly available datasets and DP synthetic dataset used for research purposes.
 No ethical review board approval was required given the public nature of the datasets.
 
-Nonetheless, the framework evaluate fairness on potentially sensitive attributes, (i.e. gender and race)
-Thus every analysis and results must be interpreted carefully and within social and legal context of the application.
+Nonetheless, the framework evaluates fairness on potentially sensitive attributes (i.e. gender and race)
+Thus, every analysis and results must be interpreted carefully and within the social and legal context of the application.
 
 ## Basic Requirements
 
 ### Hardware Requirements
 
-**Minimal hardware Requirements**: Although experiments can be executed on a laptop, we highly recommend machines with High CPU compute Power, High RAM (≥ 64Gb) and High Storage.
+**Minimal hardware Requirements**:  Although experiments can be executed on a laptop, we highly recommend machines with High CPU compute Power, High RAM (≥ 64Gb), and High Storage.
 
 Experiments in this paper were run on the Grid500 cluster machines in Nancy and Grenoble sites.
 
-The precise configurations can be found in https://www.grid5000.fr/w/Nancy:Hardware and https://www.grid5000.fr/w/Grenoble:Hardware
+The precise configurations can be found in [https://www.grid5000.fr/w/Nancy:Hardware](https://www.grid5000.fr/w/Nancy:Hardware) and [https://www.grid5000.fr/w/Grenoble:Hardware](https://www.grid5000.fr/w/Grenoble:Hardware).
 
 ### Software Requirements
 
@@ -67,22 +67,22 @@ The TensorFlow dependency imposes a limitation on the Python version.
 
 **Package manager**: `pip` (standard). No container runtime is required for this artifact.
 
-The exact dependency list is specified in the `pyproject.toml` file at the root of the repository.
+The exact dependency list is specified in the `pyproject.toml` file at the repository root.
 
-**Datasets**: All datasets used in the paper are either included in the repository under `data/` or downloaded automatically at runtime:
+**Datasets**: All datasets used in the paper are included in the repository under `data/`:
 
 - **Adult** (UCI Census Income) — included under `data/`
 - **COMPAS** — included under `data/`
-- **ACSIncome** (Utah subset, 2018) — downloaded automatically via the `folktables` library
-- **BiasOnDemand** — generated programmatically via the BoD generator at experiment time
+- **ACSIncome** (Utah subset, 2018) — included under `data/`
+- **BiasOnDemand** — included under `data/`
 
 No ML models need to be downloaded separately for the evaluation of the artifact; all classifiers are instantiated from scikit-learn, XGBoost, and standard libraries at runtime when installing the framework.
 
 ### Estimated Time and Storage Consumption
 
-All our experiments have been executed on the Grid5000 cluster, where we are able to run multiple instances in parallel. Due to the remote execution and the parallel, modular approach (separating data generation from the benchmark itself), only a rough estimate can be provided. 
+All our experiments have been executed on the Grid'5000 cluster, where we can run multiple instances in parallel. Due to the remote execution and the parallel, modular approach (separating data generation from the benchmark itself), only a rough estimate can be provided.
 
-Based on our interactions with our cluster, we expect it will take, on average, 4 days per dataset to complete the full set of experiments. This time can be reduced or extended depending on the available computer power.    
+Based on our interactions with our cluster, we expect it will take, on average, 4 days per dataset to complete the full set of experiments. This time can be reduced or extended depending on the available computer power.
 
 ## Environment
 
@@ -91,17 +91,17 @@ Based on our interactions with our cluster, we expect it will take, on average, 
 The artifact is publicly accessible via GitHub and PyPI:
 
 - **GitHub repository** (source code, datasets, notebooks, examples):
-https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev
+   - https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev
 - **PyPI package** (latest release, v0.2.4):
-https://pypi.org/project/BenchmarkDPFair/
+   - https://pypi.org/project/BenchmarkDPFair/
 
-The artifact evaluators should use the GitHub repository as the primary reference for accessing/dowloading one of the following: all code versions, datasets, configuration files, and example scripts required to reproduce the experiments presented in the paper. The repository contains both the implementation used for the main results and the additional code necessary to reproduce the ablation studies in its respective branch.
+The artifact evaluators should use the GitHub repository as the primary reference for accessing/dowloading one of the following: all code versions, datasets, configuration files, and example scripts required to reproduce the experiments presented in the paper. The repository contains both the implementation used for the main results and the additional code needed to reproduce the ablation studies, in their respective branches.
 
-The PyPI package, in contrast, provides a simplified installation of the framework corresponding to the version used for the paper's main results. While it offers a convenient way to reproduce the primary experiments, it does not include the modifications and supplementary components required to reproduce the ablation studies. Consequently, evaluators interested only in validating the main results are recommended to use the PyPI package for its simplicity, whereas those seeking to reproduce the complete set of experiments, including the ablations, should use the GitHub repository.
+The PyPI package, in contrast, provides a simplified installation of the framework corresponding to the version used for the paper’s main results. While it offers a convenient way to reproduce the primary experiments, it does not include the modifications and supplementary components required to reproduce the ablation studies. Consequently, evaluators interested only in validating the main results are recommended to use the PyPI package for its simplicity, whereas those seeking to reproduce the complete set of experiments, including the ablations, should use the GitHub repository.
 
 ### Set up the environment
 
-Firstly, we strongly recommend creating a new Python environment prior to installing the package. This helps maintain a clean and reproducible setup, facilitates dependency and version management and update, and minimizes potential conflicts with previously installed libraries.
+First, we strongly recommend creating a new Python environment before installing the package. This helps maintain a clean and reproducible setup, facilitates dependency and version management and update, and minimises potential conflicts with previously installed libraries.
 
 ```bash
 python3 -m venv dpfair-env
@@ -134,7 +134,7 @@ pip install -e .
 
 ### Testing the Environment
 
-After installation, a quick dummy test  can also be run using the provided example script, which runs a minimal experiment (two seeds, and two reduced privacy budget) on the COMPAS dataset:
+After installation, a quick dummy test  can also be run using the provided example script, which runs a minimal experiment (two seeds and two reduced privacy budgets) on the COMPAS dataset:
 
 ```bash
 mkdir -p dummy-test/data/Compas
@@ -150,7 +150,7 @@ python3 dummy.py --seeds 1 2 # You may choose any seed and amount of seeds you l
 
 **Expected output**: The script prints progress messages for each seed/synthesizer combination during data generation, followed by benchmark results.
 No exceptions should be raised. Output CSV files with fairness and utility metrics will be written to `./output/Dummy-Compas/`. The execution should complete in a few minutes for the minimal configuration.
-For a detailed verification that the execution was successfull, following the example above, the following files should be found:
+For a detailed verification that the execution was successful, following the example above, the following files should be found:
 ```text
 data/
 ├── Compas/ # Dataset
@@ -209,8 +209,8 @@ Additionally, warnings related to division-by-zero operations may appear for cer
 
 ### Main Result 1: Fairness interventions under DP+Fair partially recover fairness degradation
 
-When fairness mechanisms are applied to DP synthetic data (DP+Fair), group disparities introduced by DP are partially reduced across the metrics EOD and SPD.
-This is statistically validated with Wilcoxon signed-rank tests (Table 1 in the paper), showing reduction in |EOD| and |SPD| under DP+Fair vs. DP-only across the four main datasets and classifiers. MAD is not globally improved.
+When fairness mechanisms are applied to DP synthetic data (DP+Fair), group disparities introduced by DP are partially reduced across the EOD and SPD metrics.
+This is statistically validated using Wilcoxon signed-rank tests (Table 1 in the paper), showing reductions in |EOD| and |SPD| under DP+Fair vs DP-only across the four main datasets and classifiers. MAD is not globally improved.
 
 ### Main Result 2: Post-processing achieves the strongest fairness–utility trade-offs
 
@@ -221,15 +221,15 @@ Among the three intervention stages (pre-processing, in-processing, post-process
 
 - ***Overview****
 
-A set of python and shell scripts are provided to facilitate experiment execution. These scripts are available at:
+A set of Python and shell scripts is provided to facilitate experiment execution. These scripts are available at:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/example
 
 - ***Execution Steps****
 
-**Note**: The example hereby provided is intended to be executed on a computing cluster or a machine equipped with considerably computational resources. 
-Each script execution launches 4 seeds in parallel, which may exceed the resource constraints of a standard personal computer. 
-If sufficient resources are unavailable, sequential execution is recommended either by modifying the script accordingly or by invoking the Python scripts manually.
+**Note**: The example hereby provided is intended to be executed on a computing cluster or a machine equipped with considerable computational resources.
+Each script execution launches 4 seeds in parallel, which may exceed the resource constraints of a standard personal computer.
+If sufficient resources are unavailable, sequential execution is recommended by either modifying the script or invoking the Python scripts manually.
 
 1. ****Download/Copy the data directory.**** 
 
@@ -237,14 +237,14 @@ Obtain the original used datasets from:
 
 https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev/data
 
-Place the directory within the same location as the execution scripts, i.e., `./example`, if you clonned the repository. 
-Verify that every `./data/$DATASET/` contains its own `$DATASET.csv` file, where `$DATASET` is the name of the chosen dataset, e.g. `Compas`.
+Place the directory within the same location as the execution scripts, i.e., `./example`, if you cloned the repository.
+Verify that every `./data/$DATASET/` contains its own `$DATASET.csv` file, where `$DATASET` is the name of the chosen dataset, e.g. Compas.
 
 The downloaded directory `./data` is a pre-generated example for the framework execution. All dataset files generated will be replaced once the framework is executed.
 
 - ***Warning***
 
-In case you have chosen to clone the repository, remember to replace the `example/data` directory by the `data` directory in the root of the project.
+In case you have chosen to clone the repository, remember to replace the `example/data` directory with the `data` directory in the root of the project.
 
 2. ****Run data generation and benchmarking.**** 
 
@@ -271,17 +271,14 @@ If you want to execute the full batch of experiments, please refer to the note a
 
 The script arguments are defined as follows:
 
-- `-option`: Execution mode. Use `1` for benchmarking and `2` for data generation and `3` for tracking the execution via process status command.
-
-- `-number`: Batch index. Accepts values `1` through `5`, each execute 4 seeds in parallel.
-
-- `-output-suffix`: A string appended to the generated log file names for identification.
-
-- `--bod-combo`: This parameter should only be used when the dataset chosen is the BiasOnDemand. It accepts values from `1` to `6` and it selects a specific BoD dataset combo. To replicate the main one in the paper, select the value `5`.
+* `-option`: Execution mode. Use `1` for benchmarking, `2` for data generation, and `3` for tracking execution via the process status command.
+* `-number`: Batch index. Accepts values `1` through `5`; each executes 4 seeds in parallel.
+* `-output-suffix`: A string appended to the generated log file names for identification.
+* `--bod-combo`: This parameter should only be used when the chosen dataset is the BiasOnDemand. It accepts values from `1` to `6`, and it selects a specific BoD dataset combo. To replicate the main one in the paper, select the value `5`.
 
 3. ****Merge and plot results.**** 
 
-**Note**: It is required the installation of the `texlive-full` package. The below-provided scripts verify if the package is installed and otherwise it installs it.
+**Note**: The texlive-full package must be installed
 
 To generate the figures and tables associated with the Wilcoxon and Pareto analyses, execute the `plot.sh` script located in the `notebook` directory. This can be accomplished using the following commands:
 
@@ -301,7 +298,7 @@ cd notebook && chmod u+x plot.sh && \
 chmod u+x get-results.sh && ./plot.sh ablation dp-split # Generates figures for the dp-split ablation study
 ```
 
-A successfull execution should generate at least 7 PDF files for each of the main datasets (Compas Adult and ACSIncome), 2 TeX files, 8 CSV files for claim 1, and 5 CSV files for claim 2. If some experiment has not been found, a message will be displayed on the form:
+A successful execution should generate at least 7 PDF files for each of the main datasets (Compas Adult and ACSIncome), 2 TeX files, 8 CSV files for claim 1, and 5 CSV files for claim 2. If some experiment has not been found, a message will be displayed on the form:
 ```
 [SKIP] Results directory not found for ML=RF, Dataset=BoD-Config-5, Synth=aim, searched_dir=None
 ```
@@ -311,7 +308,7 @@ Below is an example of what the user should see upon running the script for the 
 texlive-full is already installed.
 Copying results to the current directory...
 Copied: Adult
-Copied: ACSIncome
+Copied: ACSIncome or downloaded automatically at runtime
 Copied: Compas
 Not found: /...../dp-fair-intervention-benchmark/notebook/../example/ablation/dp-split//BoD
 Done.
@@ -355,7 +352,7 @@ COMPAS processes under execution
 
 - ***Expected Output****
 
-Successful execution generates a directory structure similar to the one reported on the dummy execution. So it produces:
+Successful execution generates a directory structure similar to that reported in the dummy execution. So it produces:
 1. Synthetic train and test datasets for seeds `5`, `602627`, `767707`, and `133843`, and privacy budgets ε ∈ {0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 5, 10, 15, 20}, stored under `./data/Compas/aim/` and `./data/Compas/mst/`.
 2. Benchmark results for the same configuration (dataset, seed, and ε), stored under `./output/Compas/`.
 
@@ -381,18 +378,18 @@ The following seeds were used across all datasets in the paper:
 
 ## Limitations
 
-Numerical reproducibility of every data reported in the paper cannot be guaranteed due
+Numerical reproducibility of all the data reported in the paper cannot be guaranteed due
 to randomness in third-party libraries used by the framework, even when a fixed random seed is set.
-As an example, we have identified that the DP synthesizers, as implemented in SmartNoise-Synth, do not always produce
+As an example, we have identified that the DP synthesisers, as implemented in SmartNoise-Synth, do not always produce
 identical outputs across runs despite seed control.
 
-As a result, **exact numerical reproduction** reported in the paper is not expected,
-we suggest, therfore, the evaluators not to treat small quantitative differences as a failure of the artifact.
+As a result, the **exact numerical reproduction** reported in the paper is not expected,
+We suggest, therefore, that the evaluators not treat small quantitative differences as a failure of the artifact.
 
 In contrast, what we expect to be reproducible and recommend to be used as the validation criteria is the
 **qualitative, stage-level ordering** of fairness interventions and the **geometric structure** of the Pareto-front plots.
 
-This consistency is the basis of the central claim of the paper and demonstrates to be robust to seed-level variation.
+This consistency is the basis of the paper's central claim and is robust to seed-level variation.
 Individual runs may shift points slightly, but the relative ordering of intervention stages in the fairness–utility space should
 remains stable.
 
@@ -400,16 +397,16 @@ remains stable.
 
 Beyond reproducing the results of this paper, the BenchmarkDPFair framework is designed as a general-purpose research tool
 for anyone studying the intersection of differential privacy, synthetic data, and algorithmic fairness.
-Its modular architecture was tought to provide a straightforward way to adapt to new settings without modifying the core library.
+Its modular architecture was thought to provide a straightforward way to adapt to new settings without modifying the core library.
 
 **Using a different dataset.** Any tabular dataset can be plugged in by defining a `DatasetGeneratorConfig` and `BenchmarkDatasetConfig`
 with the appropriate column names, target variable, sensitive attributes, and preprocessing logic.
 
 **Adding a new DP synthesizer.** The DataGenerator module accepts synthesizer that follows the interface expected by `SmartNoise-Synth`.
-Researchers aiming to evaluate domain-specific DP generators (e.g., DP-GANs) can plug them in the generation pipeline without touching the benchmarking module.
+Researchers evaluating domain-specific DP generators (e.g., DP-GANs) can plug them into the generation pipeline without altering the benchmarking module.
 
 **Adding a new classifier.** Any classifier implementing fit(), predict(), and predict_proba() can be passed directly to `BenchmarkInfo`.
 
-**Exploring new privacy regimes.** The privacy budget list passed to `BenchmarkInfo` (parameter `eps`) is fully configurable. The user can test diverse ranges, such as high privacy budgets (ε < 0.05).
+**Exploring new privacy regimes.** The privacy budget list passed to `BenchmarkInfo` (parameter `eps`) is fully configurable. The user can test a range of values, including high privacy budgets (ε < 0.05).
 
 In summary, `BenchmarkDPFair` is intended to serve as an extensible framework for the research community at the intersection of privacy-preserving machine learning and algorithmic fairness.
