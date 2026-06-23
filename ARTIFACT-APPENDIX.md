@@ -276,7 +276,7 @@ The script arguments are defined as follows:
 * `-output-suffix`: A string appended to the generated log file names for identification.
 * `--bod-combo`: This parameter should only be used when the chosen dataset is the BiasOnDemand. It accepts values from `1` to `6`, and it selects a specific BoD dataset combo. To replicate the main one in the paper, select the value `5`.
 
-3. ****Merge and plot results.**** 
+3. ****Plot results.**** 
 
 **Note**: The texlive-full package must be installed
 
