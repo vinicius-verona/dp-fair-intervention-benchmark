@@ -45,8 +45,7 @@ pip install BenchmarkDPFair
 ```
 ├── data/         # Pre-offered datasets
 ├── src/          # Core source code
-├── examples/     # Some demo
-├── tests/        # Unit tests
+├── example/      # Files used in the main paper and a dummy example.
 └── README.md
 ```
 

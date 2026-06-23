@@ -289,6 +289,16 @@ cd notebook && chmod u+x plot.sh && \
 chmod u+x get-results.sh && ./plot.sh output  # Generates figures and tables for the main paper findings
 ```
 
+For the provided pre-executed experiments, use:
+
+```bash
+sudo apt update && \
+sudo apt install -y texlive-full && \
+cd notebook && chmod u+x plot.sh && \
+chmod u+x get-results.sh && ./plot.sh output-example  # Generates figures and tables for the main paper findings
+```
+
+
 For the ablation studies, use:
 
 ```bash

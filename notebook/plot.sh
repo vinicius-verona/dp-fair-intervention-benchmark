@@ -3,15 +3,15 @@
 type=$1
 if [ -z "$type" ]; then
     echo "Usage: $0 <type>"
-    echo "<type> is either ablation or output. It specifies which type of plots to generate."
+    echo "<type> is either ablation, output, or output-example. It specifies which type of plots to generate."
     echo "For ablation, you also need to specify which ablation results to use (in-processing or dp-split)."
     exit 1
 fi
 
-if [ "$type" != "ablation" ] && [ "$type" != "output" ]; then
+if [ "$type" != "ablation" ] && [ "$type" != "output" ] && [ "$type" != "output-example" ]; then
     echo "Invalid type: $type"
     echo "Usage: $0 <type>"
-    echo "<type> is either ablation or output. It specifies which type of plots to generate."
+    echo "<type> is either ablation, output, or output-example. It specifies which type of plots to generate."
     exit 1
 fi
 
