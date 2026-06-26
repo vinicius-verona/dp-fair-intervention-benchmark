@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BenchmarkDPFair"
-version = "0.2.5"
+version = "0.2.6"
 description = "A differentially private data synthesizer and fairness intervention benchmark framework"
 authors = [
   { name="Vinicius Gabriel Angelozzi Verona de Resende", email="verona.projects@tutanota.com" },
