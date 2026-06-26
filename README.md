@@ -16,27 +16,45 @@ This repository provides a Python framework for **benchmarking fairness mechanis
 
 ## Installation
 
-> From source
-To install, either use PyPi to isntall it, or clone the repository and install dependencies:
+First, we strongly recommend creating a new Python environment before installing the package. This helps maintain a clean and reproducible setup, facilitates dependency and version management and update, and minimises potential conflicts with previously installed libraries.
+
+```bash
+python3 -m venv dpfair-env
+source dpfair-env/bin/activate   # On Windows: dpfair-env\\Scripts\\activate
+# Installation approach via PyPi or source installation
+```
+
+If you are a Windows or Linux user, please install PyTorch CPU-only dependencies: [Step not required for Mac users]
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+```
+
+Users on MacOS are required to install `llvm-openmp`, either using conda or brew, as below:
+
+**Conda**:
+```bash
+conda install -c conda-forge llvm-openmp
+```
+**Brew**:
+```bash
+brew install libomp
+```
+
+Then, the library installation can proceed as per usual.
+
+Our recommended method is via PyPI. With a Python 3.9+ and <3.13 environment:
+
+```bash
+pip install BenchmarkDPFair
+```
+
+Alternatively, there is the possibility to install from source, which also gives access to the `data/`, `example/`, and `notebook/` directories (be aware that these may consume more resources on your disk given the data provided):
 
 ```bash
 git clone https://github.com/vinicius-verona/dp-fair-intervention-benchmark.git
 cd dp-fair-intervention-benchmark
-
-python3 -m venv dpfair-env
-source dpfair-env/bin/activate 
-
-pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -e .
 ```
-
-> Using PyPi **(SUGGESTED)**
-```bash
-python3 -m venv dpfair-env
-source dpfair-env/bin/activate 
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-pip install BenchmarkDPFair
-````
 
 ---
 

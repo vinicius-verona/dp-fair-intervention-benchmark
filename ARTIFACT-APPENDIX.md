@@ -92,7 +92,7 @@ The artifact is publicly accessible via GitHub and PyPI:
 
 - **GitHub repository** (source code, datasets, notebooks, examples):
    - https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev
-- **PyPI package** (latest release, v0.2.4):
+- **PyPI package** (latest release, v0.2.5):
    - https://pypi.org/project/BenchmarkDPFair/
 
 The artifact evaluators should use the GitHub repository as the primary reference for accessing/dowloading one of the following: all code versions, datasets, configuration files, and example scripts required to reproduce the experiments presented in the paper. The repository contains both the implementation used for the main results and the additional code needed to reproduce the ablation studies, in their respective branches.
@@ -109,9 +109,20 @@ source dpfair-env/bin/activate   # On Windows: dpfair-env\\Scripts\\activate
 # Installation approach via PyPi or source installation
 ```
 
-Next, install PyTorch CPU-only dependencies: [Step not required for Mac users]
+If you are a Windows or Linux user, please install PyTorch CPU-only dependencies: [Step not required for Mac users]
 ```bash
 pip install torch --index-url https://download.pytorch.org/whl/cpu
+```
+
+Users on MacOS are required to install `llvm-openmp`, either using conda or brew, as below:
+
+**Conda**:
+```bash
+conda install -c conda-forge llvm-openmp
+```
+**Brew**:
+```bash
+brew install libomp
 ```
 
 Then, the library installation can proceed as per usual.
