@@ -24,6 +24,13 @@ source dpfair-env/bin/activate   # On Windows: dpfair-env\\Scripts\\activate
 # Installation approach via PyPi or source installation
 ```
 
+
+When using Python 3.9, a specific version of the MBI library (`private-pgm`) must be installed by running the following command:
+
+```bash
+pip install git+https://github.com/ryan112358/private-pgm.git@01f02f17eba440f4e76c1d06fa5ee9eed0bd2bca
+```
+
 If you are a Windows or Linux user, please install PyTorch CPU-only dependencies: [Step not required for Mac users]
 ```bash
 pip install torch --index-url https://download.pytorch.org/whl/cpu
