@@ -11,7 +11,6 @@ to_upper() {
 # Default values
 option=""
 dataset=""
-number=""
 output_suffix=""
 bod_combo=""
 
@@ -24,10 +23,6 @@ while [[ $# -gt 0 ]]; do
             ;;
         --dataset)
             dataset="$2"
-            shift 2
-            ;;
-        --number)
-            number="$2"
             shift 2
             ;;
         --output-suffix)
@@ -44,8 +39,6 @@ while [[ $# -gt 0 ]]; do
                 option="$1"
             elif [ -z "$dataset" ]; then
                 dataset="$1"
-            elif [ -z "$number" ]; then
-                number="$1"
             elif [ -z "$output_suffix" ]; then
                 output_suffix="$1"
             elif [ -z "$bod_combo" ]; then
@@ -57,14 +50,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ -z "$option" ] || [ -z "$dataset" ]; then
-    echo "Usage: $0 --option <1|2|3> --dataset <dataset> [--number <number>] [--output-suffix <output_suffix>] [--bod-combo <bod_combo>]"
+    echo "Usage: $0 --option <1|2|3> --dataset <dataset> [--output-suffix <output_suffix>] [--bod-combo <bod_combo>]"
     echo "  1 - Run benchmark script in background"
     echo "  2 - Run data generation script in background"
     echo "  3 - Show processes with dataset name"
     echo ""
     echo "Parameters:"
     echo "  dataset: Adult, ACSI, or Compas"
-    echo "  number: Passed to the script being executed -> ex: run-adult.sh 1"
     echo "  output_suffix: Replaces 'script' in script.out output file"
     echo "  bod_combo: Combo number for BoD dataset (1-6)"
     exit 1
@@ -97,16 +89,10 @@ case "$option" in
         # Convert to lowercase
         script=$(to_lower "$dataset")
         
-        # Build command with optional number parameter
-        if [ -n "$number" ]; then
-                if [ "${dataset,,}" == "bod" ]; then
-                    cmd="./run-${script}.sh $number $bod_combo"
-                else
-                    cmd="./run-${script}.sh $number"
-                fi
+        if [ "${dataset,,}" == "bod" ]; then
+            cmd="COMBO=${bod_combo} ./run-${script}.sh"
         else
-            echo "Error: Invalid option. If executing a script, pass the required parameters (batch | batch + combo)"
-            exit 1
+            cmd="./run-${script}.sh"
         fi
         
         # Set output filename
@@ -129,16 +115,10 @@ case "$option" in
         # Convert to lowercase
         script=$(to_lower "$dataset")
         
-        # Build command with optional number parameter
-        if [ -n "$number" ]; then
-                if [ "${dataset,,}" == "bod" ]; then
-                    cmd="./run-${script}-generator.sh $number $bod_combo"
-                else
-                    cmd="./run-${script}-generator.sh $number"
-                fi
+        if [ "${dataset,,}" == "bod" ]; then
+            cmd="COMBO=${bod_combo} ./run-${script}-generator.sh $number"
         else
-            echo "Error: Invalid option. If executing a script, pass the required parameters (batch | batch + combo)"
-            exit 1
+            cmd="./run-${script}-generator.sh $number"
         fi
         
         # Determine output filename
