@@ -109,7 +109,7 @@ case "$option" in
             exit 1
         fi
         
-        # Determine output filename
+        # Set output filename
         if [ -n "$output_suffix" ]; then
             output_file="${output_suffix}.out"
         else
@@ -162,7 +162,48 @@ case "$option" in
         dataset_upper=$(to_upper "$dataset")
 
         mkdir -p log
-        ps -o pid,%cpu,%mem,cmd | grep -i "$dataset" | grep -v grep > log/$dataset-log-exec-status.log && echo "${dataset_upper} processes under execution" >> log/$dataset-log-exec-status.log
+        : > log/$dataset-log-exec-status.log
+
+        # Get systemd scopes whose unit name matches $dataset
+        matching_units=$(systemctl --user list-units --type=scope --all --no-legend \
+            | awk '{print $1}' | grep -i "$dataset" || true)
+
+        if [[ -z "$matching_units" ]]; then
+            echo "No active processes found for ${dataset_upper}" >> log/$dataset-log-exec-status.log
+        else
+            for unit in $matching_units; do
+                echo "*** $unit ***" >> log/$dataset-log-exec-status.log
+                systemctl --user show "$unit" \
+                    -p ExecMainStartTimestamp -p ActiveState -p SubState \
+                    >> log/$dataset-log-exec-status.log
+
+                mem_bytes=$(systemctl --user show "$unit" -p MemoryCurrent --value)
+                mem_human=$(numfmt --to=iec --suffix=B "$mem_bytes" 2>/dev/null || echo "N/A")
+                echo "Memory=$mem_human" >> log/$dataset-log-exec-status.log
+
+                # PIDs from the cgroup created by scope
+                cgroup_path=$(systemctl --user show "$unit" -p ControlGroup --value)
+                echo "Control group path: $cgroup_path" >> log/$dataset-log-exec-status.log
+
+                if [[ -n "$cgroup_path" ]]; then
+                    pids=$(cat "/sys/fs/cgroup${cgroup_path}/cgroup.procs" 2>/dev/null || true)
+                    echo "PIDs in control group: [$pids]" >> log/$dataset-log-exec-status.log
+
+                    if [[ -n "$pids" ]]; then
+                        read -r pid cpu mem cmd < <(ps -o pid=,%cpu=,%mem=,cmd= -p $pids)
+                        echo "PID: $pid | CPU: ${cpu}% | MEM: ${mem}% | CMD: $cmd" >> log/$dataset-log-exec-status.log 2>/dev/null || true
+                    else
+                        echo "No active PIDs found in control group for $unit" >> log/$dataset-log-exec-status.log
+                    fi
+                else
+                    echo "No control group path found for $unit " >> log/$dataset-log-exec-status.log
+                fi
+                echo "" >> log/$dataset-log-exec-status.log
+            done
+
+            echo "${dataset_upper} processes under execution" >> log/$dataset-log-exec-status.log
+        fi
+
         cat log/$dataset-log-exec-status.log
         ;;
     *)
