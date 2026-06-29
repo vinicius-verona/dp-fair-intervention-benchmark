@@ -56,6 +56,7 @@ export -f run_with_ram_limit
 export PYTHON_SCRIPT RAM_LIMIT_GB LOG_FILE
 
 echo "Running $JOBS jobs in parallel with a RAM limit of ${RAM_LIMIT_GB}GB each..."
+echo "Running $JOBS jobs in parallel with a RAM limit of ${RAM_LIMIT_GB}GB each..." >> "$LOG_FILE"
 
 parallel -j "$JOBS" run_with_ram_limit ::: "${SEEDS[@]}"
 
