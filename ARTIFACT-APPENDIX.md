@@ -92,7 +92,7 @@ The artifact is publicly accessible via GitHub and PyPI:
 
 - **GitHub repository** (source code, datasets, notebooks, examples):
    - https://github.com/vinicius-verona/dp-fair-intervention-benchmark/tree/dev
-- **PyPI package** (latest release, v0.2.6):
+- **PyPI package** (latest release, v0.2.7):
    - https://pypi.org/project/BenchmarkDPFair/
 
 The artifact evaluators should use the GitHub repository as the primary reference for accessing/dowloading one of the following: all code versions, datasets, configuration files, and example scripts required to reproduce the experiments presented in the paper. The repository contains both the implementation used for the main results and the additional code needed to reproduce the ablation studies, in their respective branches.
