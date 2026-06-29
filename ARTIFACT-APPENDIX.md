@@ -144,7 +144,7 @@ Alternatively, there is the possibility to install from source, which also gives
 ```bash
 git clone https://github.com/vinicius-verona/dp-fair-intervention-benchmark.git
 cd dp-fair-intervention-benchmark
-pip install -e .
+pip install .
 ```
 
 **Expected result**: Installation completes without errors and the `BenchmarkDPFair` package is importable.

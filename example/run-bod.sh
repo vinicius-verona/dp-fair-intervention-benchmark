@@ -1,12 +1,12 @@
 #!/bin/bash
-# exec-parallel.sh
-# Usage: ./exec-parallel.sh [seed1 seed2 ... seedX]
+# run-bod.sh
+# Usage: ./run-bod.sh [seed1 seed2 ... seedX]
 # RAM limit can be overridden via RAM_LIMIT_GB env var:
-#   RAM_LIMIT_GB=4 ./exec-parallel.sh 1 2 3
+#   RAM_LIMIT_GB=4 ./run-bod.sh 1 2 3
 # COMBO can be overridden via COMBO env var:
-#   COMBO=3 ./exec-parallel.sh 1 2 3
+#   COMBO=3 ./run-bod.sh 1 2 3
 # Seeds default to 20 different ones used in the paper, if none are passed:
-#   ./exec-parallel.sh
+#   ./run-bod.sh
 
 set -euo pipefail
 mkdir -p log/Parallel
@@ -59,6 +59,8 @@ run_with_ram_limit() {
 
 export -f run_with_ram_limit
 export PYTHON_SCRIPT RAM_LIMIT_GB LOG_FILE COMBO
+
+echo "Running $JOBS jobs in parallel with a RAM limit of ${RAM_LIMIT_GB}GB each and combo $COMBO..."
 
 parallel -j "$JOBS" run_with_ram_limit ::: "${SEEDS[@]}"
 
