@@ -339,7 +339,7 @@ Reading Claim 1 data for ML model: XGB
 [READ] ML=XGB, Dataset=Adult, Synth=aim: 20 CSV files, 4420 rows
 ```
 
-If all execution was successfull, the following figures will be found:
+If all executions were successful, the following figures would be found:
 ```
 notebook/
 ├── plots/ # All plots generated
