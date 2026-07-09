@@ -303,26 +303,16 @@ To generate the figures and tables associated with the Wilcoxon and Pareto analy
 sudo apt update && \
 sudo apt install -y texlive-full && \
 cd notebook && chmod u+x plot.sh && \
-chmod u+x get-results.sh && ./plot.sh output  # Generates figures and tables for the main paper findings
+chmod u+x get-results.sh && ./plot.sh output  # Generates figures and tables for the main paper findings assuming the Benchmark module was executed locally
 ```
 
-For the provided pre-executed experiments, use:
+As previously mentioned, we also provide pre-executed experiments, to verify their plot, use:
 
 ```bash
 sudo apt update && \
 sudo apt install -y texlive-full && \
 cd notebook && chmod u+x plot.sh && \
-chmod u+x get-results.sh && ./plot.sh output-example  # Generates figures and tables for the main paper findings
-```
-
-
-For the ablation studies, use:
-
-```bash
-sudo apt update && \
-sudo apt install -y texlive-full && \
-cd notebook && chmod u+x plot.sh && \
-chmod u+x get-results.sh && ./plot.sh ablation dp-split # Generates figures for the dp-split ablation study
+chmod u+x get-results.sh && ./plot.sh output-example  # Generates figures and tables for the main paper findings using provide pre-executed experiments
 ```
 
 A successful execution should generate at least 7 PDF files for each of the main datasets (Compas Adult and ACSIncome), 2 TeX files, 8 CSV files for claim 1, and 5 CSV files for claim 2. If some experiment has not been found, a message will be displayed on the form:
@@ -347,6 +337,29 @@ Generating plots...
 Reading Claim 1 data for ML model: XGB
 ================================================================================
 [READ] ML=XGB, Dataset=Adult, Synth=aim: 20 CSV files, 4420 rows
+```
+
+If all execution was successfull, the following figures will be found:
+```
+notebook/
+├── plots/ # All plots generated
+│   ├── main_paper/ # Plots for figure 2, 3 and 4 of the main paper
+|   |   ├──────────────── # Figure 2
+|   │   ├── fig_results_XGB_aim_ACC_all_Adult.pdf           # Figure 2 subfigure 1
+|   │   ├── fig_results_XGB_aim_ACC_all_Compas.pdf          # Figure 2 subfigure 2
+|   │   ├── fig_results_XGB_aim_ACC_all_ACSIncome.pdf       # Figure 2 subfigure 3
+|   │   ├── fig_results_XGB_aim_ACC_all_BoD-5.pdf           # Figure 2 subfigure 4
+|   |   ├──────────────── # Figure 3 and 4
+|   │   ├── fig_results_XGB_aim_F1_all_Adult.pdf            # Figure 3 subfigure 1
+|   │   ├── fig_results_XGB_aim_F1_all_Compas.pdf           # Figure 3 subfigure 2
+|   │   ├── fig_results_XGB_aim_F1_all_ACSIncome.pdf        # Figure 3 subfigure 3
+|   │   ├── fig_results_XGB_aim_F1_all_BoD-5.pdf            # Figure 3 subfigure 4
+|   │   ├── fig_results_all_models_aim_ACC_all_Adult.pdf    # Figure 4
+|   |   ├──────────────── # Tables 1 and 2
+|   │   ├── claim1_wilcoxon_global_paper_table_all_models_aim.tex      # Table 1. Paired Wilcoxon signed-rank analysis for Claim 1
+|   │   └── claim2_scalarized_wilcoxon_paper_table_all_models_aim.tex  # Table 2. Paired Wilcoxon signed-rank analysis for Claim 2
+|   |
+│   ├── appendix-no-ablation/ # Remaining plots for figures in the appendix with exception of the ablation studies.
 ```
 
 4. ****(Optional) Run Python scripts directly.****

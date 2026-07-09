@@ -55,4 +55,32 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+mkdir -p plots
+mkdir -p plots/main_paper
+mkdir -p plots/appendix-no-ablation
+mkdir -p plots/appendix-ablation
+
+# Move the generated plots to the appropriate directory based on the type
+if [ "$type" == "ablation" ]; then
+    mv *.pdf plots/appendix-ablation/
+else
+    # Accuracy
+    mv fig_results_XGB_aim_ACC_all_ACSIncome.pdf plots/main_paper/
+    mv fig_results_XGB_aim_ACC_all_Adult.pdf plots/main_paper/
+    mv fig_results_XGB_aim_ACC_all_Compas.pdf plots/main_paper/
+    mv fig_results_XGB_aim_ACC_all_BoD-5.pdf plots/main_paper/
+
+    # F1 score
+    mv fig_results_XGB_aim_F1_all_ACSIncome.pdf plots/main_paper/
+    mv fig_results_XGB_aim_F1_all_Adult.pdf plots/main_paper/
+    mv fig_results_XGB_aim_F1_all_Compas.pdf plots/main_paper/
+    mv fig_results_XGB_aim_F1_all_BoD-5.pdf plots/main_paper/
+
+    # All models for adult
+    mv fig_results_all_models_aim_ACC_all_Adult.pdf plots/main_paper/
+    
+    mv *.pdf plots/appendix-no-ablation/
+    mv *.csv *.tex plots/main_paper/
+fi
+
 echo "Done."
