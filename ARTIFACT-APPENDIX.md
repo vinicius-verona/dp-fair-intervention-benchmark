@@ -297,7 +297,10 @@ The script arguments are defined as follows:
 
 **Note**: The texlive-full package must be installed
 
-To generate the figures and tables associated with the Wilcoxon and Pareto analyses, execute the `plot.sh` script located in the `notebook` directory. This can be accomplished using the following commands:
+To generate the figures and tables associated with the Wilcoxon and Pareto analyses, execute the `plot.sh` script located in the `notebook` directory.
+Note that this command uses `output` as an argument, which assumes that you have executed the benchmark yourself using the scripts provided in the previous sections. 
+If, instead, you wish to use the pre-executed experiments we provide, please replace `output` with `output-example`.
+This can be accomplished using the following commands:
 
 ```bash
 sudo apt update && \
