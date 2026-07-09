@@ -306,7 +306,7 @@ cd notebook && chmod u+x plot.sh && \
 chmod u+x get-results.sh && ./plot.sh output  # Generates figures and tables for the main paper findings assuming the Benchmark module was executed locally
 ```
 
-As previously mentioned, we also provide pre-executed experiments, to verify their plot, use:
+As previously mentioned, we also provide pre-executed experiments, to observe their plot, use:
 
 ```bash
 sudo apt update && \
