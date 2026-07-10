@@ -374,6 +374,14 @@ python3 DPF_DataGeneration-Compas.py -h # Display the help menu for the Data Gen
 python3 DPF_Benchmark-Compas.py -h # Display the help menu for the Benchmark module
 ```
 
+- ***Claim Validation****
+
+With the figures and tables generated above, the central claims of the paper can be validated. The validation is intended to be **qualitative rather than an exact numerical reproduction**. In particular, we **expect** some numerical differences due to the inherent randomness of the data synthesizers.
+
+The key expectation is that the **qualitative conclusions remain unchanged**: the stage-level ordering of fairness interventions and the geometric structure of the Pareto-front plots should be consistent with those reported in the paper. We refer the reader to the updated published version (https://arxiv.org/abs/2607.07471v1), which reflects the final camera-ready results.
+
+Finally, the generated tables report p-values capped at <10^-300, whereas the paper reports values capped at <10^-16. This difference is purely a presentation choice: the paper uses <10^-16 to indicate effectively zero p-values in a more readable manner. It has no impact on the statistical interpretation or on the conclusions supporting the paper's claims.
+
 - ***Track Execution****
 
 The script includes an option `3` to monitor which processes are currently executing for a selected dataset, displaying their associated commands.
